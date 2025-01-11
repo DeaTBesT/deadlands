@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 using Interfaces;
 using UnityEngine;
 using WeaponSystem.Core;
@@ -7,48 +8,33 @@ namespace Player
 {
     public class PlayerWeaponController : EntityWeaponController
     {
+        [Header("Enemy search")]
+        [SerializeField] private float _detectionRadius;
+        [SerializeField] private LayerMask _obstacleLayer;
+        
         [SerializeField] private WeaponConfig _startWeapon;
+
+        [SerializeField] private bool _isDebug;
         
-        private IInput _inputModule;
-        
+        public Transform CurrentEnemy { get; private set; }
+
         public override void Initialize(params object[] objects)
         {
-            var entityStats = objects[1] as EntityStats;
+            var entityStats = objects[0] as EntityStats;
 
             base.Initialize(entityStats);
-            
+
             EquipWeapon(_startWeapon);
-            _inputModule = objects[0] as IInput;
-            
-            if (_inputModule == null)
-            {
-#if UNITY_EDITOR
-                Debug.LogError("Input module is null");
-#endif
-                return;
-            }
-            
-            _inputModule.OnAttack += UseWeapon;
         }
 
         public override void Deinitialize(params object[] objects)
         {
-            if (_inputModule == null)
-            {
-#if UNITY_EDITOR
-                Debug.LogError("Input module is null");
-#endif
-                return;
-            }
-            
-            _inputModule.OnAttack -= UseWeapon;
-
             foreach (var weapon in _weaponsContainer)
             {
                 weapon.Deinitialize();
             }
         }
-        
+
         public override void UseWeapon()
         {
             if (_currentWeapon == null)
@@ -63,8 +49,46 @@ namespace Player
             {
                 return;
             }
-            
+
             _currentWeapon.UseWeapon();
+        }
+
+        private void Update() => 
+            CurrentEnemy = GetNearestEnemy();
+
+        private Transform GetNearestEnemy()
+        {
+            var collidersInRange = Physics.OverlapSphere(transform.position, _detectionRadius);
+
+            var nearestEnemy = collidersInRange
+                .Select(collider => collider.TryGetComponent<EntityStats>(out var entityStats)
+                    ? _entityStats.TeamId != entityStats.TeamId ? entityStats : null
+                    : null)
+                .Where(enemy => enemy != null && !IsObstructed(enemy.transform))
+                .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
+                .Select(enemy => enemy.transform)
+                .FirstOrDefault();
+
+            return nearestEnemy;
+        }
+        
+        private bool IsObstructed(Transform target)
+        {
+            var directionToTarget = (target.position - transform.position).normalized;
+            var distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            return Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleLayer);
+        }
+        
+        private void OnDrawGizmosSelected()
+        {
+            if (!_isDebug)
+            {
+                return;
+            }
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _detectionRadius);
         }
     }
 }

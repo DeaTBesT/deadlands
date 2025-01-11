@@ -29,6 +29,8 @@ namespace PlayerModule
         [SerializeField] private Collider _collider;
         [SerializeField] private Transform _graphics;
 
+        [SerializeField] private Joystick _joystick;
+
         private Camera _camera;
 
         private void OnValidate()
@@ -108,19 +110,19 @@ namespace PlayerModule
                 }
             }
 
-            var inputModule = new PlayerInput(_camera);
+            var inputModule = new PlayerInputMobile(_joystick);
             var gameResourcesManager = GameResourcesManager.Instance;
 
             // ReSharper disable Unity.NoNullPropagation
             _entityStats?.Initialize();
             _inputHandler?.Initialize(inputModule);
             _inputHandler?.SetEnableLocal(true);
-            _entityMovementController?.Initialize(inputModule,
-                _rigidbody);
             _cameraController?.Initialize(_camera,
                 _entityMovementController.transform);
-            _entityWeaponController?.Initialize(inputModule,
-                _entityStats);
+            _entityWeaponController?.Initialize(_entityStats);
+            _entityMovementController?.Initialize(inputModule,
+                _rigidbody, 
+                _entityWeaponController);
             _entityInteractionController?.Initialize(inputModule);
             _entityController.Initialize(_entityStats,
                 _entityMovementController,
@@ -133,7 +135,7 @@ namespace PlayerModule
             IsInitialized = true;
         }
 
-       
+
         public override void Deinitialize(params object[] objects)
         {
             _entityMovementController?.Deinitialize();

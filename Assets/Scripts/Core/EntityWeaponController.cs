@@ -8,6 +8,8 @@ namespace Core
     public abstract class EntityWeaponController : MonoBehaviour, IInitialize, IDeinitialize
     {
         [SerializeField] protected Weapon[] _weaponsContainer;
+
+        protected EntityStats _entityStats;
         
         protected Weapon _currentWeapon;
 
@@ -15,6 +17,8 @@ namespace Core
         
         public virtual void Initialize(params object[] objects)
         {
+            _entityStats = objects[0] as EntityStats;
+                
             foreach (var weapon in _weaponsContainer)
             {
                 weapon.Initialize(objects);
@@ -22,15 +26,11 @@ namespace Core
             }
         }
         
-        public virtual void Deinitialize(params object[] objects)
-        {
+        public virtual void Deinitialize(params object[] objects) => 
             throw new System.NotImplementedException();
-        }
-        
-        public virtual void UseWeapon()
-        {
+
+        public virtual void UseWeapon() => 
             _currentWeapon.UseWeapon();
-        }
 
         public virtual void EquipWeapon(WeaponConfig weaponConfig)
         {
