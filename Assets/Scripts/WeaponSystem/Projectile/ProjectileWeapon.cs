@@ -7,7 +7,6 @@ namespace WeaponSystem.Projectile
 {
     public class ProjectileWeapon : Weapon
     {
-        [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _spawnPivot;
 
         private PrefabPool _prefabPool;

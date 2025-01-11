@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace WeaponSystem.Core
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour, IInitialize
     {
-        [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private int _teamId;
         private float _damage;
@@ -21,12 +21,14 @@ namespace WeaponSystem.Core
         {
             if (_rigidbody == null)
             {
-                _rigidbody = GetComponent<Rigidbody2D>();
+                _rigidbody = GetComponent<Rigidbody>();
             }
         }
 
         public void Initialize(params object[] objects)
         {
+            _rigidbody.velocity = Vector3.zero;
+            
             _teamId = (int)objects[0];
             _damage = (float)objects[1];
             _bulletSpeed = (float)objects[2];
@@ -36,12 +38,17 @@ namespace WeaponSystem.Core
         }
 
         private void FixedUpdate() =>
-            _rigidbody.MovePosition(transform.position + transform.up * _bulletSpeed * Time.fixedDeltaTime);
+            _rigidbody.MovePosition(transform.position + transform.forward * _bulletSpeed * Time.fixedDeltaTime);
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out EntityStats entityStats))
             {
+                if (entityStats.TeamId == _teamId)
+                {
+                    return;
+                }
+                
                 entityStats.TakeDamage(_teamId, _damage);
             }
 
