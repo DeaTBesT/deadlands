@@ -53,8 +53,15 @@ namespace Player
             _currentWeapon.UseWeapon();
         }
 
-        private void Update() => 
+        private void Update()
+        {
             CurrentEnemy = GetNearestEnemy();
+
+            if (CurrentEnemy != null)
+            {
+                UseWeapon();
+            }
+        }
 
         private Transform GetNearestEnemy()
         {
