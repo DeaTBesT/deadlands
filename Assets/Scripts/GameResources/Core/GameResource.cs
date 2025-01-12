@@ -1,57 +1,24 @@
-﻿using System;
-using Enums;
-using GameResources.Core;
-using Interfaces;
+﻿using GameResources.Core;
 using Player;
 using UnityEngine;
 
 namespace GameResources
 {
-    public class GameResource : MonoBehaviour, IInteractable
+    public class GameResource : MonoBehaviour
     {
         [SerializeField] private ResourceData _resourceData;
 
-        public InteractType TypeInteract => InteractType.OneTime;
-        public Transform Interactable => transform;
-
-        public Action OnInteract { get; set; }
-        public Action OnFinishInteract { get; set; }
-
-        public bool TryInteract(IInteractor interactor, Action onFinishInteract = null)
+        private void OnTriggerEnter(Collider other)
         {
-            if (interactor.Interactor.TryGetComponent(out PlayerInventoryController playerInventory))
+            if (!other.TryGetComponent(out PlayerInventoryController playerInventory))
             {
-                playerInventory.AddResource(_resourceData);
-                DestorySelf();
-                return true;
+                return;
             }
-
-            return false;
-        }
-
-        public void StartHolding(IInteractor interactor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopHolding()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FinishInteract(IInteractor interactor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ForceFinishInteract(IInteractor interactor)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void DestorySelf() =>
+            
+            playerInventory.AddResource(_resourceData);
             Destroy(gameObject);
-
+        }
+        
         public void SetAmount(int amount) =>
             _resourceData.SetAmount(amount);
     }
