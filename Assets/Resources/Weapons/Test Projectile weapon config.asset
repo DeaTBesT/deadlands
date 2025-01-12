@@ -15,6 +15,6 @@ MonoBehaviour:
   _title: New weapon
   _damage: 1
   _fireRate: 1
-  _bulletSpeed: 5
+  _bulletSpeed: 50
   _destroyTime: 5000
   _poolType: 0
