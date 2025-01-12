@@ -46,5 +46,25 @@ namespace GameResources.Core
                 gameResource.SetAmount(resourceData.AmountResource);
             }
         }
+
+        public static void InstantiateResource(ResourceData resourceData, Vector3 spawnPosition, Quaternion spawnRotation = default)
+        {
+            if (resourceData == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("Resource data isn't exist");
+#endif
+                return;
+            }
+
+            var newResource = Object.Instantiate(resourceData.ResourceConfig.ResourcePrefab, spawnPosition, spawnRotation);
+            newResource.transform.position = spawnPosition;
+            newResource.transform.rotation = spawnRotation;
+
+            if (newResource.TryGetComponent(out GameResource gameResource))
+            {
+                gameResource.SetAmount(resourceData.AmountResource);
+            }
+        }
     }
 }
