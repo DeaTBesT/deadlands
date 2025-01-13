@@ -38,9 +38,6 @@ namespace Player
             _graphics.gameObject.SetActive(false);
         }
 
-        public override void ChangePosition(Vector2 newPosition) =>
-            transform.position = newPosition;
-
         public override void ActivateMoveEntity()
         {
             _entityMovementController.IsEnable = true;
