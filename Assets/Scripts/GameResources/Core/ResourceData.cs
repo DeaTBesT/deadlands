@@ -26,14 +26,14 @@ namespace GameResources.Core
         public void RemoveResource(int amount) =>
             _amount = Mathf.Clamp(_amount - amount, 0, int.MaxValue);
 
-        public static void InstantiateResource(ResourceData resourceData, Transform spawnPosition)
+        public static GameObject InstantiateResource(ResourceData resourceData, Transform spawnPosition)
         {
             if (resourceData == null)
             {
 #if UNITY_EDITOR
                 Debug.LogError("Resource data isn't exist");
 #endif
-                return;
+                return null;
             }
             
             var newResource = Object.Instantiate(resourceData.ResourceConfig.ResourcePrefab, spawnPosition);
@@ -45,16 +45,18 @@ namespace GameResources.Core
             {
                 gameResource.SetAmount(resourceData.AmountResource);
             }
+            
+            return newResource;
         }
 
-        public static void InstantiateResource(ResourceData resourceData, Vector3 spawnPosition, Quaternion spawnRotation = default)
+        public static GameObject InstantiateResource(ResourceData resourceData, Vector3 spawnPosition, Quaternion spawnRotation = default)
         {
             if (resourceData == null)
             {
 #if UNITY_EDITOR
                 Debug.LogError("Resource data isn't exist");
 #endif
-                return;
+                return null;
             }
 
             var newResource = Object.Instantiate(resourceData.ResourceConfig.ResourcePrefab, spawnPosition, spawnRotation);
@@ -65,6 +67,8 @@ namespace GameResources.Core
             {
                 gameResource.SetAmount(resourceData.AmountResource);
             }
+
+            return newResource;
         }
     }
 }
