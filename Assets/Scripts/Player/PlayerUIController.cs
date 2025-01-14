@@ -5,6 +5,7 @@ using GameResources.UI;
 using Interfaces;
 using Managers;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
@@ -96,15 +97,7 @@ namespace Player
         {
             ClearResourcesPanel();
 
-            dataList.Sort((x1, x2) =>
-            {
-                if (x1.ResourceConfig.SortPriority < x2.ResourceConfig.SortPriority)
-                {
-                    return -1;
-                }
-
-                return 1;
-            });
+            dataList.SortResources();
 
             foreach (var data in dataList)
             {
