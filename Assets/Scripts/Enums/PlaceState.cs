@@ -3,6 +3,7 @@
     public enum PlaceState
     {
         Build,//Нулевой уровень
-        Upgrade
+        Upgrade,
+        MaxUpgrade
     }
 }

@@ -1,22 +1,35 @@
-﻿using UI.PlacePanels.Core;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using GameResources.Core;
+using UI.PlacePanels.Core;
 using UnityEngine.Events;
-using UnityEngine.UI;
+using Utils;
 
 namespace UI.PlacePanels
 {
-    public class BuildPanelUI : PlacePanelUI
+    public class BuildPanelUI : AdvancedPlacePanelUI
     {
-        [SerializeField] private GameObject _renderer;
-        [SerializeField] private Button _buildButton;
+        public override void Initialize(params object[] objects)
+        {
+            base.Initialize(objects);
 
-        public override void Show() => 
-            _renderer.SetActive(true);
-
-        public override void Hide() => 
-            _renderer.SetActive(false);
+            _placeController.OnBuildStart += GenerateResourcesPanel;
+        }
         
         public void AddOnClickEvent(UnityAction onClickAction) => 
-            _buildButton.onClick.AddListener(onClickAction);
+            _button.onClick.AddListener(onClickAction);
+        
+        private void GenerateResourcesPanel(List<ResourceData> dataList)
+        {
+            ClearRequiredResourcesPanel();
+
+            dataList.SortResources();
+
+            foreach (var data in dataList)
+            {
+                var resourceDataUI = Instantiate(_requiredResourcesPrefab, _requiredResourcesParent);
+                resourceDataUI.ChangeResourceData(data);
+                _resourcesDataUI.Add(resourceDataUI);
+            }
+        }
     }
 }

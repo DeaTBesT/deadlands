@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Enums;
 using Interfaces;
 using UI.PlacePanels;
+using UI.PlacePanels.Core;
 using UnityEngine;
 
 namespace Place.Core
@@ -10,7 +12,10 @@ namespace Place.Core
     {
         [SerializeField] private BuildPanelUI _buildPanel;
         [SerializeField] private UpgradePanelUI _upgradePanel;
+        [SerializeField] private MaxUpgradePanelUI _maxUpgradePanel;
 
+        private List<SimplePlacePanelUI> _placePanels = new();
+        
         private PlaceController _placeController;
 
         public bool IsEnable { get; set; }
@@ -19,8 +24,21 @@ namespace Place.Core
         {
             _placeController = objects[0] as PlaceController;
 
+            _placeController.OnStateChanged += OnStateChanged;
+            
+            _buildPanel.Initialize(_placeController);
+            _upgradePanel.Initialize(_placeController);
+            
             _buildPanel.AddOnClickEvent(OnBuildButtonClick);
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
+
+            //Сюда добавляем все новые панели
+            _placePanels = new List<SimplePlacePanelUI>
+            {
+                _buildPanel,
+                _upgradePanel,
+                _maxUpgradePanel
+            };
 
             ClosePanels();
         }
@@ -31,12 +49,41 @@ namespace Place.Core
             {
                 case PlaceState.Build:
                 {
-                    _buildPanel.Show();
+                    OpenBuildPanel();
                 }
                     break;
                 case PlaceState.Upgrade:
                 {
-                    _upgradePanel.Show();
+                    OpenUpgradePanel();
+                }
+                    break;
+                case PlaceState.MaxUpgrade:
+                {
+                    OpenMaxUpgradePanel();
+                }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        private void OnStateChanged(PlaceState currentState)
+        {
+            switch (_placeController.CurrentState)
+            {
+                case PlaceState.Build:
+                {
+                    OpenBuildPanel();
+                }
+                    break;
+                case PlaceState.Upgrade:
+                {
+                    OpenUpgradePanel();
+                }
+                    break;
+                case PlaceState.MaxUpgrade:
+                {
+                    OpenMaxUpgradePanel();
                 }
                     break;
                 default:
@@ -44,26 +91,40 @@ namespace Place.Core
             }
         }
 
-        public void ClosePanels()
-        {
-            _buildPanel.Hide();
-            _upgradePanel.Hide();
-        }
+        public void ClosePanels() => 
+            _placePanels.ForEach(panel => panel.Hide());
 
+        //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
         {
-            if (!_placeController.BuildPlace())
-            {
-                return;
-            }
+            _placeController.TryBuildPlace();
             
             _buildPanel.Hide();
             _upgradePanel.Show();
         }
 
+        //Здесь какие-нибудь анимации
         private void OnUpgradeButtonClick()
         {
-            _placeController.UpgradePlace();
+            _placeController.TryUpgradePlace();
+        }
+        
+        private void OpenBuildPanel()
+        {
+            _placePanels.ForEach(panel => panel.Hide());
+            _buildPanel.Show();
+        }
+
+        private void OpenUpgradePanel()
+        {
+            _placePanels.ForEach(panel => panel.Hide());
+            _upgradePanel.Show();
+        }
+
+        private void OpenMaxUpgradePanel()
+        {
+            _placePanels.ForEach(panel => panel.Hide());
+            _maxUpgradePanel.Show();
         }
     }
 }

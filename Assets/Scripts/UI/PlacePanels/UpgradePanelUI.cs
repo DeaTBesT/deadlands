@@ -1,22 +1,44 @@
-﻿using UI.PlacePanels.Core;
+﻿using Place.Models;
+using TMPro;
+using UI.PlacePanels.Core;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
+using Utils;
 
 namespace UI.PlacePanels
 {
-    public class UpgradePanelUI : PlacePanelUI
+    public class UpgradePanelUI : AdvancedPlacePanelUI
     {
-        [SerializeField] private GameObject _renderer;
-        [SerializeField] private Button _upgradeButton;
+        [SerializeField] private TextMeshProUGUI _currentLevelText;
         
-        public override void Show() => 
-            _renderer.SetActive(true);
+        public override void Initialize(params object[] objects)
+        {
+            base.Initialize(objects);
 
-        public override void Hide() => 
-            _renderer.SetActive(false);
+            _placeController.OnUpgrade += GenerateResourcesPanel;
+        }
 
         public void AddOnClickEvent(UnityAction onClickAction) => 
-            _upgradeButton.onClick.AddListener(onClickAction);
+            _button.onClick.AddListener(onClickAction);
+
+        private void GenerateResourcesPanel(ResourcesUpgradeModel requiredResources)
+        {
+            ClearRequiredResourcesPanel();
+
+            if (requiredResources == null)
+            {
+                return;
+            }
+            
+            requiredResources.RequiredResources.SortResources();
+
+            foreach (var data in requiredResources.RequiredResources)
+            {
+                var resourceDataUI = Instantiate(_requiredResourcesPrefab, _requiredResourcesParent);
+                resourceDataUI.ChangeResourceData(data);
+                _currentLevelText.text = $"{requiredResources.Level}";
+                _resourcesDataUI.Add(resourceDataUI);
+            }
+        }
     }
 }

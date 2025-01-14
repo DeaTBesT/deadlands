@@ -29,9 +29,9 @@ namespace Place.Core
 
         public override void Initialize(params object[] objects)
         {
-            _placeController.Initialize();
             _placeControllerUI?.Initialize(_placeController);
             _interactablePlace?.Initialize(_placeControllerUI);
+            _placeController.Initialize();
         }
     }
 }
