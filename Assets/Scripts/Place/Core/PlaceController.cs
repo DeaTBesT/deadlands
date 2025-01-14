@@ -88,5 +88,11 @@ namespace Place.Core
             OnUpgrade?.Invoke(currentResources);
         }
         
+        private bool IsEnoughResource(ResourceData resource)
+        {
+            return _currentRequiredResources.Exists(x =>
+                (x.ResourceConfig.TypeResource == (resource.ResourceConfig.TypeResource) &&
+                 (x.AmountResource <= resource.AmountResource)));
+        }
     }
 }
