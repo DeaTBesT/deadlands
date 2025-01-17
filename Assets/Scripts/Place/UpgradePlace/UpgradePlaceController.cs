@@ -30,8 +30,11 @@ namespace Place.UpgradePlace
         public Action<ResourcesUpgradeModel> OnUpgrade { get; set; }
         public Action<PlaceState> OnStateChanged { get; set; }
         
-        public override void Initialize(params object[] objects) => 
+        public override void Initialize(params object[] objects)
+        {
+            _placeControllerUI = objects[0] as UpgradePlaceControllerUI;
             OnBuildStart?.Invoke(_requiredResourcesBuild);
+        }
 
         public override void ActivateEntity()
         {

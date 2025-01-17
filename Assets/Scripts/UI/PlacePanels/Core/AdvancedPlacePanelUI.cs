@@ -1,23 +1,29 @@
 ﻿using System.Collections.Generic;
 using GameResources.UI;
-using Place.Core;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.PlacePanels.Core
 {
-    public class AdvancedPlacePanelUI : SimplePlacePanelUI
+    public abstract class AdvancedPlacePanelUI : MonoBehaviour, IInitialize, IPlacePanel
     {
+        [SerializeField] protected GameObject _renderer;
         [SerializeField] protected Button _button;
         [SerializeField] protected Transform _requiredResourcesParent;
         [SerializeField] protected ResourceDataUI _requiredResourcesPrefab;
         
         protected List<ResourceDataUI> _resourcesDataUI = new();
 
-        protected PlaceController _placeController;
+        public bool IsEnable { get; set; }
+
+        public abstract void Initialize(params object[] objects);
         
-        public override void Initialize(params object[] objects) => 
-            _placeController = objects[0] as PlaceController;
+        public virtual void Show() =>
+            _renderer.SetActive(true);
+
+        public virtual void Hide() => 
+            _renderer.SetActive(false);
         
         protected void ClearRequiredResourcesPanel()
         {

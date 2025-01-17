@@ -29,9 +29,9 @@ namespace Place.UpgradePlace
 
         public override void Initialize(params object[] objects)
         {
-            _placeController.Initialize(_placeControllerUI);
             _placeControllerUI?.Initialize(_placeController);
             _interactablePlace?.Initialize(_placeController);
+            _placeController.Initialize(_placeControllerUI);
         }
     }
 }

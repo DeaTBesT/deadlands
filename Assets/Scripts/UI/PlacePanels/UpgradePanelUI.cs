@@ -1,4 +1,5 @@
 ﻿using Place.Models;
+using Place.UpgradePlace;
 using TMPro;
 using UI.PlacePanels.Core;
 using UnityEngine;
@@ -10,11 +11,12 @@ namespace UI.PlacePanels
     public class UpgradePanelUI : AdvancedPlacePanelUI
     {
         [SerializeField] private TextMeshProUGUI _currentLevelText;
+
+        private UpgradePlaceController _placeController;
         
         public override void Initialize(params object[] objects)
         {
-            base.Initialize(objects);
-
+            _placeController = objects[0] as UpgradePlaceController;
             _placeController.OnUpgrade += GenerateResourcesPanel;
         }
 

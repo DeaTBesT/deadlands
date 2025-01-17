@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enums;
+using Interfaces;
 using Place.Core;
 using UI.PlacePanels;
-using UI.PlacePanels.Core;
 using UnityEngine;
 
 namespace Place.UpgradePlace
@@ -14,7 +14,7 @@ namespace Place.UpgradePlace
         [SerializeField] private UpgradePanelUI _upgradePanel;
         [SerializeField] private MaxUpgradePanelUI _maxUpgradePanel;
 
-        private List<SimplePlacePanelUI> _placePanels = new();
+        private List<IPlacePanel> _placePanels = new();
         
         private UpgradePlaceController _upgradePlaceController;
 
@@ -31,7 +31,7 @@ namespace Place.UpgradePlace
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
 
             //Сюда добавляем все новые панели
-            _placePanels = new List<SimplePlacePanelUI>
+            _placePanels = new List<IPlacePanel>
             {
                 _buildPanel,
                 _upgradePanel,

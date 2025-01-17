@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameResources.Core;
+using Place.UpgradePlace;
 using UI.PlacePanels.Core;
 using UnityEngine.Events;
 using Utils;
@@ -8,10 +9,11 @@ namespace UI.PlacePanels
 {
     public class BuildPanelUI : AdvancedPlacePanelUI
     {
+        private UpgradePlaceController _placeController;
+        
         public override void Initialize(params object[] objects)
         {
-            base.Initialize(objects);
-
+            _placeController = objects[0] as UpgradePlaceController;
             _placeController.OnBuildStart += GenerateResourcesPanel;
         }
         

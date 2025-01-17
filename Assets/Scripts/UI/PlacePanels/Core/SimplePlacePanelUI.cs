@@ -7,13 +7,13 @@ namespace UI.PlacePanels.Core
     {
         [SerializeField] protected GameObject _renderer;
         
+        public bool IsEnable { get; set; }
+        
         public virtual void Show() =>
             _renderer.SetActive(true);
 
         public virtual void Hide() => 
             _renderer.SetActive(false);
-
-        public bool IsEnable { get; set; }
         
         public abstract void Initialize(params object[] objects);
     }
