@@ -5,7 +5,7 @@ using Player;
 using PlayerInputModule;
 using UnityEngine;
 
-namespace PlayerModule
+namespace Player
 {
     [RequireComponent(typeof(InputHandler))]
     public class PlayerInitializer : EntityInitializer

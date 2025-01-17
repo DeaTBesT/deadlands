@@ -1,8 +1,7 @@
 using Core;
-using Player;
 using UnityEngine;
 
-namespace PlayerModule
+namespace Player
 {
     public class PlayerMovementController : EntityMovementController
     {
