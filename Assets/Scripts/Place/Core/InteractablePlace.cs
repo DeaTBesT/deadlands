@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using Place.UpgradePlace;
 using Player;
 using UnityEngine;
 
@@ -8,16 +7,16 @@ namespace Place.Core
     [RequireComponent(typeof(Collider))]
     public class InteractablePlace : MonoBehaviour, IInitialize
     {
-        private UpgradePlaceControllerUI _placeControllerUI;
+        private PlaceController _placeController;
         
         public bool IsEnable { get; set; }
         
         public void Initialize(params object[] objects) => 
-            _placeControllerUI = objects[0] as UpgradePlaceControllerUI;
+            _placeController = objects[0] as PlaceController;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out PlayerStats _))
+            if (!other.TryGetComponent(out PlayerInitializer _))
             {
                 return;
             }
@@ -27,7 +26,7 @@ namespace Place.Core
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out PlayerStats _))
+            if (!other.TryGetComponent(out PlayerInitializer _))
             {
                 return;
             }
@@ -36,9 +35,9 @@ namespace Place.Core
         }
 
         protected virtual void InteractPlace() =>
-            _placeControllerUI.OpenPanel();
+            _placeController.Interact();
 
-        protected virtual void FinishInteract() => 
-            _placeControllerUI.ClosePanels();
+        protected virtual void FinishInteract() =>
+            _placeController.FinishInteract();
     }
 }

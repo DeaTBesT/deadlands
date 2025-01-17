@@ -22,6 +22,8 @@ namespace Place.UpgradePlace
 
         private List<ResourceData> _currentRequiredResources;
 
+        private UpgradePlaceControllerUI _placeControllerUI;
+        
         public PlaceState CurrentState => _currentState;
         public int CurrentLevel => _currentLevel;
         public Action<List<ResourceData>> OnBuildStart { get; set; }
@@ -40,6 +42,12 @@ namespace Place.UpgradePlace
         {
             throw new NotImplementedException();
         }
+
+        public override void Interact() => 
+            _placeControllerUI.OpenPanel();
+
+        public override void FinishInteract() => 
+            _placeControllerUI.ClosePanels();
 
         public bool TryBuildPlace()
         {

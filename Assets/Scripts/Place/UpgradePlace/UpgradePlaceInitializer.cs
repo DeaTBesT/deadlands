@@ -5,15 +5,15 @@ namespace Place.UpgradePlace
 {
     public class UpgradePlaceInitializer : PlaceInitializer
     {
-        [SerializeField] private UpgradePlaceController upgradePlaceController;
+        [SerializeField] private UpgradePlaceController _placeController;
         [SerializeField] private UpgradePlaceControllerUI _placeControllerUI;
         [SerializeField] private InteractablePlace _interactablePlace;
 
         private void OnValidate()
         {
-            if (upgradePlaceController == null)
+            if (_placeController == null)
             {
-                upgradePlaceController = GetComponent<UpgradePlaceController>();
+                _placeController = GetComponent<UpgradePlaceController>();
             } 
             
             if (_placeControllerUI == null)
@@ -29,9 +29,9 @@ namespace Place.UpgradePlace
 
         public override void Initialize(params object[] objects)
         {
-            _placeControllerUI?.Initialize(upgradePlaceController);
-            _interactablePlace?.Initialize(_placeControllerUI);
-            upgradePlaceController.Initialize();
+            _placeController.Initialize(_placeControllerUI);
+            _placeControllerUI?.Initialize(_placeController);
+            _interactablePlace?.Initialize(_placeController);
         }
     }
 }
