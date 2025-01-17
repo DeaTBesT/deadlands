@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Place.UpgradePlace;
 using Player;
 using UnityEngine;
 
@@ -7,12 +8,12 @@ namespace Place.Core
     [RequireComponent(typeof(Collider))]
     public class InteractablePlace : MonoBehaviour, IInitialize
     {
-        private PlaceControllerUI _placeControllerUI;
+        private UpgradePlaceControllerUI _placeControllerUI;
         
         public bool IsEnable { get; set; }
         
         public void Initialize(params object[] objects) => 
-            _placeControllerUI = objects[0] as PlaceControllerUI;
+            _placeControllerUI = objects[0] as UpgradePlaceControllerUI;
 
         private void OnTriggerEnter(Collider other)
         {

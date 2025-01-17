@@ -1097,9 +1097,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7126274411898451329}
   - component: {fileID: 1951661075092211673}
-  - component: {fileID: 43067721754884594}
-  - component: {fileID: 6220696371793520056}
-  - component: {fileID: 8074704020649613532}
+  - component: {fileID: 2653845774710866678}
+  - component: {fileID: 6794154160096884688}
+  - component: {fileID: 4837542416281209935}
   - component: {fileID: 418531187360281409}
   m_Layer: 0
   m_Name: TestPlace
@@ -1117,7 +1117,7 @@ Transform:
   m_GameObject: {fileID: 4003756451051581938}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0.5, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1146,7 +1146,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &43067721754884594
+--- !u!114 &2653845774710866678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1155,15 +1155,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4003756451051581938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bc3d715dcb43c99fe0d8170c948564, type: 3}
+  m_Script: {fileID: 11500000, guid: f11867238fc14f0688cb275138988c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _selfInitialize: 1
   _selfDeinitialize: 0
-  _placeController: {fileID: 6220696371793520056}
-  _placeControllerUI: {fileID: 8074704020649613532}
+  upgradePlaceController: {fileID: 6794154160096884688}
+  _placeControllerUI: {fileID: 4837542416281209935}
   _interactablePlace: {fileID: 418531187360281409}
---- !u!114 &6220696371793520056
+--- !u!114 &6794154160096884688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4003756451051581938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71697a318faf4dd29f02d6acfdb60bd6, type: 3}
+  m_Script: {fileID: 11500000, guid: df1c68a7368f4fba97d07122a2d3edf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLevel: 3
@@ -1184,17 +1184,9 @@ MonoBehaviour:
     - _resourceConfig: {fileID: 11400000, guid: 9ddb95e2e420c9043a18dfa62c993f50, type: 2}
       _amount: 5
     Level: 1
-  - RequiredResources:
-    - _resourceConfig: {fileID: 11400000, guid: 9ddb95e2e420c9043a18dfa62c993f50, type: 2}
-      _amount: 10
-    Level: 2
-  - RequiredResources:
-    - _resourceConfig: {fileID: 11400000, guid: 9ddb95e2e420c9043a18dfa62c993f50, type: 2}
-      _amount: 15
-    Level: 3
   _currentState: 0
   _currentLevel: 0
---- !u!114 &8074704020649613532
+--- !u!114 &4837542416281209935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1203,7 +1195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4003756451051581938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732243260e61402bb152261f1ac6185f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b3c209d779942c7968f12c4f529e57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _buildPanel: {fileID: 6497769056639446448}
