@@ -48,15 +48,15 @@ namespace PlayerModule
         
         private void RotateToMovementDirection(Vector2 moveInput)
         {
-            var movementDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+            var direction = new Vector3(moveInput.x, 0, moveInput.y).normalized;
             
-            if (!(movementDirection.magnitude > 0.1f))
+            if (direction.magnitude < 0.01f)
             {
                 return;
             }
             
-            var lookRotation = Quaternion.LookRotation(movementDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            _playerBody.rotation = Quaternion.Slerp(_playerBody.rotation, lookRotation, _rotationSpeed * Time.deltaTime);
         }
     }
 }
