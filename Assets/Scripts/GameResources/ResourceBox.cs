@@ -1,11 +1,10 @@
 using System.Collections;
 using Animations;
-using GameResources;
 using GameResources.Core;
 using Player;
 using UnityEngine;
 
-namespace Environment
+namespace GameResources
 {
     public class ResourceBox : MonoBehaviour
     {
