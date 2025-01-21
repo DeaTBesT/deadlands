@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using JoystickRuntime;
 using UnityEngine.EventSystems;
 
 public class FloatingJoystick : Joystick
