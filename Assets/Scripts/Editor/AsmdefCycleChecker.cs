@@ -8,58 +8,50 @@ namespace DL.Editor
 {
     public class AsmdefCycleChecker
     {
+        private static Dictionary<string, string[]> dependencies = new Dictionary<string, string[]>();
+        private static Dictionary<string, string> guidToName = new Dictionary<string, string>();
+    
         [MenuItem("Tools/Check ASMDEF Cycles")]
         public static void CheckCycles()
         {
-            var asmdefPaths = Directory.GetFiles("Assets", "*.asmdef", SearchOption.AllDirectories);
-            var dependencies = new Dictionary<string, List<string>>();
-
-            foreach (var path in asmdefPaths)
+            dependencies.Clear();
+            guidToName.Clear();
+            string[] asmdefFiles = Directory.GetFiles("Assets", "*.asmdef", SearchOption.AllDirectories);
+        
+            foreach (string file in asmdefFiles)
             {
-                var json = File.ReadAllText(path);
-                var asmdef = JsonUtility.FromJson<AsmdefData>(json);
-            
-                // Проверяем, чтобы references не был null
-                dependencies[asmdef.name] = asmdef.references != null ? new List<string>(asmdef.references) : new List<string>();
+                string json = File.ReadAllText(file);
+                AsmdefData asmdef = JsonUtility.FromJson<AsmdefData>(json);
+                dependencies[asmdef.name] = asmdef.references ?? new string[0];
+                guidToName[AssetDatabase.AssetPathToGUID(file)] = asmdef.name;
             }
-
-            var visited = new HashSet<string>();
-            var stack = new HashSet<string>();
-
-            foreach (var asm in dependencies.Keys)
+        
+            foreach (string asm in dependencies.Keys)
             {
-                if (HasCycle(asm, dependencies, visited, stack))
+                HashSet<string> visited = new HashSet<string>();
+                if (HasCycle(asm, visited))
                 {
-                    Debug.LogError($"Циклическая зависимость найдена: {asm}");
+                    Debug.LogError($"Циклическая зависимость обнаружена в {asm}");
                 }
             }
-
-            Debug.Log("Проверка завершена. Циклов нет!");
         }
-
-        private static bool HasCycle(string asm, Dictionary<string, List<string>> dependencies, HashSet<string> visited, HashSet<string> stack)
+    
+        private static bool HasCycle(string asm, HashSet<string> visited)
         {
-            if (stack.Contains(asm))
-                return true;
-            if (visited.Contains(asm))
-                return false;
-
+            if (visited.Contains(asm)) return true;
+            if (!dependencies.ContainsKey(asm)) return false;
+        
             visited.Add(asm);
-            stack.Add(asm);
-
-            if (dependencies.TryGetValue(asm, out var refs))
+        
+            foreach (string dep in dependencies[asm])
             {
-                foreach (var dep in refs)
-                {
-                    if (HasCycle(dep, dependencies, visited, stack))
-                        return true;
-                }
+                string depName = dep.StartsWith("GUID:") ? guidToName.GetValueOrDefault(dep.Substring(5), dep) : dep;
+                if (HasCycle(depName, new HashSet<string>(visited))) return true;
             }
-
-            stack.Remove(asm);
+        
             return false;
         }
-
+    
         [Serializable]
         private class AsmdefData
         {
