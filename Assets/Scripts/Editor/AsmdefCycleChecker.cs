@@ -38,9 +38,16 @@ namespace DL.Editor
     
         private static bool HasCycle(string asm, HashSet<string> visited, out string cycleDependency)
         {
-            cycleDependency = asm;
-            if (visited.Contains(asm)) return true;
-            if (!dependencies.ContainsKey(asm)) return false;
+            if (visited.Contains(asm))
+            {
+                cycleDependency = asm;
+                return true;
+            }
+            if (!dependencies.ContainsKey(asm))
+            {
+                cycleDependency = string.Empty;
+                return false;
+            }
         
             visited.Add(asm);
         
@@ -49,10 +56,12 @@ namespace DL.Editor
                 string depName = dep.StartsWith("GUID:") ? guidToName.GetValueOrDefault(dep.Substring(5), dep) : dep;
                 if (HasCycle(depName, new HashSet<string>(visited), out cycleDependency))
                 {
+                    cycleDependency = asm;
                     return true;
                 }
             }
-        
+            
+            cycleDependency = string.Empty;
             return false;
         }
     
