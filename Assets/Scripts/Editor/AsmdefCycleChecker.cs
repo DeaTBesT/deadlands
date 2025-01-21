@@ -29,15 +29,16 @@ namespace DL.Editor
             foreach (string asm in dependencies.Keys)
             {
                 HashSet<string> visited = new HashSet<string>();
-                if (HasCycle(asm, visited))
+                if (HasCycle(asm, visited, out string cycleDependency))
                 {
-                    Debug.LogError($"Циклическая зависимость обнаружена в {asm}");
+                    Debug.LogError($"Циклическая зависимость обнаружена: {asm} -> {cycleDependency}");
                 }
             }
         }
     
-        private static bool HasCycle(string asm, HashSet<string> visited)
+        private static bool HasCycle(string asm, HashSet<string> visited, out string cycleDependency)
         {
+            cycleDependency = asm;
             if (visited.Contains(asm)) return true;
             if (!dependencies.ContainsKey(asm)) return false;
         
@@ -46,7 +47,10 @@ namespace DL.Editor
             foreach (string dep in dependencies[asm])
             {
                 string depName = dep.StartsWith("GUID:") ? guidToName.GetValueOrDefault(dep.Substring(5), dep) : dep;
-                if (HasCycle(depName, new HashSet<string>(visited))) return true;
+                if (HasCycle(depName, new HashSet<string>(visited), out cycleDependency))
+                {
+                    return true;
+                }
             }
         
             return false;
