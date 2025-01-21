@@ -18,7 +18,9 @@ namespace DL.Editor
             {
                 var json = File.ReadAllText(path);
                 var asmdef = JsonUtility.FromJson<AsmdefData>(json);
-                dependencies[asmdef.name] = new List<string>(asmdef.references);
+            
+                // Проверяем, чтобы references не был null
+                dependencies[asmdef.name] = asmdef.references != null ? new List<string>(asmdef.references) : new List<string>();
             }
 
             var visited = new HashSet<string>();
@@ -28,9 +30,11 @@ namespace DL.Editor
             {
                 if (HasCycle(asm, dependencies, visited, stack))
                 {
-                    Debug.LogError($"Циклическая зависимость найдена! {asm}");
+                    Debug.LogError($"Циклическая зависимость найдена: {asm}");
                 }
             }
+
+            Debug.Log("Проверка завершена. Циклов нет!");
         }
 
         private static bool HasCycle(string asm, Dictionary<string, List<string>> dependencies, HashSet<string> visited, HashSet<string> stack)
