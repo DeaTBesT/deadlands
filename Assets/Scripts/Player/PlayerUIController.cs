@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameResources.Core;
-using GameResources.UI;
-using Interfaces;
-using Managers;
+using DL.Data.Resource;
+using DL.InterfacesRuntime;
+using DL.ManagersRuntime;
+using DL.UtilsRuntime;
+using DL.WorldResourceRuntime.UI;
 using UnityEngine;
-using Utils;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
     public class PlayerUIController : MonoBehaviour, IInitialize, IDeinitialize
     {
@@ -58,10 +58,10 @@ namespace Player
             _resourcesManager.OnRemoveResource -= OnRemoveResource;
         }
 
-        private void OnAddResource(ResourceData data)
+        private void OnAddResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceAsData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
 
             if (resourceDataUI != null)
             {
@@ -74,13 +74,13 @@ namespace Player
 #endif
         }
 
-        private void OnChangeResources(List<ResourceData> dataList) =>
+        private void OnChangeResources(List<ResourceDataModel> dataList) =>
             GenerateResourcesPanel(dataList);
 
-        private void OnRemoveResource(ResourceData data)
+        private void OnRemoveResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceAsData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
 
             if (resourceDataUI != null)
             {
@@ -93,7 +93,7 @@ namespace Player
 #endif
         }
 
-        private void GenerateResourcesPanel(List<ResourceData> dataList)
+        private void GenerateResourcesPanel(List<ResourceDataModel> dataList)
         {
             ClearResourcesPanel();
 

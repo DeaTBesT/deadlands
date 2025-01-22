@@ -1,7 +1,7 @@
-using Core;
+using DL.CoreRuntime;
 using UnityEngine;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
     public class PlayerMovementController : EntityMovementController
     {

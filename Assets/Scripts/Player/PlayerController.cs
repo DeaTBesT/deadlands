@@ -1,13 +1,13 @@
-﻿using Core;
+﻿using DL.CoreRuntime;
 using UnityEngine;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
     public class PlayerController : EntityController
     {
         private EntityStats _entityStats;
         private EntityMovementController _entityMovementController;
-        private EntityWeaponController _entityWeaponController;
+        private IWeaponController _entityWeaponController;
         private Collider2D _collider;
         private Transform _graphics;
 
@@ -15,7 +15,7 @@ namespace Player
         {
             _entityStats = objects[0] as EntityStats;
             _entityMovementController = objects[1] as EntityMovementController;
-            _entityWeaponController = objects[2] as EntityWeaponController;
+            _entityWeaponController = objects[2] as IWeaponController;
             _collider = objects[3] as Collider2D;
             _graphics = objects[4] as Transform;
         }
