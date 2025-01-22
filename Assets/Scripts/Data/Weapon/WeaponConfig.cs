@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WeaponSystem.Core
+namespace DL.Data.Weapon
 {
     [CreateAssetMenu(menuName = "Weapon/New weapon config", fileName = "Weapon config")]
     public class WeaponConfig : ScriptableObject

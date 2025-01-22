@@ -1,7 +1,7 @@
-﻿using Enums;
+﻿using DL.EnumsRuntime;
 using UnityEngine;
 
-namespace GameResources.Core
+namespace DL.Data.Resource
 {
     [CreateAssetMenu(menuName = "Game resources/New resource")]
     public class ResourceConfig : ScriptableObject
