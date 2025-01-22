@@ -1,8 +1,8 @@
-﻿using Enums;
+﻿using DL.EnumsRuntime;
+using DL.UtilsRuntime.ObjectPoolRuntime;
 using UnityEngine;
-using Utils.ObjectPool;
 
-namespace Managers
+namespace DL.ManagersRuntime
 {
     public class PrefabPool : MonoBehaviour
     {

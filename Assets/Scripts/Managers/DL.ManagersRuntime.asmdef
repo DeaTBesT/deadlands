@@ -1,0 +1,12 @@
+{
+  "name": "DL.ManagersRuntime",
+  "references": [
+    "GUID:9551e96083f06ac42bd972cfbdf6b88f",
+    "GUID:0e1659ee92fb9b84688930174d5a3dd6",
+    "GUID:464655714b7a58c49984ea9b74436035",
+    "GUID:0a5c79cb01c95b24f937853ed741e709",
+    "GUID:42855d317b2b6ff43af63c5956f19536",
+    "GUID:884ae6b495cf9b24aa600c06cbbd74c2",
+    "GUID:9779c36f9f834424bab317bbf2b6a100"
+  ]
+}
