@@ -1,3 +1,4 @@
 {
-	"name": "DL.StructureRuntime.UIPanels.Interfaces"
+	"name": "DL.StructureRuntime.UIPanels.Interfaces",
+	"references":[ "GUID:d7738fc2d4b5e6e4a89836299b49e653" ]
 }

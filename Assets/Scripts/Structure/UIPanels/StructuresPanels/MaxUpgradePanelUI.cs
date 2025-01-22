@@ -6,7 +6,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
     {
         public override void Initialize(params object[] objects)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

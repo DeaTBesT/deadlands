@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class SimpleStructurePanelUI : MonoBehaviour, IInitialize, IStructurePanel
+    public abstract class SimpleStructurePanelUI : MonoBehaviour, IStructurePanel
     {
         [SerializeField] protected GameObject _renderer;
         

@@ -1,6 +1,8 @@
-﻿namespace DL.StructureRuntime.UIPanels.Interfaces
+﻿using DL.InterfacesRuntime;
+
+namespace DL.StructureRuntime.UIPanels.Interfaces
 {
-    public interface IStructurePanel
+    public interface IStructurePanel : IInitialize
     {
         void Show();
         

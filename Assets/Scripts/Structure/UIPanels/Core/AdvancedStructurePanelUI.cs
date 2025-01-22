@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IInitialize, IStructurePanel
+    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IStructurePanel
     {
         [SerializeField] protected GameObject _renderer;
         [SerializeField] protected Button _button;
@@ -21,7 +21,12 @@ namespace DL.StructureRuntime.UIPanels.Core
 
         public virtual void Initialize(params object[] objects)
         {
+            if (IsEnable)
+            {
+                return;
+            }   
             
+            IsEnable = true;
         }
         
         public virtual void Show() =>
