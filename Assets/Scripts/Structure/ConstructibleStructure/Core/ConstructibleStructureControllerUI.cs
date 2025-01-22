@@ -16,8 +16,8 @@ namespace DL.ConstructibleStructureRuntime.Core
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
         [SerializeField] private SimpleStructurePanelUI _maxUpgradePanel;
 
-        private List<IStructurePanel> _placePanels = new();
-        
+        protected List<IStructurePanel> _placePanels = new();
+
         private ConstructibleStructureController _constructibleStructureController;
 
         public override void Initialize(params object[] objects)
@@ -43,6 +43,12 @@ namespace DL.ConstructibleStructureRuntime.Core
             ClosePanels();
         }
 
+        public override void Interact() => 
+            OpenPanel();
+
+        public override void FinishInteract() =>
+            ClosePanels();
+
         public void OpenPanel()
         {
             switch (_constructibleStructureController.CurrentState)
@@ -65,10 +71,10 @@ namespace DL.ConstructibleStructureRuntime.Core
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             OpenGeneralPanel();
         }
-        
+
         private void OnStateChanged(StructureState currentState)
         {
             switch (_constructibleStructureController.CurrentState)
@@ -95,14 +101,14 @@ namespace DL.ConstructibleStructureRuntime.Core
             OpenGeneralPanel();
         }
 
-        public void ClosePanels() => 
+        public void ClosePanels() =>
             _placePanels.ForEach(panel => panel.Hide());
 
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
         {
             _constructibleStructureController.TryBuildPlace();
-            
+
             _buildPanel.Hide();
             _upgradePanel.Show();
         }
@@ -112,7 +118,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         {
             _constructibleStructureController.TryUpgradePlace();
         }
-        
+
         private void OpenBuildPanel()
         {
             _placePanels.ForEach(panel => panel.Hide());
@@ -131,13 +137,13 @@ namespace DL.ConstructibleStructureRuntime.Core
             _maxUpgradePanel.Show();
         }
 
-        private void OpenGeneralPanel() => 
+        private void OpenGeneralPanel() =>
             _generalPanel.Show();
 
-        private void OnBuildStart(List<ResourceDataModel> data) => 
+        private void OnBuildStart(List<ResourceDataModel> data) =>
             _buildPanel.UpdatePanelView(data);
 
-        private void OnUpgrade(RequiredResourcesModel data) => 
+        private void OnUpgrade(RequiredResourcesModel data) =>
             _upgradePanel.UpdatePanelView(data);
     }
 }
