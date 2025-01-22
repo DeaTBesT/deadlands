@@ -1,0 +1,4 @@
+{
+	"name": "DL.SceneTransitionRuntime",
+	"references":[ "GUID:9551e96083f06ac42bd972cfbdf6b88f", "GUID:d7738fc2d4b5e6e4a89836299b49e653" ]
+}
