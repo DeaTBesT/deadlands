@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DL.EnumsRuntime;
 using DL.InterfacesRuntime;
 using DL.UtilsRuntime;
 using UnityEngine;
@@ -17,9 +18,9 @@ namespace DL.SceneTransitionRuntime
         
         private Coroutine _sceneLoadingRoutine;
 
-        public static Action<Scene> OnStartLoadScene { get; set; }
+        public static Action<SceneName> OnStartLoadScene { get; set; }
         public static Action OnLoadingScene { get; set; }
-        public static Action<Scene> OnFinishLoadScene { get; set; }
+        public static Action<SceneName> OnFinishLoadScene { get; set; }
 
         public bool IsEnable { get; set; } = true;
         
@@ -34,7 +35,7 @@ namespace DL.SceneTransitionRuntime
             _canvasLoad.SetActive(false);
         }
 
-        public void LoadScene(Scene newScene)
+        public void LoadScene(SceneName newScene)
         {
             if (_sceneLoadingRoutine != null)
             {
@@ -50,7 +51,7 @@ namespace DL.SceneTransitionRuntime
             _sceneLoadingRoutine = StartCoroutine(LoadSceneRoutine(newScene));
         }
 
-        private IEnumerator LoadSceneRoutine(Scene newScene)
+        private IEnumerator LoadSceneRoutine(SceneName newScene)
         {
             _canvasLoad.SetActive(true);
             OnStartLoadScene?.Invoke(newScene);
