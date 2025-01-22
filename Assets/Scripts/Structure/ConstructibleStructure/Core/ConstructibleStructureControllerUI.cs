@@ -14,7 +14,7 @@ namespace DL.ConstructibleStructureRuntime.Core
     {
         [SerializeField] private AdvancedStructurePanelUI _buildPanel;
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
-        [SerializeField] private AdvancedStructurePanelUI _maxUpgradePanel;
+        [SerializeField] private SimpleStructurePanelUI _maxUpgradePanel;
 
         private List<IStructurePanel> _placePanels = new();
         
@@ -34,6 +34,7 @@ namespace DL.ConstructibleStructureRuntime.Core
             //Сюда добавляем все новые панели
             _placePanels = new List<IStructurePanel>
             {
+                _generalPanel,
                 _buildPanel,
                 _upgradePanel,
                 _maxUpgradePanel
@@ -64,6 +65,8 @@ namespace DL.ConstructibleStructureRuntime.Core
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            OpenGeneralPanel();
         }
         
         private void OnStateChanged(StructureState currentState)
@@ -88,6 +91,8 @@ namespace DL.ConstructibleStructureRuntime.Core
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            OpenGeneralPanel();
         }
 
         public void ClosePanels() => 
@@ -125,6 +130,9 @@ namespace DL.ConstructibleStructureRuntime.Core
             _placePanels.ForEach(panel => panel.Hide());
             _maxUpgradePanel.Show();
         }
+
+        private void OpenGeneralPanel() => 
+            _generalPanel.Show();
 
         private void OnBuildStart(List<ResourceDataModel> data) => 
             _buildPanel.UpdatePanelView(data);
