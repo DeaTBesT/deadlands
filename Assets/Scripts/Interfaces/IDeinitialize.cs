@@ -1,4 +1,4 @@
-﻿namespace Interfaces
+﻿namespace DL.InterfacesRuntime
 {
     public interface IDeinitialize
     {
