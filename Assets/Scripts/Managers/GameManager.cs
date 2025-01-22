@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DL.CoreRuntime;
+using DL.EnumsRuntime;
 using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DL.ManagersRuntime
 {
@@ -25,9 +28,21 @@ namespace DL.ManagersRuntime
 
         private void Start()
         {
-            Instantiate(_sceneLoaderPrefab).TryGetComponent(out _sceneLoader);
-            _sceneLoader.Initialize();
+            InitializeSceneLoader();
             SpawnPlayer();
+        }
+
+        private void OnDestroy()
+        {
+            SceneLoader.OnFinishLoadScene -= OnChangedScene;
+        }
+
+        private void InitializeSceneLoader()
+        {
+            var sceneLoaderObj = Instantiate(_sceneLoaderPrefab, transform);
+            sceneLoaderObj.TryGetComponent(out _sceneLoader);
+            _sceneLoader.Initialize();
+            SceneLoader.OnFinishLoadScene += OnChangedScene;
         }
         
         public static void RegisterStartPosition(Transform start)
@@ -60,7 +75,10 @@ namespace DL.ManagersRuntime
             var startPos = GetStartPosition();
             var player = startPos != null
                 ? Instantiate(_playerPrefab.gameObject, startPos.position, startPos.rotation)
-                : Instantiate(_playerPrefab.gameObject);
+                : Instantiate(_playerPrefab.gameObject, transform.position, transform.rotation);
         }
+        
+        private void OnChangedScene(SceneName sceneName) => 
+            SpawnPlayer();
     }
 }
