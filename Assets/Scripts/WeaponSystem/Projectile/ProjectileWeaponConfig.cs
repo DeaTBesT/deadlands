@@ -1,8 +1,8 @@
-﻿using Enums;
+﻿using DL.Data.Weapon;
+using DL.EnumsRuntime;
 using UnityEngine;
-using WeaponSystem.Core;
 
-namespace WeaponSystem.Projectile
+namespace DL.WeaponSystemRuntime.Projectile
 {
     [CreateAssetMenu(menuName = "Weapon/New projectile weapon config", fileName = "Projectile weapon config")]
     public class ProjectileWeaponConfig : WeaponConfig

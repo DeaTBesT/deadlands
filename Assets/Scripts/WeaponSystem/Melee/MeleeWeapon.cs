@@ -1,8 +1,8 @@
-using Core;
+using DL.CoreRuntime;
+using DL.WeaponSystem.Core;
 using UnityEngine;
-using WeaponSystem.Core;
 
-namespace WeaponSystem.Melee
+namespace DL.WeaponSystemRuntime.Melee
 {
     public class MeleeWeapon : Weapon
     {

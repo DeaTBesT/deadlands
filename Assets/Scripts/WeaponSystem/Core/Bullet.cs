@@ -1,9 +1,9 @@
 ﻿using System;
-using Core;
-using Interfaces;
+using DL.CoreRuntime;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace WeaponSystem.Core
+namespace DL.WeaponSystem.Core
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour, IInitialize
