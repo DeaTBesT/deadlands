@@ -1,37 +1,74 @@
 using UnityEngine;
 
-public class Singleton<T>  : MonoBehaviour where T:Component
+namespace DL.UtilsRuntime
 {
-    private static T _instance;
-
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : Component
     {
-        get
+        [SerializeField] private bool _dontDestroyOnLoad;
+
+        private static T _instance;
+
+        public static T Instance
         {
-            if (_instance)
+            get
             {
+                if (!_instance)
+                {
+                    return _instance;
+                }
+
                 _instance = FindObjectOfType<T>();
 
-                if (_instance is null)
+                if (_instance != null)
                 {
-                    var newInstance = new GameObject("GameManager");
-                    _instance = newInstance.AddComponent<T>();
+                    return _instance;
                 }
+
+                var newInstance = new GameObject("GameManager");
+                _instance = newInstance.AddComponent<T>();
+
+                return _instance;
             }
-
-            return _instance;
         }
-    }
 
-    private void Awake()
-    {
-        if (_instance == null)
+        private void Awake()
         {
-            _instance = this as T;
+            // if (_instance == null)
+            // {
+            //     _instance = this as T;
+            // }
+            // else if (_instance != null)
+            // {
+            //     Destroy(gameObject);
+            // }
+
+            InitializeSingleton();
         }
-        else if (_instance != null)
+
+        private void InitializeSingleton()
         {
-            Destroy(gameObject);
+            if (_dontDestroyOnLoad)
+            {
+                if (_instance != null)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
+                _instance = this as T;
+
+                if (!Application.isPlaying)
+                {
+                    return;
+                }
+
+                transform.SetParent(null);
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                _instance = this as T;
+            }
         }
     }
 }

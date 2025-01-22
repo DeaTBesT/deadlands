@@ -1,8 +1,8 @@
 ﻿using System.Collections;
+using DL.UtilsRuntime.TimerSystemRuntime.Core;
 using UnityEngine;
-using Utils.TimerSystem.Core;
 
-namespace Utils.TimerSystem
+namespace DL.UtilsRuntime.TimerSystemRuntime.Common
 {
     public class SimpleTimer : Timer
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Utils.ObjectPool
+namespace DL.UtilsRuntime.ObjectPoolRuntime
 {
     public class PoolBase<T>
     {

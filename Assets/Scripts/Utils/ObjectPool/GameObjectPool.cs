@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.ObjectPool
+namespace DL.UtilsRuntime.ObjectPoolRuntime
 {
     public class GameObjectPool : PoolBase<GameObject>
     {
