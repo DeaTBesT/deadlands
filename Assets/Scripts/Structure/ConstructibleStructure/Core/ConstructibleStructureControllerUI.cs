@@ -1,37 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using Enums;
-using Interfaces;
-using Place.Core;
-using UI.PlacePanels;
+using DL.Data.Resource;
+using DL.EnumsRuntime;
+using DL.StructureRuntime.Core;
+using DL.StructureRuntime.Model;
+using DL.StructureRuntime.UIPanels.Interfaces;
+using DL.StructureRuntime.UIPanels.Core;
 using UnityEngine;
 
-namespace Place.UpgradePlace
+namespace DL.ConstructibleStructureRuntime.Core
 {
-    public class UpgradePlaceControllerUI : PlaceControllerUI
+    public abstract class ConstructibleStructureControllerUI : StructureControllerUI
     {
-        [SerializeField] private BuildPanelUI _buildPanel;
-        [SerializeField] private UpgradePanelUI _upgradePanel;
-        [SerializeField] private MaxUpgradePanelUI _maxUpgradePanel;
+        [SerializeField] private AdvancedStructurePanelUI _buildPanel;
+        [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
+        [SerializeField] private AdvancedStructurePanelUI _maxUpgradePanel;
 
-        private List<IPlacePanel> _placePanels = new();
+        private List<IStructurePanel> _placePanels = new();
         
-        private UpgradePlaceController _upgradePlaceController;
+        private ConstructibleStructureController _constructibleStructureController;
 
         public override void Initialize(params object[] objects)
         {
-            _upgradePlaceController = objects[0] as UpgradePlaceController;
+            _constructibleStructureController = objects[0] as ConstructibleStructureController;
 
-            _upgradePlaceController.OnStateChanged += OnStateChanged;
-            
-            _buildPanel.Initialize(_upgradePlaceController);
-            _upgradePanel.Initialize(_upgradePlaceController);
-            
+            _constructibleStructureController.OnBuildStart += OnBuildStart;
+            _constructibleStructureController.OnUpgrade += OnUpgrade;
+            _constructibleStructureController.OnStateChanged += OnStateChanged;
+
             _buildPanel.AddOnClickEvent(OnBuildButtonClick);
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
 
             //Сюда добавляем все новые панели
-            _placePanels = new List<IPlacePanel>
+            _placePanels = new List<IStructurePanel>
             {
                 _buildPanel,
                 _upgradePanel,
@@ -43,19 +44,19 @@ namespace Place.UpgradePlace
 
         public void OpenPanel()
         {
-            switch (_upgradePlaceController.CurrentState)
+            switch (_constructibleStructureController.CurrentState)
             {
-                case PlaceState.Build:
+                case StructureState.Build:
                 {
                     OpenBuildPanel();
                 }
                     break;
-                case PlaceState.Upgrade:
+                case StructureState.Upgrade:
                 {
                     OpenUpgradePanel();
                 }
                     break;
-                case PlaceState.MaxUpgrade:
+                case StructureState.MaxUpgrade:
                 {
                     OpenMaxUpgradePanel();
                 }
@@ -65,21 +66,21 @@ namespace Place.UpgradePlace
             }
         }
         
-        private void OnStateChanged(PlaceState currentState)
+        private void OnStateChanged(StructureState currentState)
         {
-            switch (_upgradePlaceController.CurrentState)
+            switch (_constructibleStructureController.CurrentState)
             {
-                case PlaceState.Build:
+                case StructureState.Build:
                 {
                     OpenBuildPanel();
                 }
                     break;
-                case PlaceState.Upgrade:
+                case StructureState.Upgrade:
                 {
                     OpenUpgradePanel();
                 }
                     break;
-                case PlaceState.MaxUpgrade:
+                case StructureState.MaxUpgrade:
                 {
                     OpenMaxUpgradePanel();
                 }
@@ -95,7 +96,7 @@ namespace Place.UpgradePlace
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
         {
-            _upgradePlaceController.TryBuildPlace();
+            _constructibleStructureController.TryBuildPlace();
             
             _buildPanel.Hide();
             _upgradePanel.Show();
@@ -104,7 +105,7 @@ namespace Place.UpgradePlace
         //Здесь какие-нибудь анимации
         private void OnUpgradeButtonClick()
         {
-            _upgradePlaceController.TryUpgradePlace();
+            _constructibleStructureController.TryUpgradePlace();
         }
         
         private void OpenBuildPanel()
@@ -124,5 +125,11 @@ namespace Place.UpgradePlace
             _placePanels.ForEach(panel => panel.Hide());
             _maxUpgradePanel.Show();
         }
+
+        private void OnBuildStart(List<ResourceDataModel> data) => 
+            _buildPanel.UpdatePanelView(data);
+
+        private void OnUpgrade(RequiredResourcesModel data) => 
+            _upgradePanel.UpdatePanelView(data);
     }
 }

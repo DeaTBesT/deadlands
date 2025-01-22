@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Enums;
-using GameResources.Core;
-using Place.Core;
-using Place.Models;
+using DL.Data.Resource;
+using DL.EnumsRuntime;
+using DL.StructureRuntime.Core;
+using DL.StructureRuntime.Model;
 using UnityEngine;
 
-namespace Place.UpgradePlace
+namespace DL.ConstructibleStructureRuntime.Core
 {
-    public class UpgradePlaceController : PlaceController
+    public abstract class ConstructibleStructureController : StructureController
     {
         private const int StartUpgradeLevel = 1;
         
-        [SerializeField] private List<ResourceData> _requiredResourcesBuild;
-        [SerializeField] private List<ResourcesUpgradeModel> _requiredResourcesUpgrade;
+        [SerializeField] private List<ResourceDataModel> _requiredResourcesBuild;
+        [SerializeField] private List<RequiredResourcesModel> _requiredResourcesUpgrade;
 
         [Header("Optional")] 
-        [SerializeField] private PlaceState _currentState = PlaceState.Build;
+        [SerializeField] private StructureState _currentState = StructureState.Build;
         [SerializeField] private int _currentLevel;
 
-        private List<ResourceData> _currentRequiredResources;
+        private List<ResourceDataModel> _currentRequiredResources;
 
-        private UpgradePlaceControllerUI _placeControllerUI;
+        private StructureControllerUI _structureControllerUI;
         
-        public PlaceState CurrentState => _currentState;
+        public StructureState CurrentState => _currentState;
         public int CurrentLevel => _currentLevel;
-        public Action<List<ResourceData>> OnBuildStart { get; set; }
-        public Action<ResourcesUpgradeModel> OnUpgrade { get; set; }
-        public Action<PlaceState> OnStateChanged { get; set; }
+        public Action<List<ResourceDataModel>> OnBuildStart { get; set; }
+        public Action<RequiredResourcesModel> OnUpgrade { get; set; }
+        public Action<StructureState> OnStateChanged { get; set; }
         
         public override void Initialize(params object[] objects)
         {
-            _placeControllerUI = objects[0] as UpgradePlaceControllerUI;
+            _structureControllerUI = objects[0] as StructureControllerUI;
             OnBuildStart?.Invoke(_requiredResourcesBuild);
         }
 
@@ -47,14 +47,14 @@ namespace Place.UpgradePlace
         }
 
         public override void Interact() => 
-            _placeControllerUI.OpenPanel();
+            _structureControllerUI.Interact();
 
         public override void FinishInteract() => 
-            _placeControllerUI.ClosePanels();
+            _structureControllerUI.FinishInteract();
 
         public bool TryBuildPlace()
         {
-            _currentState = PlaceState.Upgrade;
+            _currentState = StructureState.Upgrade;
             _currentLevel = StartUpgradeLevel;
             OnStateChanged?.Invoke(_currentState);
             UpdateUpgradeUIPanel();
@@ -68,7 +68,7 @@ namespace Place.UpgradePlace
 
             if (_currentLevel > _requiredResourcesUpgrade.Count)
             {
-                _currentState = PlaceState.MaxUpgrade;
+                _currentState = StructureState.MaxUpgrade;
                 OnStateChanged?.Invoke(_currentState);
                 return true;
             }
@@ -98,7 +98,7 @@ namespace Place.UpgradePlace
             OnUpgrade?.Invoke(currentResources);
         }
         
-        private bool IsEnoughResource(ResourceData resource)
+        private bool IsEnoughResource(ResourceDataModel resource)
         {
             return _currentRequiredResources.Exists(x =>
                 (x.ResourceConfig.TypeResource == (resource.ResourceConfig.TypeResource) &&
