@@ -1,10 +1,12 @@
-﻿using Core;
-using Interfaces;
+﻿using DL.CoreRuntime;
+using DL.CoreRuntime.Interfaces;
+using DL.Data.Weapon;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace WeaponSystem.Core
+namespace DL.WeaponSystem.Core
 {
-    public abstract class Weapon : MonoBehaviour, IInitialize
+    public abstract class Weapon : MonoBehaviour, IInitialize, IWeapon
     {
         [SerializeField] protected WeaponConfig _weaponConfig;
 
@@ -13,6 +15,7 @@ namespace WeaponSystem.Core
         protected EntityStats _entityStats;
 
         public WeaponConfig GetWeaponConfig => _weaponConfig;
+        public GameObject GetObject => gameObject;
 
         public bool IsEnable { get; set; }
         

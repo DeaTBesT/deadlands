@@ -1,17 +1,18 @@
 ﻿using System.Linq;
-using Interfaces;
+using DL.CoreRuntime;
+using DL.CoreRuntime.Interfaces;
+using DL.Data.Weapon;
 using UnityEngine;
-using WeaponSystem.Core;
 
-namespace Core
+namespace DL.WeaponSystem.Core
 {
-    public abstract class EntityWeaponController : MonoBehaviour, IInitialize, IDeinitialize
+    public class WeaponController : MonoBehaviour
     {
         [SerializeField] protected Weapon[] _weaponsContainer;
 
         protected EntityStats _entityStats;
         
-        protected Weapon _currentWeapon;
+        protected IWeapon _currentWeapon;
 
         [field: SerializeField] public virtual bool IsEnable { get; set; } = true;
         
@@ -22,7 +23,6 @@ namespace Core
             foreach (var weapon in _weaponsContainer)
             {
                 weapon.Initialize(objects);
-                weapon.gameObject.SetActive(false);
             }
         }
         
@@ -44,7 +44,7 @@ namespace Core
                 return;
             }
             
-            _currentWeapon.gameObject.SetActive(true);
+            _currentWeapon.GetObject.SetActive(true);
         }
 
         public virtual void UnequipWeapon()
@@ -57,7 +57,7 @@ namespace Core
                 return;
             }
 
-            _currentWeapon.gameObject.SetActive(false);
+            _currentWeapon.GetObject.SetActive(false);
         }
     }
 }

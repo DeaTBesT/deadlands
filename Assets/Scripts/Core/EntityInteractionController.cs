@@ -1,7 +1,8 @@
-﻿using Interfaces;
+﻿using DL.InputModuleRuntime.Interfaces;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace Core
+namespace DL.CoreRuntime
 {
     public abstract class EntityInteractionController : MonoBehaviour, IInitialize, IDeinitialize, IInteractor
     {

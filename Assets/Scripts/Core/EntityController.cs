@@ -1,8 +1,8 @@
 ﻿using System;
-using Interfaces;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace Core
+namespace DL.CoreRuntime
 {
     public abstract class EntityController : MonoBehaviour, IInitialize
     {
