@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UI
+namespace DL.UIRuntime
 {
     public class UIPanel : MonoBehaviour
     {

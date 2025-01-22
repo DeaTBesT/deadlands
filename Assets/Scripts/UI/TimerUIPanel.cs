@@ -1,8 +1,8 @@
-﻿using Interfaces;
+﻿using DL.InterfacesRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace DL.UIRuntime
 {
     public class TimerUIPanel : UIPanel, IInitialize
     {
