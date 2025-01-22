@@ -77,7 +77,7 @@ namespace DL.ConstructibleStructureRuntime.Core
 
         private void OnStateChanged(StructureState currentState)
         {
-            switch (_constructibleStructureController.CurrentState)
+            switch (currentState)
             {
                 case StructureState.Build:
                 {
