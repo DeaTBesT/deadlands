@@ -1,16 +1,15 @@
-﻿using System;
-using GameResources.Core;
-using Interfaces;
-using Player;
+﻿using DL.CoreRuntime;
+using DL.Data.Resource;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace GameResources
+namespace DL.GameResourcesRuntime.Core
 {
-    public class GameResource : MonoBehaviour, IInitialize
+    public class WorldResource : MonoBehaviour, IInitialize, IWorldResource
     {
-        [SerializeField] private ResourceData _resourceData;
+        [SerializeField] private ResourceDataModel _resourceData;
         [SerializeField] private Collider _collider;
-        
+
         public bool IsEnable { get; set; }
 
         private void OnValidate()
@@ -34,7 +33,7 @@ namespace GameResources
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((!other.TryGetComponent(out PlayerInventoryController playerInventory)) || (!IsEnable))
+            if ((!other.TryGetComponent(out EntityInventoryController playerInventory)) || (!IsEnable))
             {
                 return;
             }

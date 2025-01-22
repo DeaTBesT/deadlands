@@ -1,10 +1,12 @@
 using System.Collections;
-using Animations;
-using GameResources.Core;
-using Player;
+using DL.AnimationsRuntime;
+using DL.CoreRuntime;
+using DL.Data.Resource;
+using DL.GameResourcesRuntime.Core;
+using DL.UtilsRuntime;
 using UnityEngine;
 
-namespace GameResources
+namespace DL.WorldResourceRuntime.Common
 {
     public class ResourceBox : MonoBehaviour
     {
@@ -12,15 +14,22 @@ namespace GameResources
         private const float DropItemRadius = 1.5f;
         private const float DropItemHeight = 1.5f;
         private const float DropItemDuration = 1f;
-        
+
+        private const int PlayerTeam = 1;
+
         [SerializeField] private int _minDropItems, _maxDropItems;
-        [SerializeField] private WeightedList<ResourceData> _droppableItems;
+        [SerializeField] private WeightedList<ResourceDataModel> _droppableItems;
 
         public bool IsActive { get; private set; } = true;
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((!other.TryGetComponent(out PlayerStats _)) || (!IsActive))
+            if ((!other.TryGetComponent(out EntityStats entityStats)) || (!IsActive))
+            {
+                return;
+            }
+
+            if (entityStats.TeamId != PlayerTeam)
             {
                 return;
             }
@@ -29,14 +38,14 @@ namespace GameResources
             DropAllItems();
         }
 
-        private void DropAllItems() => 
+        private void DropAllItems() =>
             StartCoroutine(DropAllItemsRoutine());
 
         private IEnumerator DropAllItemsRoutine()
         {
             var countItems = Random.Range(_minDropItems, _maxDropItems);
-            
-            for (var i = 0; i < countItems; i++) 
+
+            for (var i = 0; i < countItems; i++)
             {
                 var resource = _droppableItems.GetRandomItem();
                 DropItem(resource);
@@ -45,22 +54,20 @@ namespace GameResources
             }
         }
 
-        private void DropItem(ResourceData resource)
+        private void DropItem(ResourceDataModel resource)
         {
-            var item = ResourceData.InstantiateResource(resource, transform.position + transform.forward);
-            item.AnimateItemDrop(transform.position, DropItemRadius, DropItemHeight, DropItemDuration, () =>
-            {
-                ActivateItemCollider(item);
-            });
+            var item = ResourceDataModel.InstantiateResource(resource, transform.position + transform.forward);
+            item.AnimateItemDrop(transform.position, DropItemRadius, DropItemHeight, DropItemDuration,
+                () => { ActivateItemCollider(item); });
         }
 
         private void ActivateItemCollider(GameObject item)
         {
-            if (!item.TryGetComponent(out GameResource gameResource))
+            if (!item.TryGetComponent(out WorldResource gameResource))
             {
                 return;
             }
-            
+
             gameResource.Initialize();
         }
     }

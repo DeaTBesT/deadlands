@@ -1,9 +1,9 @@
-﻿using GameResources.Core;
+﻿using DL.Data.Resource;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameResources.UI
+namespace DL.WorldResourceRuntime.UI
 {
     public class ResourceDataUI : MonoBehaviour
     {
@@ -12,16 +12,16 @@ namespace GameResources.UI
         [SerializeField] private TextMeshProUGUI _textAmmount;
         [SerializeField] private Image _resourceImage;
 
-        public ResourceData ResourceAsData { get; private set; }
+        public ResourceDataModel ResourceData { get; private set; }
 
-        public void ChangeResourceData(ResourceData resourceData)
+        public void ChangeResourceData(ResourceDataModel resourceData)
         {
-            ResourceAsData = resourceData;
-            _resourceImage.sprite = ResourceAsData.ResourceConfig.ResourceSprite;
+            ResourceData = resourceData;
+            _resourceImage.sprite = ResourceData.ResourceConfig.ResourceSprite;
             UpdateResource();
         }
 
         public void UpdateResource() => 
-            _textAmmount.text = $"{ResourceAsData.AmountResource}";
+            _textAmmount.text = $"{ResourceData.AmountResource}";
     }
 }

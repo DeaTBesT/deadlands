@@ -1,8 +1,8 @@
-﻿using Core;
-using GameResources.Core;
+﻿using DL.CoreRuntime;
+using DL.WorldResourceRuntime.Core;
 using UnityEngine;
 
-namespace GameResources.ResourceVein
+namespace DL.WorldResourceRuntime.ResourceVein
 {
     public class ResourceVeinInitializer : EntityInitializer
     {
