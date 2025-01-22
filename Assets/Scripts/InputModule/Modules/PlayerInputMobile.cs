@@ -1,16 +1,14 @@
 ﻿using System;
-using Interfaces;
+using DL.InputModuleRuntime.Interfaces;
+using JoystickRuntime;
 using UnityEngine;
 
-namespace PlayerInputModule
+namespace DL.InputModuleRuntime.Modules
 {
-    public class PlayerInput : IInput
+    public class PlayerInputMobile : IInput
     {
-        private const string HORIZONTAL_INPUT = "Horizontal";
-        private const string VERTICAL_INPUT = "Vertical";
-
-        private Camera _camera;
-
+        private Joystick _joystick;
+        
         private bool _onToggleEsc = false;
 
         public Action<Vector2> OnMove { get; set; }
@@ -21,36 +19,29 @@ namespace PlayerInputModule
         public Action OnInteractUp { get; set; }
         public Action<bool> OnEscapeToggle { get; set; }
 
-        public PlayerInput(Camera camera)
+        public PlayerInputMobile(Joystick joystick)
         {
-            _camera = camera;
+            _joystick = joystick;
 
-            if (_camera == null)
+            if (_joystick == null)
             {
 #if UNITY_EDITOR
-                Debug.LogError("Camera is null");
+                Debug.LogError("Joystick is null");
 #endif
             }
         }
 
         public void MoveHandler()
         {
-            var moveInput = new Vector2(Input.GetAxisRaw(HORIZONTAL_INPUT), Input.GetAxisRaw(VERTICAL_INPUT));
+            var horizontalInput = _joystick.Horizontal;
+            var verticalInput = _joystick.Vertical;
+            var moveInput = new Vector2(horizontalInput, verticalInput);
             OnMove?.Invoke(moveInput);
         }
 
         public void MouseHandler()
         {
-            if (_camera == null)
-            {
-#if UNITY_EDITOR
-                Debug.LogError("Camera is null");
-#endif
-                return;
-            }
-
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            OnMousePosition?.Invoke(ray);
+            
         }
 
         public void AttackOnceHandler()

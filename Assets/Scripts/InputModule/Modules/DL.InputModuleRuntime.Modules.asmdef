@@ -1,0 +1,4 @@
+{
+	"name": "DL.InputModuleRuntime.Modules",
+	"references":[ "GUID:ea2437eb52279464385463571b7b4c59", "GUID:478bb324d3898594c9b953ff561da35f" ]
+}
