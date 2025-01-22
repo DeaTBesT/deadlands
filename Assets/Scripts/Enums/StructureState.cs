@@ -1,6 +1,6 @@
-﻿namespace Enums
+﻿namespace DL.EnumsRuntime
 {
-    public enum PlaceState
+    public enum StructureState
     {
         Build,//Нулевой уровень
         Upgrade,

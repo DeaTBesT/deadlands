@@ -1,4 +1,4 @@
-﻿namespace Enums
+﻿namespace DL.EnumsRuntime
 {
     public enum InteractType
     {
