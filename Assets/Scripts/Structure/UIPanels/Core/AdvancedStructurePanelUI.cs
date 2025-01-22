@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
-using GameResources.UI;
-using Interfaces;
+using DL.InterfacesRuntime;
+using DL.StructureRuntime.UIPanels.Interfaces;
+using DL.WorldResourceRuntime.UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace UI.PlacePanels.Core
+namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class AdvancedPlacePanelUI : MonoBehaviour, IInitialize, IPlacePanel
+    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IInitialize, IStructurePanel
     {
         [SerializeField] protected GameObject _renderer;
         [SerializeField] protected Button _button;
@@ -17,7 +19,10 @@ namespace UI.PlacePanels.Core
 
         public bool IsEnable { get; set; }
 
-        public abstract void Initialize(params object[] objects);
+        public virtual void Initialize(params object[] objects)
+        {
+            
+        }
         
         public virtual void Show() =>
             _renderer.SetActive(true);
@@ -42,5 +47,13 @@ namespace UI.PlacePanels.Core
 
             _resourcesDataUI.Clear();
         }
+        
+        public void AddOnClickEvent(UnityAction onClickAction) => 
+            _button.onClick.AddListener(onClickAction);
+
+        public void RemoveOnClickEvent(UnityAction onClickAction) => 
+            _button.onClick.RemoveListener(onClickAction);
+
+        public abstract void UpdatePanelView(params object[] objects);
     }
 }

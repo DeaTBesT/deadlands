@@ -1,0 +1,23 @@
+{
+    "name": "DL.StructureRuntime.UIPanels.StructuresPanels",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a96d2c6542203c489420888ed66f1a2",
+        "GUID:9551e96083f06ac42bd972cfbdf6b88f",
+        "GUID:b0a3e9e085d8258439b0a0a9904279d2",
+        "GUID:0a5c79cb01c95b24f937853ed741e709",
+        "GUID:552808dbb21a7d046a7339985192695c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:9779c36f9f834424bab317bbf2b6a100",
+        "GUID:4eb3ec8985f1151449a6f5880599ecf5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

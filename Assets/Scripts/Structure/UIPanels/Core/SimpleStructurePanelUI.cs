@@ -1,9 +1,10 @@
-﻿using Interfaces;
+﻿using DL.InterfacesRuntime;
+using DL.StructureRuntime.UIPanels.Interfaces;
 using UnityEngine;
 
-namespace UI.PlacePanels.Core
+namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class SimplePlacePanelUI : MonoBehaviour, IInitialize, IPlacePanel
+    public abstract class SimpleStructurePanelUI : MonoBehaviour, IInitialize, IStructurePanel
     {
         [SerializeField] protected GameObject _renderer;
         
