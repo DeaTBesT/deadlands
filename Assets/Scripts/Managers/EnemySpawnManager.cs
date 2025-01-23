@@ -9,6 +9,10 @@ namespace DL.ManagersRuntime
 {
     public class EnemySpawnManager : Singleton<EnemySpawnManager>
     {
+        private const float MinSpawnAngleRadius = 0f;
+        private const float MaxSpawnAngleRadius = 360f;
+        private const float MaxHeightRayCast = 100f;
+
         [SerializeField] private float _spawnRadius = 10f;
         [SerializeField] private float _spawnInterval = 2f;
 
@@ -68,7 +72,7 @@ namespace DL.ManagersRuntime
             var camDistance = GetCameraViewRadius();
             var spawnDistance = camDistance + _spawnRadius;
 
-            var angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            var angle = Random.Range(MinSpawnAngleRadius, MaxSpawnAngleRadius) * Mathf.Deg2Rad;
             var xOffset = Mathf.Cos(angle);
             var zOffset = Mathf.Sin(angle);
 
@@ -80,16 +84,14 @@ namespace DL.ManagersRuntime
 
         private float GetGroundHeight(Vector3 position)
         {
-            return Physics.Raycast(new Vector3(position.x, 100f, position.z), Vector3.down, out var hit, Mathf.Infinity,
+            return Physics.Raycast(new Vector3(position.x, MaxHeightRayCast, position.z), Vector3.down, out var hit, Mathf.Infinity,
                 _groundLayer)
                 ? hit.point.y
                 : 0f;
         }
 
-        private bool IsInsideNavMesh(Vector3 position)
-        {
-            return NavMesh.SamplePosition(position, out _, 1.0f, NavMesh.AllAreas);
-        }
+        private bool IsInsideNavMesh(Vector3 position) =>
+            NavMesh.SamplePosition(position, out _, 1.0f, NavMesh.AllAreas);
 
         private float GetCameraViewRadius()
         {
