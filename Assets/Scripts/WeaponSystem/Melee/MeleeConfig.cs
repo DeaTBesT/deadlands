@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using WeaponSystem.Core;
+﻿using DL.Data.Weapon;
+using UnityEngine;
 
-namespace WeaponSystem.Melee
+namespace DL.WeaponSystemRuntime.Melee
 {
     [CreateAssetMenu(menuName = "Weapon/New melee weapon config", fileName = "Melee weapon config")]
     public class MeleeConfig : WeaponConfig

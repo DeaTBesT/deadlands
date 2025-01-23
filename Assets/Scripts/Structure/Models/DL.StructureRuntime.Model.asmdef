@@ -1,0 +1,4 @@
+{
+	"name": "DL.StructureRuntime.Model",
+	"references":[ "GUID:42855d317b2b6ff43af63c5956f19536", "GUID:9779c36f9f834424bab317bbf2b6a100" ]
+}

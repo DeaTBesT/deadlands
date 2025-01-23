@@ -1,9 +1,9 @@
 ﻿using System;
-using Core;
-using Interfaces;
+using DL.CoreRuntime;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace WeaponSystem.Core
+namespace DL.WeaponSystem.Core
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour, IInitialize
@@ -44,11 +44,6 @@ namespace WeaponSystem.Core
         {
             if (other.TryGetComponent(out EntityStats entityStats))
             {
-                if (entityStats.TeamId == _teamId)
-                {
-                    return;
-                }
-                
                 entityStats.TakeDamage(_teamId, _damage);
             }
 

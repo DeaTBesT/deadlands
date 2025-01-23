@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using GameResources.Core;
+using DL.Data.Resource;
 
-namespace Utils
+namespace DL.UtilsRuntime
 {
     public static class ResourceListSorter
     {
-        public static void SortResources(this List<ResourceData> dataList)
+        public static void SortResources(this List<ResourceDataModel> dataList)
         {
             dataList.Sort((x1, x2) =>
             {

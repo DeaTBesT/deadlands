@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.TimerSystem.Core
+namespace DL.UtilsRuntime.TimerSystemRuntime.Core
 {
     public abstract class Timer
     {

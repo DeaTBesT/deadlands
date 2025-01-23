@@ -1,21 +1,21 @@
-﻿using Interfaces;
+﻿using DL.InterfacesRuntime;
+using NaughtyAttributes;
 using UnityEngine;
 
-namespace Core
+namespace DL.CoreRuntime
 {
     public abstract class EntityStats : MonoBehaviour, IInitialize
     {
-        [SerializeField] protected float _health;
+        [SerializeField] protected float _startHealth;
+        [ShowNonSerializedField] protected float _currentHealth;
         
         public abstract int TeamId { get; }
 
         public virtual bool IsEnable { get; set; } = true;
         
-        public virtual void Initialize(params object[] objects)
-        {
-            
-        }
-        
+        public virtual void Initialize(params object[] objects) => 
+            _currentHealth = _startHealth;
+
         public abstract void TakeDamage(int teamId, float amount);
 
         //Уничтожение сущности

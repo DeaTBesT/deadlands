@@ -1,7 +1,7 @@
-﻿using Core;
+﻿using DL.CoreRuntime;
 using UnityEngine;
 
-namespace DebugOptions
+namespace DL.DebugOptionsRuntime
 {
     public class DummyStats : EntityStats
     {

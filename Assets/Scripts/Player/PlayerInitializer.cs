@@ -1,11 +1,12 @@
-﻿using Core;
-using InputModule;
-using Managers;
-using Player;
-using PlayerInputModule;
+﻿using DL.CoreRuntime;
+using DL.InputModuleRuntime;
+using DL.InputModuleRuntime.Modules;
+using DL.ManagersRuntime;
+using DL.WeaponSystem.Core;
+using JoystickRuntime;
 using UnityEngine;
 
-namespace PlayerModule
+namespace DL.PlayersRuntime
 {
     [RequireComponent(typeof(InputHandler))]
     public class PlayerInitializer : EntityInitializer
@@ -15,7 +16,7 @@ namespace PlayerModule
 
         [SerializeField] private EntityController _entityController;
         [SerializeField] private EntityMovementController _entityMovementController;
-        [SerializeField] private EntityWeaponController _entityWeaponController;
+        [SerializeField] private WeaponController _entityWeaponController;
         [SerializeField] private EntityInteractionController _entityInteractionController;
         [SerializeField] private EntityInventoryController _entityInventoryController;
         [SerializeField] private PlayerUIController _playerUIController;
@@ -52,7 +53,7 @@ namespace PlayerModule
 
             if (_entityWeaponController == null)
             {
-                _entityWeaponController = GetComponent<EntityWeaponController>();
+                _entityWeaponController = GetComponent<WeaponController>();
             }
 
             if (_entityInteractionController == null)

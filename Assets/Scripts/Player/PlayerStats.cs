@@ -1,6 +1,6 @@
-﻿using Core;
+﻿using DL.CoreRuntime;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
     public class PlayerStats : EntityStats
     {

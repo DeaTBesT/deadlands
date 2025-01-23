@@ -1,0 +1,4 @@
+﻿{
+  "name": "DL.EnemyRuntime.Core",
+  "references":[ "GUID:464655714b7a58c49984ea9b74436035", "GUID:776d03a35f1b52c4a9aed9f56d7b4229" ]
+}

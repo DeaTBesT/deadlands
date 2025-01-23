@@ -1,9 +1,9 @@
 ﻿using System;
-using Managers;
+using DL.ManagersRuntime;
+using DL.WeaponSystem.Core;
 using UnityEngine;
-using WeaponSystem.Core;
 
-namespace WeaponSystem.Projectile
+namespace DL.WeaponSystemRuntime.Projectile
 {
     public class ProjectileWeapon : Weapon
     {
@@ -38,7 +38,7 @@ namespace WeaponSystem.Projectile
                 return;
             }
 
-            void OnReachTarget() => 
+            void OnReachTarget() =>
                 _prefabPool.Return(bulletObject.gameObject);
 
             bullet.Initialize(_entityStats.TeamId, _projectileConfig.Damage, _projectileConfig.BulletSpeed,

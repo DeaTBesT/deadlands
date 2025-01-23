@@ -1,7 +1,8 @@
-﻿using Interfaces;
+﻿using DL.InputModuleRuntime.Interfaces;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace InputModule
+namespace DL.InputModuleRuntime
 {
     public sealed class InputHandler : MonoBehaviour, IInitialize
     {

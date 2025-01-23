@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core;
-using GameResources.Core;
-using Managers;
+using DL.CoreRuntime;
+using DL.Data.Resource;
+using DL.ManagersRuntime;
 using UnityEngine;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
     public class PlayerInventoryController : EntityInventoryController
     {
         private GameResourcesManager _gameResourcesManager;
 
-        private List<ResourceData> _resourcesData = new();
+        private List<ResourceDataModel> _resourcesData = new();
 
-        public List<ResourceData> ResourcesData => _resourcesData;
+        public List<ResourceDataModel> ResourcesData => _resourcesData;
 
         public override void Initialize(params object[] objects) =>
             _gameResourcesManager = objects[0] as GameResourcesManager;
@@ -21,7 +21,7 @@ namespace Player
         public override void Deinitialize(params object[] objects) =>
             DropAllResources();
 
-        public override void AddResource(ResourceData resource)
+        public override void AddResource(ResourceDataModel resource)
         {
             _gameResourcesManager.AddResource(resource.ResourceConfig, resource.AmountResource);
 
@@ -34,11 +34,11 @@ namespace Player
             }
             else
             {
-                _resourcesData.Add(new ResourceData(resource.ResourceConfig, resource.AmountResource));
+                _resourcesData.Add(new ResourceDataModel(resource.ResourceConfig, resource.AmountResource));
             }
         }
         
-        public override void RemoveResource(ResourceData resource)
+        public override void RemoveResource(ResourceDataModel resource)
         {
             _gameResourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
 
@@ -55,9 +55,9 @@ namespace Player
             }
         }
         
-        public override void DropResource(ResourceData resource)
+        public override void DropResource(ResourceDataModel resource)
         {
-            ResourceData.InstantiateResource(resource, transform);
+            ResourceDataModel.InstantiateResource(resource, transform);
 
             _gameResourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
 

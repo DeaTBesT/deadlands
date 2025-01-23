@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameResources.Core;
+using DL.Data.Resource;
+using DL.UtilsRuntime;
 using UnityEngine;
 
-namespace Managers
+namespace DL.ManagersRuntime
 {
     public class GameResourcesManager : Singleton<GameResourcesManager>
     {
-        private List<ResourceData> _resourcesData = new();
+        private List<ResourceDataModel> _resourcesData = new();
 
-        public Action<ResourceData> OnAddResource { get; set; }
-        public Action<ResourceData> OnRemoveResource { get; set; }
-        public Action<List<ResourceData>> OnChangeResourcesData { get; set; }
+        public Action<ResourceDataModel> OnAddResource { get; set; }
+        public Action<ResourceDataModel> OnRemoveResource { get; set; }
+        public Action<List<ResourceDataModel>> OnChangeResourcesData { get; set; }
 
         public void AddResource(ResourceConfig resourceConfig, int amount = 1)
         {
@@ -26,7 +27,7 @@ namespace Managers
             }
             else
             {
-                _resourcesData.Add(new ResourceData(resourceConfig, amount));
+                _resourcesData.Add(new ResourceDataModel(resourceConfig, amount));
                 OnChangeResourcesData?.Invoke(_resourcesData);
             }
         }

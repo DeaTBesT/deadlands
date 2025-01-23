@@ -1,0 +1,8 @@
+﻿{
+  "name": "DL.ConstructibleStructureRuntime.SimpleStucture",
+  "references": [
+    "GUID:628bf3cb37a41ff4e99042f7d7dd8bed",
+    "GUID:e0678e6ea17431c47885326f6d75087c",
+    "GUID:464655714b7a58c49984ea9b74436035"
+  ]
+}

@@ -1,0 +1,4 @@
+{
+	"name": "DL.WorldResourceRuntime.ResourceVein",
+	"references":[ "GUID:464655714b7a58c49984ea9b74436035", "GUID:42855d317b2b6ff43af63c5956f19536" ]
+}

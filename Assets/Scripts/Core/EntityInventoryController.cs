@@ -1,8 +1,8 @@
-﻿using GameResources.Core;
-using Interfaces;
+﻿using DL.Data.Resource;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
-namespace Core
+namespace DL.CoreRuntime
 {
     public class EntityInventoryController : MonoBehaviour, IInitialize, IDeinitialize
     {
@@ -18,17 +18,17 @@ namespace Core
             throw new System.NotImplementedException();
         }
         
-        public virtual void AddResource(ResourceData resourceData)
+        public virtual void AddResource(ResourceDataModel resourceData)
         {
             
         }
 
-        public virtual void RemoveResource(ResourceData resourceData)
+        public virtual void RemoveResource(ResourceDataModel resourceData)
         {
             
         }
         
-        public virtual void DropResource(ResourceData resourceData)
+        public virtual void DropResource(ResourceDataModel resourceData)
         {
             
         }

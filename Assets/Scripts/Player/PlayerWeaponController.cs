@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Core;
-using Interfaces;
+using DL.CoreRuntime;
+using DL.Data.Weapon;
+using DL.WeaponSystem.Core;
 using UnityEngine;
-using WeaponSystem.Core;
 
-namespace Player
+namespace DL.PlayersRuntime
 {
-    public class PlayerWeaponController : EntityWeaponController
+    public class PlayerWeaponController : WeaponController
     {
         [Header("Enemy search")]
         [SerializeField] private float _detectionRadius;

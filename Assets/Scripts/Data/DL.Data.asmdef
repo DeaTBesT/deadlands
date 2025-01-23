@@ -1,0 +1,4 @@
+{
+	"name": "DL.Data",
+	"references":[ "GUID:9ee0dc63b08eb2544a7fe845d223d587", "GUID:0e1659ee92fb9b84688930174d5a3dd6", "GUID:d7738fc2d4b5e6e4a89836299b49e653" ]
+}
