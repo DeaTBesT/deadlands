@@ -44,11 +44,6 @@ namespace DL.WeaponSystem.Core
         {
             if (other.TryGetComponent(out EntityStats entityStats))
             {
-                if (entityStats.TeamId == _teamId)
-                {
-                    return;
-                }
-                
                 entityStats.TakeDamage(_teamId, _damage);
             }
 
