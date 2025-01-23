@@ -20,7 +20,7 @@ namespace DL.WorldResourceRuntime.ResourceVein
                 return;
             }
 
-            if (_health - amount > 0)
+            if (_currentHealth - amount > 0)
             {
                 TakeDamage(amount);
                 return;
@@ -30,7 +30,7 @@ namespace DL.WorldResourceRuntime.ResourceVein
         }
 
         private void TakeDamage(float amount) => 
-            _health -= Mathf.Clamp(_health - amount, 0, float.MaxValue);
+            _currentHealth -= Mathf.Clamp(_currentHealth - amount, 0, float.MaxValue);
 
         public override void DestroyEntity()
         {
