@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DL.CoreRuntime;
+using DL.Data.Scene;
 using DL.EnumsRuntime;
 using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
@@ -78,7 +78,7 @@ namespace DL.ManagersRuntime
                 : Instantiate(_playerPrefab.gameObject, transform.position, transform.rotation);
         }
         
-        private void OnChangedScene(SceneName sceneName) => 
+        private void OnChangedScene(SceneConfig sceneConfig) => 
             SpawnPlayer();
     }
 }

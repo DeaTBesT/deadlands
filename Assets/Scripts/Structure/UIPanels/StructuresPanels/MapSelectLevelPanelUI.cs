@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DL.EnumsRuntime;
+using DL.Data.Scene;
 using DL.SceneTransitionRuntime;
 using DL.StructureRuntime.UIPanels.Core;
 using TMPro;
@@ -18,7 +18,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
         {
             public Button button;
             public string levelName;
-            public SceneName level;
+            public SceneConfig sceneConfig;
         }
 
         public override void Initialize(params object[] objects)
@@ -43,7 +43,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
                 if (buttonText != null)
                 {
                     var str = string.IsNullOrEmpty(buttonSelectedLevel.levelName)
-                        ? buttonSelectedLevel.level.ToString()
+                        ? buttonSelectedLevel.sceneConfig.SceneName
                         : buttonSelectedLevel.levelName;
                     buttonText.text = str;
                 }
@@ -51,10 +51,8 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
                 buttonSelectedLevel.button.onClick.AddListener(SelectLevel);
                 continue;
 
-                void SelectLevel()
-                {
-                    SceneLoader.Instance.LoadScene(buttonSelectedLevel.level);
-                }
+                void SelectLevel() => 
+                    SceneLoader.Instance.LoadScene(buttonSelectedLevel.sceneConfig);
             }
         }
 
