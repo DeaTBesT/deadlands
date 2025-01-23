@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Test Projectile weapon config
   m_EditorClassIdentifier: 
   _title: New weapon
-  _damage: 1
-  _fireRate: 1
+  _damage: 25
+  _fireRate: 10
   _bulletSpeed: 50
   _destroyTime: 5000
   _poolType: 0
