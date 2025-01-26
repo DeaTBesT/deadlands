@@ -55,7 +55,7 @@ namespace DL.SceneTransitionRuntime
         {
             _canvasLoad.SetActive(true);
             OnStartLoadScene?.Invoke(newScene);
-            var operation = SceneManager.LoadSceneAsync(newScene.ToString());
+            var operation = SceneManager.LoadSceneAsync(newScene.SceneName);
 
             yield return new WaitUntil(() =>
             {
