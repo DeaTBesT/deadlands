@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using DL.InterfacesRuntime;
-using DL.StructureRuntime.UIPanels.Interfaces;
 using DL.WorldResourceRuntime.UI;
+using UI.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IStructurePanel
+    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IPanelUI
     {
         [SerializeField] protected GameObject _renderer;
         [SerializeField] protected Button _button;

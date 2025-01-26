@@ -1,10 +1,10 @@
-﻿using DL.InterfacesRuntime;
+﻿using UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DL.UIRuntime
 {
-    public class TimerUIPanel : UIPanel, IInitialize
+    public class TimerUIPanel : UIPanel, IPanelUI
     {
         [SerializeField] private Image _imageTimer;
 

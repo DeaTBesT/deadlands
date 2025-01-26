@@ -1,5 +1,5 @@
 ﻿using DL.StructureRuntime.UIPanels.Core;
-using DL.StructureRuntime.UIPanels.Interfaces;
+using UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +9,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
     {
         [SerializeField] private Button _buttonOpenMap;
 
-        private IStructurePanel _structurePanel;
+        private IPanelUI _structurePanel;
         
         public override void Initialize(params object[] objects)
         {
@@ -18,7 +18,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
                 return;
             }
             
-            _structurePanel = objects[0] as IStructurePanel;
+            _structurePanel = objects[0] as IPanelUI;
             _buttonOpenMap.onClick.AddListener(OnClickButtonOpenMap);
             
             IsEnable = true;

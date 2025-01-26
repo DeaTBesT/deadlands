@@ -4,8 +4,8 @@ using DL.Data.Resource;
 using DL.EnumsRuntime;
 using DL.StructureRuntime.Core;
 using DL.StructureRuntime.Model;
-using DL.StructureRuntime.UIPanels.Interfaces;
 using DL.StructureRuntime.UIPanels.Core;
+using UI.Core;
 using UnityEngine;
 
 namespace DL.ConstructibleStructureRuntime.Core
@@ -16,7 +16,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
         [SerializeField] private SimpleStructurePanelUI _maxUpgradePanel;
 
-        protected List<IStructurePanel> _placePanels = new();
+        protected List<IPanelUI> _placePanels = new();
 
         private ConstructibleStructureController _constructibleStructureController;
 
@@ -32,7 +32,7 @@ namespace DL.ConstructibleStructureRuntime.Core
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
 
             //Сюда добавляем все новые панели
-            _placePanels = new List<IStructurePanel>
+            _placePanels = new List<IPanelUI>
             {
                 _generalPanel,
                 _buildPanel,
