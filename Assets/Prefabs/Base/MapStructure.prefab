@@ -1598,11 +1598,8 @@ MonoBehaviour:
   _closePanelButton: {fileID: 2487024054031795867}
   _buttonsSelectLevels:
   - button: {fileID: 199358829120124943}
-    levelName: 
-    level: 0
-  - button: {fileID: 1842862983969310708}
-    levelName: 
-    level: 1
+    levelName: Level 1
+    sceneConfig: {fileID: 11400000, guid: 14540b08942092f4f9f46961804233d1, type: 2}
 --- !u!1 &3431121165491423317
 GameObject:
   m_ObjectHideFlags: 0
