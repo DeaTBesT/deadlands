@@ -1,4 +1,5 @@
-﻿using DL.InterfacesRuntime;
+﻿using System;
+using DL.InterfacesRuntime;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace DL.CoreRuntime
     {
         [SerializeField] protected float _startHealth;
         [ShowNonSerializedField] protected float _currentHealth;
+        
+        public Action OnDeath { get; set; }
         
         public abstract int TeamId { get; }
 
@@ -19,9 +22,7 @@ namespace DL.CoreRuntime
         public abstract void TakeDamage(int teamId, float amount);
 
         //Уничтожение сущности
-        public virtual void DestroyEntity()
-        {
-            
-        }
+        public virtual void DestroyEntity() => 
+            OnDeath?.Invoke();
     }
 }
