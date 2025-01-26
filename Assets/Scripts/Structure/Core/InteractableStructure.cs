@@ -1,4 +1,5 @@
-﻿using DL.CoreRuntime;
+﻿using Data;
+using DL.CoreRuntime;
 using DL.InterfacesRuntime;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ namespace DL.StructureRuntime.Core
     [RequireComponent(typeof(Collider))]
     public sealed class InteractableStructure : MonoBehaviour, IInitialize
     {
-        private const int PlayerTeam = 1;
-        
         private IInteractable _placeController;
         
         public bool IsEnable { get; set; }
@@ -23,7 +22,7 @@ namespace DL.StructureRuntime.Core
                 return;
             }
 
-            if (entityStats.TeamId != PlayerTeam)
+            if (entityStats.TeamId != Teams.PlayerTeamId)
             {
                 return;
             }
@@ -38,7 +37,7 @@ namespace DL.StructureRuntime.Core
                 return;
             }
 
-            if (entityStats.TeamId != PlayerTeam)
+            if (entityStats.TeamId != Teams.PlayerTeamId)
             {
                 return;
             }

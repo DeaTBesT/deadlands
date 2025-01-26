@@ -1,4 +1,5 @@
 using System.Collections;
+using Data;
 using DL.AnimationsRuntime;
 using DL.CoreRuntime;
 using DL.Data.Resource;
@@ -15,8 +16,6 @@ namespace DL.WorldResourceRuntime.Common
         private const float DropItemHeight = 1.5f;
         private const float DropItemDuration = 1f;
 
-        private const int PlayerTeam = 1;
-
         [SerializeField] private int _minDropItems, _maxDropItems;
         [SerializeField] private WeightedList<ResourceDataModel> _droppableItems;
 
@@ -29,7 +28,7 @@ namespace DL.WorldResourceRuntime.Common
                 return;
             }
 
-            if (entityStats.TeamId != PlayerTeam)
+            if (entityStats.TeamId != Teams.PlayerTeamId)
             {
                 return;
             }
