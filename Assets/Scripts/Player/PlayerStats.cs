@@ -13,10 +13,5 @@ namespace DL.PlayersRuntime
                 return;
             }
         }
-
-        public override void DestroyEntity()
-        {
-            
-        }
     }
 }
