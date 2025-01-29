@@ -16,7 +16,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
         [SerializeField] private SimpleStructurePanelUI _maxUpgradePanel;
 
-        protected List<IPanelUI> _placePanels = new();
+        protected List<IPanelUI> _structurePanels = new();
 
         private ConstructibleStructureController _constructibleStructureController;
 
@@ -32,7 +32,7 @@ namespace DL.ConstructibleStructureRuntime.Core
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
 
             //Сюда добавляем все новые панели
-            _placePanels = new List<IPanelUI>
+            _structurePanels = new List<IPanelUI>
             {
                 _generalPanel,
                 _buildPanel,
@@ -102,7 +102,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         }
 
         public void ClosePanels() =>
-            _placePanels.ForEach(panel => panel.Hide());
+            _structurePanels.ForEach(panel => panel.Hide());
 
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
@@ -121,19 +121,19 @@ namespace DL.ConstructibleStructureRuntime.Core
 
         private void OpenBuildPanel()
         {
-            _placePanels.ForEach(panel => panel.Hide());
+            _structurePanels.ForEach(panel => panel.Hide());
             _buildPanel.Show();
         }
 
         private void OpenUpgradePanel()
         {
-            _placePanels.ForEach(panel => panel.Hide());
+            _structurePanels.ForEach(panel => panel.Hide());
             _upgradePanel.Show();
         }
 
         private void OpenMaxUpgradePanel()
         {
-            _placePanels.ForEach(panel => panel.Hide());
+            _structurePanels.ForEach(panel => panel.Hide());
             _maxUpgradePanel.Show();
         }
 

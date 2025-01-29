@@ -19,9 +19,9 @@ namespace DL.ConstructibleStructureRuntime.MapStructure
             
             _openMapPanel.Initialize(_selectLevelPanel);
             _generalPanel.Initialize(_openMapPanel, _constructiblePanel);
-            _placePanels.Add(_constructiblePanel);
-            _placePanels.Add(_openMapPanel);
-            _placePanels.Add(_selectLevelPanel);
+            _structurePanels.Add(_constructiblePanel);
+            _structurePanels.Add(_openMapPanel);
+            _structurePanels.Add(_selectLevelPanel);
             
             ClosePanels();
         }
