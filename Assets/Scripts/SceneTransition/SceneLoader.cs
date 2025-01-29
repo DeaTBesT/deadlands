@@ -66,6 +66,7 @@ namespace DL.SceneTransitionRuntime
             
             OnFinishLoadScene?.Invoke(newScene);
             _canvasLoad.SetActive(false);
+            _sceneLoadingRoutine = null;
         }
     }
 }
