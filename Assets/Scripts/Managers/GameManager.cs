@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DL.CoreRuntime;
 using DL.Data.Scene;
+using DL.EnumsRuntime;
+using DL.InterfacesRuntime;
+using DL.RaidRuntime;
 using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
 using UnityEngine;
@@ -9,14 +13,22 @@ using Random = UnityEngine.Random;
 
 namespace DL.ManagersRuntime
 {
-    public sealed class GameManager : Singleton<GameManager>
+    public sealed class GameManager : Singleton<GameManager>, IInitialize
     {
+        [Header("Prefabs")] 
+        [SerializeField] private bool _spawnPlayerOnStart = true;
         [SerializeField] private EntityInitializer _playerPrefab;
-        [SerializeField] private SceneLoader _sceneLoaderPrefab;
+
+        [Space, SerializeField] private SceneLoader _sceneLoaderPrefab;
+
+        private RaidManager _raidManager;
 
         private SceneLoader _sceneLoader;
-        
+        private Camera _camera;
+
         private static List<Transform> _startPositions = new();
+
+        public bool IsEnable { get; set; } = true;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStatics()
@@ -25,16 +37,20 @@ namespace DL.ManagersRuntime
             _startPositions.Clear();
         }
 
-        private void Start()
+        public void Initialize(params object[] objects)
         {
+            _raidManager = objects[0] as RaidManager;
+
+            InitializeCamera();
             InitializeSceneLoader();
             SpawnPlayer();
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() =>
             SceneLoader.OnFinishLoadScene -= OnChangedScene;
-        }
+
+        private void InitializeCamera() =>
+            _camera = Camera.main;
 
         private void InitializeSceneLoader()
         {
@@ -43,7 +59,7 @@ namespace DL.ManagersRuntime
             _sceneLoader.Initialize();
             SceneLoader.OnFinishLoadScene += OnChangedScene;
         }
-        
+
         public static void RegisterStartPosition(Transform start)
         {
             _startPositions.Add(start);
@@ -54,7 +70,7 @@ namespace DL.ManagersRuntime
         public static void UnRegisterStartPosition(Transform start) =>
             _startPositions.Remove(start);
 
-        public Transform GetStartPosition()
+        private Transform GetStartPosition()
         {
             _startPositions.RemoveAll(t => t == null);
 
@@ -63,21 +79,48 @@ namespace DL.ManagersRuntime
                 : _startPositions[Random.Range(0, _startPositions.Count)];
         }
 
-        private void SpawnPlayer()
+        private GameObject SpawnPlayer()
         {
+            if (!_spawnPlayerOnStart)
+            {
+                return null;
+            }
+
             if (_playerPrefab == null)
             {
                 Debug.LogError("Player prefab is null");
-                return;
+                return null;
             }
-            
+
             var startPos = GetStartPosition();
             var player = startPos != null
                 ? Instantiate(_playerPrefab.gameObject, startPos.position, startPos.rotation)
                 : Instantiate(_playerPrefab.gameObject, transform.position, transform.rotation);
+
+            return player;
         }
-        
-        private void OnChangedScene(SceneConfig sceneConfig) => 
-            SpawnPlayer();
+
+        private void OnChangedScene(SceneConfig sceneConfig)
+        {
+            InitializeCamera();
+            var player = SpawnPlayer();
+
+            switch (sceneConfig.TypeScene)
+            {
+                case SceneType.Lobby:
+                    _raidManager.StopRaid();
+                    break;
+                case SceneType.SafeZone:
+                    _raidManager.StopRaid();
+                    break;
+                case SceneType.Raid:
+                {
+                    _raidManager.StartRaid(player.transform, _camera);
+                }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

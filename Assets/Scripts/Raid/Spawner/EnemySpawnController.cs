@@ -1,37 +1,85 @@
 using System.Collections;
 using DL.CoreRuntime;
-using DL.UtilsRuntime;
+using DL.InterfacesRuntime;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-namespace DL.ManagersRuntime
+namespace DL.RaidRuntime.Spawners
 {
-    public class EnemySpawnManager : Singleton<EnemySpawnManager>
+    public class EnemySpawnController : MonoBehaviour, IInitialize, IDeinitialize
     {
         private const float MinSpawnAngleRadius = 0f;
         private const float MaxSpawnAngleRadius = 360f;
         private const float MaxHeightRayCast = 100f;
 
+        [SerializeField] private EntityInitializer _enemyPrefab;
+
         [SerializeField] private float _spawnRadius = 10f;
         [SerializeField] private float _spawnInterval = 2f;
-
-        [SerializeField] private EntityInitializer _enemyPrefab;
-        [SerializeField] private Transform _player;
-
         [SerializeField] private LayerMask _groundLayer;
+
+        [ShowNonSerializedField] private Transform _player;
 
         private Camera _camera;
 
-        private void Start()
+        private Coroutine _spawnRoutine;
+
+        public bool IsEnable { get; set; } = false;
+
+        public void Initialize(params object[] objects)
         {
-            _camera = Camera.main;
-            StartCoroutine(SpawnEnemies());
+            if (IsEnable)
+            {
+                return;
+            }
+
+            IsEnable = true;
+
+            _player = objects[0] as Transform;
+            _camera = objects[1] as Camera;
+
+            InitializeSpawn();
+        }
+
+        public void Deinitialize(params object[] objects)
+        {
+            if (!IsEnable)
+            {
+                return;
+            }
+
+            IsEnable = false;
+
+            DeinitializeSpawn();
+        }
+
+        private void InitializeSpawn()
+        {
+            if (_spawnRoutine != null)
+            {
+                StopCoroutine(_spawnRoutine);
+                _spawnRoutine = null;
+            }
+
+            _spawnRoutine = StartCoroutine(SpawnEnemies());
+        }
+
+        private void DeinitializeSpawn()
+        {
+            if (_spawnRoutine == null)
+            {
+                return;
+            }
+
+            StopCoroutine(_spawnRoutine);
+            _spawnRoutine = null;
         }
 
         private IEnumerator SpawnEnemies()
         {
-            while (true)
+            while (IsEnable)
             {
                 var spawnPos = GetValidSpawnPosition();
                 if (spawnPos != Vector3.zero)
@@ -84,7 +132,8 @@ namespace DL.ManagersRuntime
 
         private float GetGroundHeight(Vector3 position)
         {
-            return Physics.Raycast(new Vector3(position.x, MaxHeightRayCast, position.z), Vector3.down, out var hit, Mathf.Infinity,
+            return Physics.Raycast(new Vector3(position.x, MaxHeightRayCast, position.z), Vector3.down, out var hit,
+                Mathf.Infinity,
                 _groundLayer)
                 ? hit.point.y
                 : 0f;
