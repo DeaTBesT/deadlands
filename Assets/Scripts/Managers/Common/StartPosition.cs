@@ -1,7 +1,6 @@
-using DL.ManagersRuntime;
 using UnityEngine;
 
-namespace DL.CommonRuntime
+namespace DL.ManagersRuntime.Common
 {
     [DisallowMultipleComponent]
     public class StartPosition : MonoBehaviour
