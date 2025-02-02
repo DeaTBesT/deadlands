@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c437138062134e68a80541df62e675f5, type: 3}
-  m_Name: Test Game Resource
+  m_Name: Test World Resource
   m_EditorClassIdentifier: 
   _sortPriority: 0
   _title: empty title
