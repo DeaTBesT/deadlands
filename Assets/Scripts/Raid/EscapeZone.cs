@@ -4,6 +4,7 @@ using DL.CoreRuntime;
 using DL.InterfacesRuntime;
 using DL.UtilsRuntime.TimerSystemRuntime.Common;
 using DL.UtilsRuntime.TimerSystemRuntime.Core;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DL.RaidRuntime
@@ -11,7 +12,9 @@ namespace DL.RaidRuntime
     [DisallowMultipleComponent]
     public class EscapeZone : MonoBehaviour, IEscapeZone
     {
-        private const float EscapeTime = 5f;//В секундах
+        private const float EscapeTime = 2f;//В секундах
+     
+        [ShowNonSerializedField] private float _leftEscapeTime;
         
         private Timer _timer;
         
@@ -20,8 +23,8 @@ namespace DL.RaidRuntime
         private void Start() =>
             RaidManager.Instance.RegisterEscapeZones(this);
 
-        private void OnDestroy() => 
-            RaidManager.Instance.UnRegisterEscapeZones(this);
+        // private void OnDestroy() => 
+        //     RaidManager.Instance?.UnRegisterEscapeZones(this);
         
         private void OnTriggerEnter(Collider other)
         {
@@ -57,8 +60,8 @@ namespace DL.RaidRuntime
         {
             _timer = new SimpleTimer(this, EscapeTime)
             {
-                OnChangedTime = (float x) => Debug.Log("Left time to escape: " + x),
-                OnTimerStop = OnEscaped
+                OnTimerStop = OnEscaped,
+                OnChangedTime = x => _leftEscapeTime = x,
             };
             
             _timer.Start();
@@ -66,5 +69,9 @@ namespace DL.RaidRuntime
 
         private void StopEscapeTimer() => 
             _timer?.Stop();
+
+        [Button("Escape")]
+        private void OnEscapedButton() => 
+            OnEscaped?.Invoke();
     }
 }
