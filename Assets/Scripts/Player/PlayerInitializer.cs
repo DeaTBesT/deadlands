@@ -36,60 +36,17 @@ namespace DL.PlayersRuntime
 
         private void OnValidate()
         {
-            if (_entityStats == null)
-            {
-                _entityStats = GetComponent<EntityStats>();
-            }
-
-            if (_entityController == null)
-            {
-                _entityController = GetComponent<EntityController>();
-            }
-
-            if (_entityMovementController == null)
-            {
-                _entityMovementController = GetComponent<EntityMovementController>();
-            }
-
-            if (_entityWeaponController == null)
-            {
-                _entityWeaponController = GetComponent<WeaponController>();
-            }
-
-            if (_entityInteractionController == null)
-            {
-                _entityInteractionController = GetComponent<EntityInteractionController>();
-            }
-
-            if (_entityInventoryController == null)
-            {
-                _entityInventoryController = GetComponent<EntityInventoryController>();
-            }
-
-            if (_playerUIController == null)
-            {
-                _playerUIController = GetComponent<PlayerUIController>();
-            }
-
-            if (_inputHandler == null)
-            {
-                _inputHandler = GetComponent<InputHandler>();
-            }
-
-            if (_cameraController == null)
-            {
-                _cameraController = GetComponent<CameraController>();
-            }
-
-            if (_rigidbody == null)
-            {
-                _rigidbody = GetComponent<Rigidbody>();
-            }
-
-            if (_collider == null)
-            {
-                _collider = GetComponent<Collider>();
-            }
+            _entityStats ??= GetComponent<EntityStats>();
+            _entityController ??= GetComponent<EntityController>();
+            _entityMovementController ??= GetComponent<EntityMovementController>();
+            _entityWeaponController ??= GetComponent<WeaponController>();
+            _entityInteractionController ??= GetComponent<EntityInteractionController>();
+            _entityInventoryController ??= GetComponent<InventoryController>();
+            _playerUIController ??= GetComponent<PlayerUIController>();
+            _inputHandler ??= GetComponent<InputHandler>();
+            _cameraController ??= GetComponent<CameraController>();
+            _rigidbody ??= GetComponent<Rigidbody>();
+            _collider ??= GetComponent<Collider>();
         }
 
         public override void Initialize(params object[] objects)

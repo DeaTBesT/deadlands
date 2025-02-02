@@ -14,22 +14,13 @@ namespace DL.ManagersRuntime
             
         private void OnValidate()
         {
-            if (_gameManager == null)
-            {
-                _gameManager = GetComponent<GameManager>();
-            } 
-            
-            if (_raidManager == null)
-            {
-                _raidManager = GetComponent<RaidManager>();
-            } 
-            
-            if (_raidControllerUI == null)
-            {
-                _raidControllerUI = GetComponent<RaidControllerUI>();
-            }
+            _gameManager ??= GetComponent<GameManager>();
+            _resourceManager ??= GetComponent<ResourcesManager>();
+            _prefabPoolManager ??= GetComponent<PrefabPoolManager>();
+            _raidManager ??= GetComponent<RaidManager>();
+            _raidControllerUI ??= GetComponent<RaidControllerUI>();
         }
-        
+
         public override void Initialize(params object[] objects)
         {
             _gameManager.Initialize(_raidManager);
