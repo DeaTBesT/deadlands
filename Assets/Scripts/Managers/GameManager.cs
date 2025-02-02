@@ -26,6 +26,8 @@ namespace DL.ManagersRuntime
         private SceneLoader _sceneLoader;
         private Camera _camera;
 
+        private GameObject _currentPlayer;
+        
         private static List<Transform> _startPositions = new();
 
         public bool IsEnable { get; set; } = true;
@@ -79,7 +81,7 @@ namespace DL.ManagersRuntime
                 : _startPositions[Random.Range(0, _startPositions.Count)];
         }
 
-        private GameObject SpawnPlayer()
+        private GameObject SpawnPlayer(bool isInitialize = true)
         {
             if (!_spawnPlayerOnStart)
             {
@@ -97,14 +99,45 @@ namespace DL.ManagersRuntime
                 ? Instantiate(_playerPrefab.gameObject, startPos.position, startPos.rotation)
                 : Instantiate(_playerPrefab.gameObject, transform.position, transform.rotation);
 
+            if (isInitialize)
+            {
+                InitializePlayer(player.transform);
+            }
+
             return player;
         }
 
+        private void InitializePlayer(Transform player)
+        {
+            if (!player.TryGetComponent(out EntityInitializer entityInitializer))
+            {
+                return;
+            }
+            
+            entityInitializer.Initialize(_prefabPoolManager);
+        }
+        
+        private void OnStartLoadScene(SceneConfig sceneConfig)
+        {
+            switch (sceneConfig.TypeScene)
+            {
+                case SceneType.Lobby:
+                case SceneType.SafeZone:
+                    _raidManager.StopRaid();
+                    _resourcesManager.StopRaid();
+                    break;
+                case SceneType.Raid:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
         private void OnChangedScene(SceneConfig sceneConfig)
         {
             InitializeCamera();
-            var player = SpawnPlayer();
 
+            _currentPlayer = SpawnPlayer();
             switch (sceneConfig.TypeScene)
             {
                 case SceneType.Lobby:
