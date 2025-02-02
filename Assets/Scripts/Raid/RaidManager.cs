@@ -7,6 +7,7 @@ using DL.RaidRuntime.Spawners;
 using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
 using DL.UtilsRuntime.TimerSystemRuntime.Common;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DL.RaidRuntime
@@ -27,7 +28,6 @@ namespace DL.RaidRuntime
         public Action OnStopRaid { get; set; }
         public Action OnFinishRaidSuccess { get; set; }
         public Action OnFinishRaidFail { get; set; }
-
         public Action<float> OnRaidTimeChanged { get; set; }
 
         public bool IsEnable { get; set; }
@@ -127,12 +127,14 @@ namespace DL.RaidRuntime
         private void StopTimer() =>
             _timer?.Stop();
 
+        [Button]
         private void OnPlayerEscapedSuccess()
         {
             //Тут какие-нибудь манипуляции с камерой
             OnFinishRaidSuccess?.Invoke();
         }
 
+        [Button]
         private void OnPlayerEscapedFail()
         {
             //Тут какие-нибудь манипуляции с камерой
