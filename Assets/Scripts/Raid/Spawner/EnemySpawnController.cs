@@ -1,7 +1,6 @@
 using System.Collections;
 using DL.CoreRuntime;
 using DL.InterfacesRuntime;
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -10,6 +9,7 @@ namespace DL.RaidRuntime.Spawners
 {
     public class EnemySpawnController : MonoBehaviour, IInitialize, IDeinitialize
     {
+        //TODO: убрать "магические цисла"
         private const float MinSpawnAngleRadius = 0f;
         private const float MaxSpawnAngleRadius = 360f;
         private const float MaxHeightRayCast = 100f;
@@ -20,7 +20,7 @@ namespace DL.RaidRuntime.Spawners
         [SerializeField] private float _spawnInterval = 2f;
         [SerializeField] private LayerMask _groundLayer;
 
-        [ShowNonSerializedField] private Transform _player;
+        private Transform _player;
 
         private Camera _camera;
 
@@ -84,6 +84,7 @@ namespace DL.RaidRuntime.Spawners
                 var spawnPos = GetValidSpawnPosition();
                 if (spawnPos != Vector3.zero)
                 {
+                    //TODO: переделать под префабный пул
                     var enemyObj = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
 
                     if (enemyObj.TryGetComponent(out EntityInitializer initializer))
