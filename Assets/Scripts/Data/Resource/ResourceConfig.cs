@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DL.Data.Resource
 {
-    [CreateAssetMenu(menuName = "Game resources/New resource")]
+    [CreateAssetMenu(menuName = "World resources/New resource")]
     public class ResourceConfig : ScriptableObject
     {
         [SerializeField] private int _sortPriority = 0;
