@@ -68,8 +68,8 @@ namespace DL.PlayersRuntime
                 }
             }
 
+            var prefabPoolManager = objects[0] as PrefabPoolManager;
             var inputModule = new PlayerInputMobile(_joystick);
-            var gameResourcesManager = GameResourcesManager.Instance;
 
             // ReSharper disable Unity.NoNullPropagation
             _entityStats?.Initialize();
@@ -77,9 +77,9 @@ namespace DL.PlayersRuntime
             _inputHandler?.SetEnableLocal(true);
             _cameraController?.Initialize(_camera,
                 _entityMovementController.transform);
-            _entityWeaponController?.Initialize(_entityStats);
+            _entityWeaponController?.Initialize(_entityStats, prefabPoolManager);
             _entityMovementController?.Initialize(inputModule,
-                _rigidbody, 
+                _rigidbody,
                 _entityWeaponController);
             _entityInteractionController?.Initialize(inputModule);
             _entityController.Initialize(_entityStats,
