@@ -19,6 +19,7 @@ namespace DL.RaidRuntime
         
         [SerializeField] private SceneConfig _baseSceneConfig;
         
+        private RaidControllerUI _raidControllerUI;
         private EntityStats _playerStats;
         private SimpleTimer _timer;
 
@@ -31,25 +32,27 @@ namespace DL.RaidRuntime
 
         public bool IsEnable { get; set; }
 
-        private static List<IEscapeZone> _escapeZones = new();
+        private static readonly List<IEscapeZone> EscapeZones = new();
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void ResetStatics()
+        private static void ResetStatics(SceneConfig sceneConfig)
         {
             // reset all statics
-            _escapeZones.Clear();
+            EscapeZones.Clear();
         }
 
         public void Initialize(params object[] objects)
         {  
-            var raidControllerUI = objects[0] as RaidControllerUI;
-            raidControllerUI.Initialize(this, (Action)LoadBaseScene);
+            _raidControllerUI = objects[0] as RaidControllerUI;
+            _raidControllerUI.Initialize(this, (Action)LoadBaseScene);
+
+            SceneLoader.OnStartLoadScene += ResetStatics;
         }
         
         public void Deinitialize(params object[] objects)
         {
-            var raidControllerUI = objects[0] as RaidControllerUI;
-            raidControllerUI.Deinitialize();
+            _raidControllerUI.Deinitialize();
+            
+            SceneLoader.OnStartLoadScene -= ResetStatics;
         }
         
         public void StartRaid(Transform player, Camera playerCamera)
@@ -94,13 +97,19 @@ namespace DL.RaidRuntime
 
         public void RegisterEscapeZones(IEscapeZone escapeZone)
         {
-            _escapeZones.Add(escapeZone);
+            if (EscapeZones.Contains(escapeZone))
+            {
+                Debug.LogWarning("Zone already registered");
+                return;
+            }
+            
+            EscapeZones.Add(escapeZone);
             escapeZone.OnEscaped += OnPlayerEscapedSuccess;
         }
 
         public void UnRegisterEscapeZones(IEscapeZone escapeZone)
         {
-            _escapeZones.Remove(escapeZone);
+            EscapeZones.Remove(escapeZone);
             escapeZone.OnEscaped -= OnPlayerEscapedSuccess;
         }
 
