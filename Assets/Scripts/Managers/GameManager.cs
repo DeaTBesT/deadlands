@@ -22,7 +22,9 @@ namespace DL.ManagersRuntime
         [Space, SerializeField] private SceneLoader _sceneLoaderPrefab;
 
         private RaidManager _raidManager;
-
+        private ResourcesManager _resourcesManager;
+        private PrefabPoolManager _prefabPoolManager;
+        
         private SceneLoader _sceneLoader;
         private Camera _camera;
 
@@ -42,10 +44,17 @@ namespace DL.ManagersRuntime
         public void Initialize(params object[] objects)
         {
             _raidManager = objects[0] as RaidManager;
-
+            _resourcesManager = objects[1] as ResourcesManager;
+            _prefabPoolManager = objects[2] as PrefabPoolManager;
+            
             InitializeCamera();
             InitializeSceneLoader();
-            SpawnPlayer();
+            _currentPlayer = SpawnPlayer();
+
+            if (_resourcesManager != null)
+            {
+                _resourcesManager.Initialize(_currentPlayer);
+            }
         }
 
         private void OnDestroy() =>
@@ -137,18 +146,22 @@ namespace DL.ManagersRuntime
         {
             InitializeCamera();
 
+            _prefabPoolManager.Initialize();
+
             _currentPlayer = SpawnPlayer();
+            
+            _resourcesManager.Initialize(_currentPlayer.transform);
+            
             switch (sceneConfig.TypeScene)
             {
                 case SceneType.Lobby:
-                    _raidManager.StopRaid();
-                    break;
                 case SceneType.SafeZone:
-                    _raidManager.StopRaid();
+                    _resourcesManager.FillPlayerInventory();
                     break;
                 case SceneType.Raid:
                 {
-                    _raidManager.StartRaid(player.transform, _camera);
+                    _resourcesManager.StartRaid();
+                    _raidManager.StartRaid(_currentPlayer.transform, _camera);
                 }
                     break;
                 default:
