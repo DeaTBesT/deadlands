@@ -11,6 +11,8 @@ namespace DL.UtilsRuntime.ObjectPoolRuntime
 
         private Queue<T> _pool = new();
         
+        public Queue<T> Pool => _pool;
+        
         public PoolBase(Func<T> preloadFunc, Action<T> getAction, Action<T> returnAction, int preloadCount)
         {
             _preloadFunc = preloadFunc;

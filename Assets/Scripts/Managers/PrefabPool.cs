@@ -1,18 +1,22 @@
-﻿using DL.EnumsRuntime;
+﻿using System.Linq;
+using DL.EnumsRuntime;
+using DL.InterfacesRuntime;
 using DL.UtilsRuntime.ObjectPoolRuntime;
 using UnityEngine;
 
 namespace DL.ManagersRuntime
 {
-    public class PrefabPool : MonoBehaviour
+    public class PrefabPool : MonoBehaviour, IInitialize
     {
         [SerializeField] private GameObject _prefab;
         [SerializeField] private int _preloadCount;
         [SerializeField] private PoolType _poolType;
-        
+
         private GameObjectPool _objectPool;
 
         public PoolType TypePool => _poolType;
+
+        public bool IsEnable { get; set; }
 
         private void OnValidate()
         {
@@ -20,8 +24,15 @@ namespace DL.ManagersRuntime
             gameObject.name = str;
         }
 
-        private void Start() => 
+        public void Initialize(params object[] objects)
+        {
+            if (_objectPool != null)
+            {
+                ClearPool();
+            }
+
             _objectPool = new GameObjectPool(_prefab, _preloadCount, transform);
+        }
 
         public GameObject Get(Transform owner)
         {
@@ -32,7 +43,17 @@ namespace DL.ManagersRuntime
             return @object;
         }
 
-        public void Return(GameObject @object) => 
+        public void Return(GameObject @object) =>
             _objectPool.Return(@object);
+
+        private void ClearPool()
+        {
+            foreach (var @object in _objectPool.Pool.Where(@object => @object != null))
+            {
+                Destroy(@object);
+            }
+
+            _objectPool.Pool.Clear();
+        }
     }
 }
