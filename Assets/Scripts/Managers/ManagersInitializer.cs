@@ -7,11 +7,12 @@ namespace DL.ManagersRuntime
     public class ManagersInitializer : EntityInitializer
     {
         [SerializeField] private GameManager _gameManager;
-        
-        [Header("Raid")]
-        [SerializeField] private RaidManager _raidManager;
-        [SerializeField] private RaidControllerUI _raidControllerUI; 
-            
+        [SerializeField] private ResourcesManager _resourceManager;
+        [SerializeField] private PrefabPoolManager _prefabPoolManager;
+
+        [Header("Raid")] [SerializeField] private RaidManager _raidManager;
+        [SerializeField] private RaidControllerUI _raidControllerUI;
+
         private void OnValidate()
         {
             _gameManager ??= GetComponent<GameManager>();
@@ -23,11 +24,11 @@ namespace DL.ManagersRuntime
 
         public override void Initialize(params object[] objects)
         {
-            _gameManager.Initialize(_raidManager);
+            _gameManager.Initialize(_raidManager, _resourceManager, _prefabPoolManager);
             _raidManager.Initialize(_raidControllerUI);
         }
 
         public override void Deinitialize(params object[] objects) => 
-            _raidManager.Deinitialize(_raidControllerUI);
+            _raidManager.Deinitialize();
     }
 }
