@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94c44ddf8db5c940ab0a7e5dc2d81d1, type: 3}
   m_Name: BaseLevel
   m_EditorClassIdentifier: 
-  _sceneName: TestScene
+  _sceneName: TestBaseScene
   _sceneType: 1
