@@ -10,20 +10,9 @@ namespace DL.ConstructibleStructureRuntime.Core
 
         private void OnValidate()
         {
-            if (_structureController == null)
-            {
-                _structureController = GetComponent<ConstructibleStructureController>();
-            } 
-            
-            if (_placeControllerUI == null)
-            {
-                _placeControllerUI = GetComponent<ConstructibleStructureControllerUI>();
-            }
-            
-            if (_interactableStructure == null)
-            {
-                _interactableStructure = GetComponent<InteractableStructure>();
-            }
+            _structureController ??= GetComponent<ConstructibleStructureController>();
+            _placeControllerUI ??= GetComponent<ConstructibleStructureControllerUI>();
+            _interactableStructure ??= GetComponent<InteractableStructure>();
         }
 
         public override void Initialize(params object[] objects)
