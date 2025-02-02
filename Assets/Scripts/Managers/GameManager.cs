@@ -34,8 +34,7 @@ namespace DL.ManagersRuntime
 
         public bool IsEnable { get; set; } = true;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void ResetStatics()
+        private static void ResetStatics(SceneConfig sceneConfig)
         {
             // reset all statics
             _startPositions.Clear();
@@ -57,8 +56,12 @@ namespace DL.ManagersRuntime
             }
         }
 
-        private void OnDestroy() =>
+        private void OnDestroy()
+        {
+            SceneLoader.OnStartLoadScene -= OnStartLoadScene;
+            SceneLoader.OnStartLoadScene -= ResetStatics;
             SceneLoader.OnFinishLoadScene -= OnChangedScene;
+        }
 
         private void InitializeCamera() =>
             _camera = Camera.main;
@@ -68,6 +71,8 @@ namespace DL.ManagersRuntime
             var sceneLoaderObj = Instantiate(_sceneLoaderPrefab, transform);
             sceneLoaderObj.TryGetComponent(out _sceneLoader);
             _sceneLoader.Initialize();
+            SceneLoader.OnStartLoadScene += OnStartLoadScene;
+            SceneLoader.OnStartLoadScene += ResetStatics;
             SceneLoader.OnFinishLoadScene += OnChangedScene;
         }
 
