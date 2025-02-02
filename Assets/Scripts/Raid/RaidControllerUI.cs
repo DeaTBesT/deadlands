@@ -97,6 +97,7 @@ namespace DL.RaidRuntime
         private void OnStopRaid()
         {
             _raidPanel.Hide();
+            ClosePanels();
         }
 
         private void OnFinishRaidSuccess()
