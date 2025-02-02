@@ -1,6 +1,7 @@
 ﻿using DL.CoreRuntime;
 using DL.InputModuleRuntime;
 using DL.InputModuleRuntime.Modules;
+using DL.InventorySystem.Core;
 using DL.ManagersRuntime;
 using DL.WeaponSystem.Core;
 using JoystickRuntime;
@@ -18,7 +19,7 @@ namespace DL.PlayersRuntime
         [SerializeField] private EntityMovementController _entityMovementController;
         [SerializeField] private WeaponController _entityWeaponController;
         [SerializeField] private EntityInteractionController _entityInteractionController;
-        [SerializeField] private EntityInventoryController _entityInventoryController;
+        [SerializeField] private InventoryController _entityInventoryController;
         [SerializeField] private PlayerUIController _playerUIController;
         [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private CameraController _cameraController;
@@ -87,8 +88,8 @@ namespace DL.PlayersRuntime
                 _entityWeaponController,
                 _collider,
                 _graphics);
-            _entityInventoryController?.Initialize(gameResourcesManager);
-            _playerUIController?.Initialize(gameResourcesManager);
+            _entityInventoryController?.Initialize();
+            _playerUIController?.Initialize(_entityInventoryController);
 
             IsInitialized = true;
         }
