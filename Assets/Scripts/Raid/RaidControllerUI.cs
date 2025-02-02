@@ -26,10 +26,15 @@ namespace DL.RaidRuntime
 
         private Action _loadAction;
 
-        public bool IsEnable { get; set; } = true;
+        public bool IsEnable { get; set; }
 
         public void Initialize(params object[] objects)
         {
+            if (IsEnable)
+            {
+                return;
+            }
+
             _raidManager = objects[0] as RaidManager;
             _loadAction = (Action)objects[1];
 
@@ -56,10 +61,17 @@ namespace DL.RaidRuntime
             };
 
             ClosePanels();
+
+            IsEnable = true;
         }
 
         public void Deinitialize(params object[] objects)
         {
+            if (!IsEnable)
+            {
+                return;
+            }
+
             if (_confirmButton != null)
             {
                 _confirmButton.onClick.RemoveListener(OnConfirmButtonClicked);
@@ -73,6 +85,8 @@ namespace DL.RaidRuntime
                 _raidManager.OnFinishRaidFail -= OnFinishRaidFail;
                 _raidManager.OnRaidTimeChanged -= OnUpdateRaidTimer;
             }
+
+            IsEnable = false;
         }
 
         private void OnStartRaid()
