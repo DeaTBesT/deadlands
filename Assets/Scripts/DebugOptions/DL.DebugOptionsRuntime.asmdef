@@ -1,4 +1,4 @@
 {
 	"name": "DL.DebugOptionsRuntime",
-	"references":[ "GUID:464655714b7a58c49984ea9b74436035" ]
+	"references":[ "GUID:464655714b7a58c49984ea9b74436035", "GUID:9779c36f9f834424bab317bbf2b6a100" ]
 }
