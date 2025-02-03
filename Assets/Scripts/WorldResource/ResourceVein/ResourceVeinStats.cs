@@ -1,4 +1,5 @@
-﻿using DL.CoreRuntime;
+﻿using Data;
+using DL.CoreRuntime;
 using DL.WorldResourceRuntime.Core;
 using UnityEngine;
 
@@ -8,29 +9,29 @@ namespace DL.WorldResourceRuntime.ResourceVein
     {
         private ResourceSpawner _resourceSpawner;
         
-        public override int TeamId => 100;
+        public override int TeamId => Teams.ResourceVeinTeamId;
 
         public override void Initialize(params object[] objects) => 
             _resourceSpawner = objects[0] as ResourceSpawner;
 
-        public override void TakeDamage(int teamId, float amount)
+        public override bool TryApplyDamage(int teamId, float amount)
         {
             if (teamId == TeamId)
             {
-                return;
+                return false;
             }
 
-            if (_currentHealth - amount > 0)
+            _currentHealth -= Mathf.Clamp(_currentHealth - amount, 0, float.MaxValue);
+            
+            if (_currentHealth  > 0)
             {
-                TakeDamage(amount);
-                return;
+                return true;
             }
             
             DestroyEntity();
-        }
 
-        private void TakeDamage(float amount) => 
-            _currentHealth -= Mathf.Clamp(_currentHealth - amount, 0, float.MaxValue);
+            return true;
+        }
 
         public override void DestroyEntity()
         {

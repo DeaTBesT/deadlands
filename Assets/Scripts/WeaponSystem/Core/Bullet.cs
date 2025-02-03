@@ -44,7 +44,7 @@ namespace DL.WeaponSystem.Core
         {
             if (other.TryGetComponent(out EntityStats entityStats))
             {
-                entityStats.TakeDamage(_teamId, _damage);
+                entityStats.TryApplyDamage(_teamId, _damage);
             }
 
             ForceDestroy();

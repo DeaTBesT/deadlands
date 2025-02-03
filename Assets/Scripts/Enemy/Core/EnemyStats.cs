@@ -1,11 +1,12 @@
-﻿using DL.CoreRuntime;
+﻿using Data;
+using DL.CoreRuntime;
 using UnityEngine;
 
 namespace DL.StructureRuntime.UIPanels.Core
 {
     public class EnemyStats : EntityStats
     {
-        public override int TeamId => 2;
+        public override int TeamId => Teams.EnemyTeamId;
         
         public override bool TryApplyDamage(int teamId, float amount)
         {
