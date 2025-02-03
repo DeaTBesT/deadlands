@@ -46,6 +46,10 @@ namespace DL.InventorySystem.Core
         {
         }
 
+        public virtual void RemoveResources(List<ResourceDataModel> resourcesData)
+        {
+        }
+
         public virtual List<ResourceDataModel> TakeResources()
         {
             return null;

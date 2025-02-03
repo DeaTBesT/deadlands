@@ -24,6 +24,8 @@ namespace DL.CoreRuntime
         void DropAllResources();
 
         void AddResources(List<ResourceDataModel> resourcesData);
+        void RemoveResources(List<ResourceDataModel> resourcesData);
+        
         List<ResourceDataModel> TakeResources();
     }
 }

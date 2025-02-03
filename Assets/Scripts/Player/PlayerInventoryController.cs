@@ -88,6 +88,12 @@ namespace DL.PlayersRuntime
             OnChangedResourcesData?.Invoke(_resourcesData);
         }
 
+        public override void RemoveResources(List<ResourceDataModel> resourcesData)
+        {
+            resourcesData.ForEach(RemoveResource);
+            OnChangedResourcesData?.Invoke(_resourcesData);
+        }
+
         public override List<ResourceDataModel> TakeResources()
         {
             var tookResourcesData = new List<ResourceDataModel>();
