@@ -46,6 +46,8 @@ namespace DL.ManagersRuntime
             _resourcesManager = objects[1] as ResourcesManager;
             _prefabPoolManager = objects[2] as PrefabPoolManager;
             
+            _prefabPoolManager.Initialize();
+            
             InitializeCamera();
             InitializeSceneLoader();
             _currentPlayer = SpawnPlayer();
