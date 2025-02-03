@@ -7,19 +7,23 @@ namespace DL.StructureRuntime.UIPanels.Core
     {
         public override int TeamId => 2;
         
-        public override void TakeDamage(int teamId, float amount)
+        public override bool TryApplyDamage(int teamId, float amount)
         {
             if ((!IsEnable) || (teamId == TeamId))
             {
-                return;
+                return false;
             }
             
             _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, float.MaxValue);
 
-            if (_currentHealth <= 0)
+            if (_currentHealth > 0)
             {
-                DestroyEntity();
+                return true;
             }
+            
+            DestroyEntity();
+            
+            return true;
         }
 
         public override void DestroyEntity() => 

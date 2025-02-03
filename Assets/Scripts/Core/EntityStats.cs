@@ -19,7 +19,7 @@ namespace DL.CoreRuntime
         public virtual void Initialize(params object[] objects) => 
             _currentHealth = _startHealth;
 
-        public abstract void TakeDamage(int teamId, float amount);
+        public abstract bool TryApplyDamage(int teamId, float amount);
 
         //Уничтожение сущности
         public virtual void DestroyEntity() => 

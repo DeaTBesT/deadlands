@@ -8,11 +8,13 @@ namespace DL.PlayersRuntime
         public override int TeamId => Teams.PlayerTeamId;
 
         public override void TakeDamage(int teamId, float amount)
+        public override bool TryApplyDamage(int teamId, float amount)
         {
             if (!IsEnable)
             {
-                return;
+                return false;
             }
+            return true;
         }
     }
 }
