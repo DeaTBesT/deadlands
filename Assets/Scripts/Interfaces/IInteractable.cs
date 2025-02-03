@@ -1,8 +1,10 @@
-﻿namespace DL.InterfacesRuntime
+﻿using UnityEngine;
+
+namespace DL.InterfacesRuntime
 {
     public interface IInteractable
     {
-        void Interact();
+        bool TryInteract(Transform interactor);
         void FinishInteract();
     }
 }

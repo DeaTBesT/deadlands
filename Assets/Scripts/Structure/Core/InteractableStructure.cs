@@ -41,12 +41,12 @@ namespace DL.StructureRuntime.Core
             {
                 return;
             }
-
+            
             FinishInteract();
         }
 
-        private void InteractPlace() =>
-            _placeController.Interact();
+        private void InteractPlace(Transform interactor) => 
+            _placeController.TryInteract(interactor);
 
         private void FinishInteract() =>
             _placeController.FinishInteract();
