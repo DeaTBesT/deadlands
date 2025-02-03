@@ -143,6 +143,7 @@ namespace DL.ManagersRuntime
                     _resourcesManager.StopRaid();
                     break;
                 case SceneType.Raid:
+                    _resourcesManager.StartRaid();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -167,7 +168,6 @@ namespace DL.ManagersRuntime
                     break;
                 case SceneType.Raid:
                 {
-                    _resourcesManager.StartRaid();
                     _raidManager.StartRaid(_currentPlayer.transform, _camera);
                 }
                     break;
