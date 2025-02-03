@@ -27,7 +27,12 @@ namespace DL.StructureRuntime.Core
                 return;
             }
             
-            InteractPlace();            
+            if (!other.TryGetComponent(out IInventoryController inventoryController))
+            {
+                return;
+            }
+            
+            InteractPlace(other.transform);            
         }
 
         private void OnTriggerExit(Collider other)
