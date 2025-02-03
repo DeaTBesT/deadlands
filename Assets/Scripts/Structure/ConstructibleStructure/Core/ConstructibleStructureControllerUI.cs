@@ -43,8 +43,11 @@ namespace DL.ConstructibleStructureRuntime.Core
             ClosePanels();
         }
 
-        public override void Interact() => 
+        public override bool TryInteract(Transform interactor)
+        {
             OpenPanel();
+            return true;
+        }
 
         public override void FinishInteract() =>
             ClosePanels();
@@ -107,7 +110,10 @@ namespace DL.ConstructibleStructureRuntime.Core
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
         {
-            _constructibleStructureController.TryBuildPlace();
+            if (!_constructibleStructureController.TryBuildPlace())
+            {
+                return;
+            }
 
             _buildPanel.Hide();
             _upgradePanel.Show();
