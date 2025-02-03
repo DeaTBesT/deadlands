@@ -7,17 +7,19 @@ namespace DL.CoreRuntime
 {
     public interface IInventoryController : IInitialize, IDeinitialize
     {
-        public Action<ResourceDataModel> OnAddResource { get; set; }
-        public Action<List<ResourceDataModel>> OnChangedResourcesData { get; set; }
-        public Action<ResourceDataModel> OnRemoveResource { get; set; }
-        public Action<ResourceDataModel> OnDropResource { get; set; }
-        public Action OnDropAllResources { get; set; }
+        List<ResourceDataModel> ResourcesData { get; }
+
+        Action<ResourceDataModel> OnAddResource { get; set; }
+        Action<List<ResourceDataModel>> OnChangedResourcesData { get; set; }
+        Action<ResourceDataModel> OnRemoveResource { get; set; }
+        Action<ResourceDataModel> OnDropResource { get; set; }
+        Action OnDropAllResources { get; set; }
 
         void SetInfinityInventory(bool isInfinity);
-        
+
         bool TryAddResource(ResourceDataModel resourceData);
         void RemoveResource(ResourceDataModel resourceData);
-        
+
         void DropResource(ResourceDataModel resourceData);
         void DropAllResources();
 

@@ -13,10 +13,6 @@ namespace DL.PlayersRuntime
 
         private ResourcesManager _resourcesManager;
 
-        private List<ResourceDataModel> _resourcesData = new();
-
-        public List<ResourceDataModel> ResourcesData => _resourcesData;
-
         public override bool TryAddResource(ResourceDataModel resource)
         {
             if ((!_isInfinityInventory) && (CountResources() + resource.AmountResource > InventoryLimit))

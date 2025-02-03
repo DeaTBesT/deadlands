@@ -9,7 +9,11 @@ namespace DL.InventorySystem.Core
     public abstract class InventoryController : MonoBehaviour, IInventoryController
     {
         protected bool _isInfinityInventory;
-        
+
+        protected List<ResourceDataModel> _resourcesData = new();
+
+        public List<ResourceDataModel> ResourcesData => _resourcesData;
+
         public Action<ResourceDataModel> OnAddResource { get; set; }
         public Action<List<ResourceDataModel>> OnChangedResourcesData { get; set; }
         public Action<ResourceDataModel> OnRemoveResource { get; set; }
@@ -27,7 +31,7 @@ namespace DL.InventorySystem.Core
             throw new System.NotImplementedException();
         }
 
-        public void SetInfinityInventory(bool isInfinity) => 
+        public void SetInfinityInventory(bool isInfinity) =>
             _isInfinityInventory = isInfinity;
 
         public abstract bool TryAddResource(ResourceDataModel resourceData);
