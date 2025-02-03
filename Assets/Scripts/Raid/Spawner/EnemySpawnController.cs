@@ -9,10 +9,11 @@ namespace DL.RaidRuntime.Spawners
 {
     public class EnemySpawnController : MonoBehaviour, IInitialize, IDeinitialize
     {
-        //TODO: убрать "магические цисла"
         private const float MinSpawnAngleRadius = 0f;
         private const float MaxSpawnAngleRadius = 360f;
         private const float MaxHeightRayCast = 100f;
+        private const int MaxSpawnAttempts = 10;
+        private const float NavMeshMaxDistancePosition = 1f;
 
         [SerializeField] private EntityInitializer _enemyPrefab;
 
@@ -99,7 +100,7 @@ namespace DL.RaidRuntime.Spawners
 
         private Vector3 GetValidSpawnPosition()
         {
-            var maxAttempts = 10;
+            var maxAttempts = MaxSpawnAttempts;
             while (maxAttempts > 0)
             {
                 var spawnPoint = GetSpawnPosition();
@@ -141,11 +142,13 @@ namespace DL.RaidRuntime.Spawners
         }
 
         private bool IsInsideNavMesh(Vector3 position) =>
-            NavMesh.SamplePosition(position, out _, 1.0f, NavMesh.AllAreas);
+            NavMesh.SamplePosition(position, out _, NavMeshMaxDistancePosition, NavMesh.AllAreas);
 
         private float GetCameraViewRadius()
         {
-            var screenCorner = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
+            var point = Vector3.one;
+            point.z = _camera.nearClipPlane;
+            var screenCorner = _camera.ViewportToWorldPoint(point);
             return Vector3.Distance(_player.transform.position, screenCorner);
         }
     }
