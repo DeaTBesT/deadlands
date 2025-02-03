@@ -24,7 +24,7 @@ namespace DL.PlayersRuntime
                 return false;
             }
 
-            if (teamId == Teams.PlayerTeamId)
+            if (teamId == TeamId)
             {
                 return false;
             }

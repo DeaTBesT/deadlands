@@ -10,7 +10,7 @@ namespace DL.DebugOptionsRuntime
 
         public override bool TryApplyDamage(int teamId, float amount)
         {
-            if (teamId == Teams.DummyTeamId)
+            if (teamId == TeamId)
             {
                 return false;
             }
