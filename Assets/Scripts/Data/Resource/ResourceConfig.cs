@@ -1,10 +1,11 @@
-﻿using DL.EnumsRuntime;
+﻿using Data.Core;
+using DL.EnumsRuntime;
 using UnityEngine;
 
 namespace DL.Data.Resource
 {
     [CreateAssetMenu(menuName = "World resources/New resource")]
-    public class ResourceConfig : ScriptableObject
+    public class ResourceConfig : ItemConfig
     {
         [SerializeField] private int _sortPriority = 0;
         

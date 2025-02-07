@@ -4,7 +4,8 @@
     "references": [
         "GUID:0e1659ee92fb9b84688930174d5a3dd6",
         "GUID:d7738fc2d4b5e6e4a89836299b49e653",
-        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
+        "DL.Data.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

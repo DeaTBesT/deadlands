@@ -1,16 +1,18 @@
-﻿using DL.InterfacesRuntime;
+﻿using Data.Core;
+using DL.InterfacesRuntime;
 using UnityEngine;
 
 namespace DL.Data.Resource
 {
     [System.Serializable]
-    public class ResourceDataModel
+    public class ResourceDataModel : ItemModel
     {
         [SerializeField] private ResourceConfig _resourceConfig;
         [SerializeField] private int _amount;
 
         public ResourceConfig ResourceConfig => _resourceConfig;
         public int AmountResource => _amount;
+        public override GameObject ItemPrefab => _resourceConfig.ResourcePrefab;
 
         public ResourceDataModel(ResourceConfig resourceConfig, int amount)
         {
@@ -26,50 +28,29 @@ namespace DL.Data.Resource
 
         public void RemoveResource(int amount) =>
             _amount = Mathf.Clamp(_amount - amount, 0, int.MaxValue);
-
-        public static GameObject InstantiateResource(ResourceDataModel resourceDataModel, Transform spawnPosition)
+        
+        public static GameObject InstantiateResource(ResourceDataModel itemModel, Transform spawnPosition)
         {
-            if (resourceDataModel == null)
-            {
-#if UNITY_EDITOR
-                Debug.LogError("Resource data isn't exist");
-#endif
-                return null;
-            }
+            var newItem = InstantiateItem(itemModel, spawnPosition);
             
-            var newResource = Object.Instantiate(resourceDataModel.ResourceConfig.ResourcePrefab, spawnPosition);
-            newResource.transform.parent = null;
-            newResource.transform.position = spawnPosition.position;
-            newResource.transform.rotation = spawnPosition.rotation;
+            if (newItem.TryGetComponent(out IWorldResource gameResource))
+            {
+                gameResource.SetAmount(itemModel.AmountResource);
+            }
 
-            if (newResource.TryGetComponent(out IWorldResource gameResource))
-            {
-                gameResource.SetAmount(resourceDataModel.AmountResource);
-            }
-            
-            return newResource;
+            return newItem;
         }
-
-        public static GameObject InstantiateResource(ResourceDataModel resourceDataModel, Vector3 spawnPosition, Quaternion spawnRotation = default)
+        
+        public static GameObject InstantiateResource(ResourceDataModel itemModel, Vector3 spawnPosition, Quaternion spawnRotation = default)
         {
-            if (resourceDataModel == null)
+            var newItem = InstantiateItem(itemModel, spawnPosition, spawnRotation);
+            
+            if (newItem.TryGetComponent(out IWorldResource gameResource))
             {
-#if UNITY_EDITOR
-                Debug.LogError("Resource data isn't exist");
-#endif
-                return null;
+                gameResource.SetAmount(itemModel.AmountResource);
             }
 
-            var newResource = Object.Instantiate(resourceDataModel.ResourceConfig.ResourcePrefab, spawnPosition, spawnRotation);
-            newResource.transform.position = spawnPosition;
-            newResource.transform.rotation = spawnRotation;
-
-            if (newResource.TryGetComponent(out IWorldResource gameResource))
-            {
-                gameResource.SetAmount(resourceDataModel.AmountResource);
-            }
-
-            return newResource;
+            return newItem;
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Data.Core;
+using UnityEngine;
 
 namespace DL.Data.Weapon
 {
     [CreateAssetMenu(menuName = "Weapon/New weapon config", fileName = "Weapon config")]
-    public class WeaponConfig : ScriptableObject
+    public class WeaponConfig : ItemConfig
     {
         [Header("Info")] 
         [SerializeField] private string _title = "New weapon";        

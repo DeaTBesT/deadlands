@@ -1,4 +1,4 @@
 {
 	"name": "DL.WeaponSystemRuntime.Melee",
-	"references":[ "GUID:112780baccf9d934b862284b8d32542b", "GUID:464655714b7a58c49984ea9b74436035", "GUID:9779c36f9f834424bab317bbf2b6a100" ]
+	"references":[ "GUID:112780baccf9d934b862284b8d32542b", "GUID:464655714b7a58c49984ea9b74436035", "GUID:9779c36f9f834424bab317bbf2b6a100", "DL.Data.Core" ]
 }
