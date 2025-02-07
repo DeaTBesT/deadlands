@@ -1,6 +1,7 @@
 ﻿using Data.Core;
 using DL.EnumsRuntime;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DL.Data.Resource
 {
@@ -8,20 +9,11 @@ namespace DL.Data.Resource
     public class ResourceConfig : ItemConfig
     {
         [SerializeField] private int _sortPriority = 0;
-        
-        [SerializeField] private string _title = "empty title";
-        [SerializeField] private string _description = "empty description";
-
-        [SerializeField] private Sprite _resourceSprite;
-
         [SerializeField] private ResourceType _resourceType;
 
         [SerializeField] private GameObject _resourcePrefab;
 
         public int SortPriority => _sortPriority;
-        public string Title => _title;
-        public string Description => _description;
-        public Sprite ResourceSprite => _resourceSprite;
         public ResourceType TypeResource => _resourceType;
         public GameObject ResourcePrefab => _resourcePrefab;
     }
