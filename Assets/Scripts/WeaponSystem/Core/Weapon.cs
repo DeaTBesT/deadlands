@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DL.WeaponSystem.Core
 {
-    public abstract class Weapon : MonoBehaviour, IInitialize, IWeapon
+    public abstract class Weapon : MonoBehaviour, IWeapon
     {
         [SerializeField] protected WeaponConfig _weaponConfig;
 
@@ -18,8 +18,8 @@ namespace DL.WeaponSystem.Core
         public GameObject GetObject => gameObject;
 
         public bool IsEnable { get; set; }
-        
-        public virtual void Initialize(params object[] objects) => 
+
+        public virtual void Initialize(params object[] objects) =>
             _entityStats = objects[0] as EntityStats;
 
         public virtual void Deinitialize()

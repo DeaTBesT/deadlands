@@ -11,18 +11,18 @@ namespace DL.CoreRuntime
         [ShowNonSerializedField] protected float _currentHealth;
         
         public Action OnDeath { get; set; }
-        
+
         public abstract int TeamId { get; }
 
         public virtual bool IsEnable { get; set; } = true;
-        
-        public virtual void Initialize(params object[] objects) => 
+
+        public virtual void Initialize(params object[] objects) =>
             _currentHealth = _startHealth;
 
         public abstract bool TryApplyDamage(int teamId, float amount);
 
         //Уничтожение сущности
-        public virtual void DestroyEntity() => 
+        public virtual void DestroyEntity() =>
             OnDeath?.Invoke();
     }
 }

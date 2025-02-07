@@ -28,11 +28,11 @@ namespace DL.Data.Resource
 
         public void RemoveResource(int amount) =>
             _amount = Mathf.Clamp(_amount - amount, 0, int.MaxValue);
-        
+
         public static GameObject InstantiateResource(ResourceDataModel itemModel, Transform spawnPosition)
         {
             var newItem = InstantiateItem(itemModel, spawnPosition);
-            
+
             if (newItem.TryGetComponent(out IWorldResource gameResource))
             {
                 gameResource.SetAmount(itemModel.AmountResource);
@@ -40,11 +40,12 @@ namespace DL.Data.Resource
 
             return newItem;
         }
-        
-        public static GameObject InstantiateResource(ResourceDataModel itemModel, Vector3 spawnPosition, Quaternion spawnRotation = default)
+
+        public static GameObject InstantiateResource(ResourceDataModel itemModel, Vector3 spawnPosition,
+            Quaternion spawnRotation = default)
         {
             var newItem = InstantiateItem(itemModel, spawnPosition, spawnRotation);
-            
+
             if (newItem.TryGetComponent(out IWorldResource gameResource))
             {
                 gameResource.SetAmount(itemModel.AmountResource);

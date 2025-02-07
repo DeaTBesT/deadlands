@@ -32,6 +32,7 @@ namespace DL.StructureRuntime.UIPanels.StructuresPanels
             IsEnable = true;
         }
 
+        //TODO: сделать генерацию кнопок
         private void InitializeButtons()
         {
             _closePanelButton.onClick.AddListener(OnClickClosePanelButton);

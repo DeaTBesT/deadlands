@@ -73,7 +73,7 @@ namespace DL.PlayersRuntime
             var inputModule = new PlayerInputMobile(_joystick);
 
             // ReSharper disable Unity.NoNullPropagation
-            _entityStats?.Initialize();
+            _entityStats?.Initialize(_entityInventoryController);
             _inputHandler?.Initialize(inputModule);
             _inputHandler?.SetEnableLocal(true);
             _cameraController?.Initialize(_camera,
