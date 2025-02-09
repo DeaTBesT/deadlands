@@ -613,6 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startHealth: 0
+  _currentHealth: 0
 --- !u!4 &1214076009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7126274411898451329, guid: 8688484edcc125148b8c774e233eb6f6, type: 3}
@@ -1227,7 +1228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5198486239267973221, guid: 6d972cd5c6b5fd945bbe4163d9e84575, type: 3}
       propertyPath: _buttonsSelectLevels.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198486239267973221, guid: 6d972cd5c6b5fd945bbe4163d9e84575, type: 3}
       propertyPath: _buttonsSelectLevels.Array.data[1].button
