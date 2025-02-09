@@ -1,24 +1,21 @@
 ﻿using System.Collections.Generic;
+using DL.UIRuntime;
 using DL.WorldResourceRuntime.UI;
-using UI.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace DL.StructureRuntime.UIPanels.Core
 {
-    public abstract class AdvancedStructurePanelUI : MonoBehaviour, IPanelUI
+    public abstract class AdvancedStructurePanelUI : UIPanel
     {
-        [SerializeField] protected GameObject _renderer;
         [SerializeField] protected Button _button;
         [SerializeField] protected Transform _requiredResourcesParent;
         [SerializeField] protected ResourceDataUI _requiredResourcesPrefab;
         
         protected List<ResourceDataUI> _resourcesDataUI = new();
 
-        public bool IsEnable { get; set; }
-
-        public virtual void Initialize(params object[] objects)
+        public override  void Initialize(params object[] objects)
         {
             if (IsEnable)
             {
@@ -27,13 +24,7 @@ namespace DL.StructureRuntime.UIPanels.Core
             
             IsEnable = true;
         }
-        
-        public virtual void Show() =>
-            _renderer.SetActive(true);
 
-        public virtual void Hide() => 
-            _renderer.SetActive(false);
-        
         protected void ClearRequiredResourcesPanel()
         {
             if (_requiredResourcesParent == null)
