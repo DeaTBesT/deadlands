@@ -115,5 +115,30 @@ namespace DL.ManagersRuntime
 
         public void RemoveResources(List<ResourceDataModel> resourcesData) =>
             resourcesData.ForEach(resource => RemoveResource(resource.ResourceConfig, resource.AmountResource));
+
+        //Для дебага
+        public void AddPlayerResources(List<ResourceDataModel> resourcesData)
+        {
+            if (_inventoryController == null)
+            {
+                Debug.LogError("Inventory controller is null");
+                
+                return;
+            }
+            
+            _inventoryController.AddResources(resourcesData);
+        }
+
+        public void RemovePlayerResources(List<ResourceDataModel> resourcesData)
+        {
+            if (_inventoryController == null)
+            {
+                Debug.LogError("Inventory controller is null");
+                
+                return;
+            }
+            
+            _inventoryController.RemoveResources(resourcesData);
+        }
     }
 }
