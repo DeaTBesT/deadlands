@@ -21,7 +21,7 @@ namespace DL.PlayersRuntime
             }
 
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
             if (resourceData != null)
             {
@@ -40,7 +40,7 @@ namespace DL.PlayersRuntime
         public override void RemoveResource(ResourceDataModel resource)
         {
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
             if (resourceData.AmountResource - resource.AmountResource > 0)
             {
@@ -61,7 +61,7 @@ namespace DL.PlayersRuntime
             _resourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
 
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
             if (resourceData == null)
             {

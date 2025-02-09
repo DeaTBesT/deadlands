@@ -152,7 +152,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         private bool IsEnoughResource(ResourceDataModel resource)
         {
             return _currentRequiredResources.Any(x =>
-                (x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource) &&
+                (x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare) &&
                 (x.AmountResource <= resource.AmountResource));
         }
 

@@ -61,7 +61,7 @@ namespace DL.PlayersRuntime
         private void OnAddResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeRare == data.ResourceConfig.TypeRare);
 
             if (resourceDataUI != null)
             {
@@ -70,7 +70,7 @@ namespace DL.PlayersRuntime
             }
 
 #if UNITY_EDITOR
-            Debug.LogError($"None resource data UI. Resource type: {data.ResourceConfig.TypeResource}");
+            Debug.LogError($"None resource data UI. Resource type: {data.ResourceConfig.TypeRare}");
 #endif
         }
 
@@ -80,7 +80,7 @@ namespace DL.PlayersRuntime
         private void OnRemoveResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeRare == data.ResourceConfig.TypeRare);
 
             if (resourceDataUI != null)
             {

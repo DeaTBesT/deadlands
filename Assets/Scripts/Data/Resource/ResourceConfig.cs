@@ -9,12 +9,11 @@ namespace DL.Data.Resource
     public class ResourceConfig : ItemConfig
     {
         [SerializeField] private int _sortPriority = 0;
-        [SerializeField] private ResourceType _resourceType;
-
+        [SerializeField] private RareType _rareType;
         [SerializeField] private GameObject _resourcePrefab;
 
         public int SortPriority => _sortPriority;
-        public ResourceType TypeResource => _resourceType;
+        public RareType TypeRare => _rareType;
         public GameObject ResourcePrefab => _resourcePrefab;
     }
 }
