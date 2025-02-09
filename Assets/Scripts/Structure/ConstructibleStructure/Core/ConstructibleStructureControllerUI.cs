@@ -5,7 +5,7 @@ using DL.EnumsRuntime;
 using DL.StructureRuntime.Core;
 using DL.StructureRuntime.Model;
 using DL.StructureRuntime.UIPanels.Core;
-using UI.Core;
+using DL.UtilsRuntime;
 using UnityEngine;
 
 namespace DL.ConstructibleStructureRuntime.Core
@@ -16,7 +16,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
         [SerializeField] private SimpleStructurePanelUI _maxUpgradePanel;
 
-        protected List<IPanelUI> _structurePanels = new();
+        protected UIPanelList _structurePanels = new();
 
         private ConstructibleStructureController _constructibleStructureController;
 
@@ -32,15 +32,12 @@ namespace DL.ConstructibleStructureRuntime.Core
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
 
             //Сюда добавляем все новые панели
-            _structurePanels = new List<IPanelUI>
-            {
-                _generalPanel,
-                _buildPanel,
-                _upgradePanel,
-                _maxUpgradePanel
-            };
+            _structurePanels.Add(_generalPanel);
+            _structurePanels.Add(_buildPanel);
+            _structurePanels.Add(_upgradePanel);
+            _structurePanels.Add(_maxUpgradePanel);
 
-            ClosePanels();
+            _structurePanels.ClosePanels();
         }
 
         public override bool TryInteract(Transform interactor)
@@ -50,7 +47,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         }
 
         public override void FinishInteract() =>
-            ClosePanels();
+            _structurePanels.ClosePanels();
 
         public void OpenPanel()
         {
@@ -103,9 +100,6 @@ namespace DL.ConstructibleStructureRuntime.Core
 
             OpenGeneralPanel();
         }
-
-        public void ClosePanels() =>
-            _structurePanels.ForEach(panel => panel.Hide());
 
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
