@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace DL.RaidRuntime
 {
-    public class RaidManager : Singleton<RaidManager>, IInitialize, IDeinitialize
+    public class RaidManager : Singleton<RaidManager>, IInitialize, IDeinitialize, IRaidHandlers
     {
         private const float StartTimerTime = 300; //В секундах
 
@@ -55,13 +55,16 @@ namespace DL.RaidRuntime
             SceneLoader.OnStartLoadScene -= ResetStatics;
         }
         
-        public void StartRaid(Transform player, Camera playerCamera)
+        public void StartRaid(params object[] objects)
         {
             if (IsEnable)
             {
                 return;
             }
 
+            var player = objects[0] as Transform;
+            var playerCamera = objects[1] as Camera;
+            
             if (player.TryGetComponent(out _playerStats))
             {
                 _playerStats.OnDeath += OnPlayerEscapedFail;

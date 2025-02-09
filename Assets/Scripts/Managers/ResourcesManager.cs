@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DL.ManagersRuntime
 {
-    public class ResourcesManager : Singleton<ResourcesManager>, IInitialize
+    public class ResourcesManager : Singleton<ResourcesManager>, IInitialize, IRaidHandlers
     {
         private IInventoryController _inventoryController;
 
@@ -40,7 +40,7 @@ namespace DL.ManagersRuntime
             _resourcesData.Clear();
         }
         
-        public void StartRaid()
+        public void StartRaid(params object[] objects)
         {
             if (_inventoryController == null)
             {
