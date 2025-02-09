@@ -4,7 +4,7 @@ using DL.InterfacesRuntime;
 using DL.UtilsRuntime.ObjectPoolRuntime;
 using UnityEngine;
 
-namespace DL.ManagersRuntime
+namespace DL.PrefabsPoolingRuntime
 {
     public class PrefabPool : MonoBehaviour, IInitialize
     {

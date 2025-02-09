@@ -2,7 +2,6 @@
 using System.Linq;
 using DL.Data.Resource;
 using DL.InventorySystem.Core;
-using DL.ManagersRuntime;
 using UnityEngine;
 
 namespace DL.PlayersRuntime
@@ -10,8 +9,6 @@ namespace DL.PlayersRuntime
     public class PlayerInventoryController : InventoryController
     {
         private const int InventoryLimit = 20;
-
-        private ResourcesManager _resourcesManager;
 
         public override bool TryAddResource(ResourceDataModel resource)
         {
@@ -65,9 +62,6 @@ namespace DL.PlayersRuntime
         public override void DropResource(ResourceDataModel resource)
         {
             ResourceDataModel.InstantiateResource(resource, transform);
-
-            _resourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
-
             var resourceData = _resourcesData.FirstOrDefault(x =>
                 x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 

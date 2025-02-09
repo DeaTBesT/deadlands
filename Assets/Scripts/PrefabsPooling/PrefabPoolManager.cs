@@ -5,7 +5,7 @@ using DL.InterfacesRuntime;
 using DL.UtilsRuntime;
 using UnityEngine;
 
-namespace DL.ManagersRuntime
+namespace DL.PrefabsPoolingRuntime
 {
     public class PrefabPoolManager : Singleton<PrefabPoolManager>, IInitialize
     {

@@ -2,7 +2,7 @@
 using DL.InputModuleRuntime;
 using DL.InputModuleRuntime.Modules;
 using DL.InventorySystem.Core;
-using DL.ManagersRuntime;
+using DL.PrefabsPoolingRuntime;
 using DL.WeaponSystem.Core;
 using JoystickRuntime;
 using UnityEngine;
