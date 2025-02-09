@@ -2,13 +2,14 @@
 using DL.CoreRuntime.Interfaces;
 using DL.Data.Weapon;
 using DL.InterfacesRuntime;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DL.WeaponSystem.Core
 {
     public abstract class Weapon : MonoBehaviour, IWeapon
     {
-        [SerializeField] protected WeaponConfig _weaponConfig;
+        [Expandable, SerializeField] protected WeaponConfig _weaponConfig;
 
         protected float _nextAttackTime;
 

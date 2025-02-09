@@ -1,5 +1,6 @@
 ﻿using Data.Core;
 using DL.InterfacesRuntime;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DL.Data.Resource
@@ -7,7 +8,7 @@ namespace DL.Data.Resource
     [System.Serializable]
     public class ResourceDataModel : ItemModel
     {
-        [SerializeField] private ResourceConfig _resourceConfig;
+        [Expandable, SerializeField] private ResourceConfig _resourceConfig;
         [SerializeField] private int _amount;
 
         public ResourceConfig ResourceConfig => _resourceConfig;

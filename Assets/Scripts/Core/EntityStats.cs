@@ -8,8 +8,10 @@ namespace DL.CoreRuntime
     public abstract class EntityStats : MonoBehaviour, IInitialize
     {
         [SerializeField] protected float _startHealth;
-        [ShowNonSerializedField] protected float _currentHealth;
-        
+
+        [ProgressBar("Health", nameof(_startHealth), EColor.Red), SerializeField]
+        protected float _currentHealth;
+
         public Action OnDeath { get; set; }
 
         public abstract int TeamId { get; }
