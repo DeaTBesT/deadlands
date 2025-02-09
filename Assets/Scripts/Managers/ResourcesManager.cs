@@ -71,7 +71,7 @@ namespace DL.ManagersRuntime
         public void AddResource(ResourceConfig resourceConfig, int amount = 1)
         {
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resourceConfig.TypeRare);
 
             if (resourceData != null)
             {
@@ -88,12 +88,12 @@ namespace DL.ManagersRuntime
         public void RemoveResource(ResourceConfig resourceConfig, int amount = 1)
         {
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resourceConfig.TypeRare);
 
             if (resourceData == null)
             {
 #if UNITY_EDITOR
-                Debug.LogError($"ResourceData with type {resourceConfig.TypeResource} isn't exist");
+                Debug.LogError($"ResourceData with type {resourceConfig.TypeRare} isn't exist");
 #endif
                 return;
             }
