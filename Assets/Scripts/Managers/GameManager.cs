@@ -54,7 +54,8 @@ namespace DL.ManagersRuntime
 
             if (_resourcesManager != null)
             {
-                _resourcesManager.Initialize(_currentPlayer);
+                _resourcesManager.Initialize(_currentPlayer.transform);
+                _resourcesManager.FillPlayerInventory();
             }
         }
 
