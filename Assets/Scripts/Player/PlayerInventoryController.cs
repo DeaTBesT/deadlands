@@ -42,6 +42,14 @@ namespace DL.PlayersRuntime
             var resourceData = _resourcesData.FirstOrDefault(x =>
                 x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
+            if (resourceData == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("Resource data isn't exist");
+#endif
+                return;
+            }
+
             if (resourceData.AmountResource - resource.AmountResource > 0)
             {
                 resourceData.RemoveResource(resource.AmountResource);
