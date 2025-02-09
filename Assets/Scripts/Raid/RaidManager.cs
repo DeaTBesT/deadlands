@@ -130,15 +130,13 @@ namespace DL.RaidRuntime
         private void StopTimer() =>
             _timer?.Stop();
 
-        [Button]
-        private void OnPlayerEscapedSuccess()
+        public void OnPlayerEscapedSuccess()
         {
             //Тут какие-нибудь манипуляции с камерой
             OnFinishRaidSuccess?.Invoke();
         }
 
-        [Button]
-        private void OnPlayerEscapedFail()
+        public void OnPlayerEscapedFail()
         {
             //Тут какие-нибудь манипуляции с камерой
             OnFinishRaidFail?.Invoke();
