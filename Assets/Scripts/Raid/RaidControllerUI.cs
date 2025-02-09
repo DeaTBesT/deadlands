@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DL.InterfacesRuntime;
 using DL.UIRuntime;
+using DL.UtilsRuntime;
 using TMPro;
 using UI.Core;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace DL.RaidRuntime
 
         [SerializeField] private Button _confirmButton;
 
-        private List<IPanelUI> _panels = new();
+        private UIPanelList _panels = new();
 
         private RaidManager _raidManager;
 
@@ -52,15 +53,12 @@ namespace DL.RaidRuntime
                 _raidManager.OnRaidTimeChanged += OnUpdateRaidTimer;
             }
 
-            _panels = new List<IPanelUI>
-            {
-                _generalPanel,
-                _successPanel,
-                _failurePanel,
-                _raidPanel
-            };
+            _panels.Add(_generalPanel);
+            _panels.Add(_successPanel);
+            _panels.Add(_failurePanel);
+            _panels.Add(_raidPanel);
 
-            ClosePanels();
+            _panels.ClosePanels();
 
             IsEnable = true;
         }
@@ -97,7 +95,7 @@ namespace DL.RaidRuntime
         private void OnStopRaid()
         {
             _raidPanel.Hide();
-            ClosePanels();
+            _panels.ClosePanels();
         }
 
         private void OnFinishRaidSuccess()
@@ -112,7 +110,7 @@ namespace DL.RaidRuntime
 
         private void ShowSuccessPanel()
         {
-            ClosePanels();
+            _panels.ClosePanels();
             _generalPanel.Show();
             _successPanel.Show();
 
@@ -121,7 +119,7 @@ namespace DL.RaidRuntime
 
         private void ShowFailurePanel()
         {
-            ClosePanels();
+            _panels.ClosePanels();
             _generalPanel.Show();
             _failurePanel.Show();
 
@@ -130,9 +128,6 @@ namespace DL.RaidRuntime
 
         private void OnUpdateRaidTimer(float time) =>
             _textRaidTimer.text = $"{time:00.00}";
-
-        private void ClosePanels() =>
-            _panels.ForEach(panel => panel.Hide());
 
         private void OnConfirmButtonClicked() =>
             _loadAction?.Invoke();

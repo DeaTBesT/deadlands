@@ -23,7 +23,7 @@ namespace DL.ConstructibleStructureRuntime.MapStructure
             _structurePanels.Add(_openMapPanel);
             _structurePanels.Add(_selectLevelPanel);
             
-            ClosePanels();
+            _structurePanels.ClosePanels();
         }
     }
 }
