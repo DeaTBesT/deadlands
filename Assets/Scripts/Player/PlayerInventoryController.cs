@@ -61,7 +61,6 @@ namespace DL.PlayersRuntime
 
         public override void DropResource(ResourceDataModel resource)
         {
-            ResourceDataModel.InstantiateResource(resource, transform);
             var resourceData = _resourcesData.FirstOrDefault(x =>
                 x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
@@ -72,8 +71,10 @@ namespace DL.PlayersRuntime
 #endif
                 return;
             }
-
+            
+            ResourceDataModel.InstantiateResource(resource, transform);
             _resourcesData.Remove(resourceData);
+            OnChangedResourcesData?.Invoke(_resourcesData);
         }
 
         public override void DropAllResources()
