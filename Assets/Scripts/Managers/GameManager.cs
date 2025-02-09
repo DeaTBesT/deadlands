@@ -8,6 +8,7 @@ using DL.InterfacesRuntime;
 using DL.RaidRuntime;
 using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
+using DL.WardrobeRuntime;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,6 +25,7 @@ namespace DL.ManagersRuntime
         private RaidManager _raidManager;
         private ResourcesManager _resourcesManager;
         private PrefabPoolManager _prefabPoolManager;
+        private WardrobeManager _wardrobeManager;
         
         private SceneLoader _sceneLoader;
         private Camera _camera;
@@ -45,6 +47,7 @@ namespace DL.ManagersRuntime
             _raidManager = objects[0] as RaidManager;
             _resourcesManager = objects[1] as ResourcesManager;
             _prefabPoolManager = objects[2] as PrefabPoolManager;
+            _wardrobeManager = objects[3] as WardrobeManager;
             
             _prefabPoolManager.Initialize();
             

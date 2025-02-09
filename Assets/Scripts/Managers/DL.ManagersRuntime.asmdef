@@ -13,7 +13,8 @@
         "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
         "DL.RaidRuntime.Spawners",
         "DL.RaidRuntime",
-        "DL.Data.Core"
+        "DL.Data.Core",
+        "GUID:250e82b183ed2ad48bbce597cde09542"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
