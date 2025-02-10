@@ -8,9 +8,9 @@ using DL.StructureRuntime.UIPanels.Core;
 using DL.UtilsRuntime;
 using UnityEngine;
 
-namespace DL.ConstructibleStructureRuntime.Core
+namespace DL.ConstructableStructureRuntime.Core
 {
-    public abstract class ConstructibleStructureControllerUI : StructureControllerUI
+    public abstract class ConstructableStructureControllerUI : StructureControllerUI
     {
         [SerializeField] private AdvancedStructurePanelUI _buildPanel;
         [SerializeField] private AdvancedStructurePanelUI _upgradePanel;
@@ -18,15 +18,15 @@ namespace DL.ConstructibleStructureRuntime.Core
 
         protected UIPanelList _structurePanels = new();
 
-        private ConstructibleStructureController _constructibleStructureController;
+        private ConstructableStructureController _constructableStructureController;
 
         public override void Initialize(params object[] objects)
         {
-            _constructibleStructureController = objects[0] as ConstructibleStructureController;
+            _constructableStructureController = objects[0] as ConstructableStructureController;
 
-            _constructibleStructureController.OnBuildStart += OnBuildStart;
-            _constructibleStructureController.OnUpgrade += OnUpgrade;
-            _constructibleStructureController.OnStateChanged += OnStateChanged;
+            _constructableStructureController.OnBuildStart += OnBuildStart;
+            _constructableStructureController.OnUpgrade += OnUpgrade;
+            _constructableStructureController.OnStateChanged += OnStateChanged;
 
             _buildPanel.AddOnClickEvent(OnBuildButtonClick);
             _upgradePanel.AddOnClickEvent(OnUpgradeButtonClick);
@@ -51,7 +51,7 @@ namespace DL.ConstructibleStructureRuntime.Core
 
         public void OpenPanel()
         {
-            switch (_constructibleStructureController.CurrentState)
+            switch (_constructableStructureController.CurrentState)
             {
                 case StructureState.Build:
                 {
@@ -104,7 +104,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         //Здесь какие-нибудь анимации
         private void OnBuildButtonClick()
         {
-            if (!_constructibleStructureController.TryBuildPlace())
+            if (!_constructableStructureController.TryBuildPlace())
             {
                 return;
             }
@@ -116,7 +116,7 @@ namespace DL.ConstructibleStructureRuntime.Core
         //Здесь какие-нибудь анимации
         private void OnUpgradeButtonClick()
         {
-            _constructibleStructureController.TryUpgradePlace();
+            _constructableStructureController.TryUpgradePlace();
         }
 
         private void OpenBuildPanel()

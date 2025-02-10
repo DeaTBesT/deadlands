@@ -8,9 +8,9 @@ using DL.StructureRuntime.Core;
 using DL.StructureRuntime.Model;
 using UnityEngine;
 
-namespace DL.ConstructibleStructureRuntime.Core
+namespace DL.ConstructableStructureRuntime.Core
 {
-    public abstract class ConstructibleStructureController : StructureController
+    public abstract class ConstructableStructureController : StructureController
     {
         private const int BuildLevel = 0;
         private const int StartUpgradeLevel = 1;

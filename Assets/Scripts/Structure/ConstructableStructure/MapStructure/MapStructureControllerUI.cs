@@ -1,10 +1,10 @@
-﻿using DL.ConstructibleStructureRuntime.Core;
+﻿using DL.ConstructableStructureRuntime.Core;
 using DL.StructureRuntime.UIPanels.Core;
 using UnityEngine;
 
-namespace DL.ConstructibleStructureRuntime.MapStructure
+namespace DL.ConstructableStructureRuntime.MapStructure
 {
-    public class MapStructureControllerUI : ConstructibleStructureControllerUI
+    public class MapStructureControllerUI : ConstructableStructureControllerUI
     {
         [SerializeField] private SimpleStructurePanelUI _constructiblePanel;
         [SerializeField] private SimpleStructurePanelUI _openMapPanel;

@@ -1,17 +1,17 @@
 ﻿using DL.StructureRuntime.Core;
 using UnityEngine;
 
-namespace DL.ConstructibleStructureRuntime.Core
+namespace DL.ConstructableStructureRuntime.Core
 {
-    public class ConstructibleStructureInitializer : StructureInitializer
+    public class ConstructableStructureInitializer : StructureInitializer
     {
-        [SerializeField] private ConstructibleStructureController _structureController;
-        [SerializeField] private ConstructibleStructureControllerUI _placeControllerUI;
+        [SerializeField] private ConstructableStructureController _structureController;
+        [SerializeField] private ConstructableStructureControllerUI _placeControllerUI;
 
         private void OnValidate()
         {
-            _structureController ??= GetComponent<ConstructibleStructureController>();
-            _placeControllerUI ??= GetComponent<ConstructibleStructureControllerUI>();
+            _structureController ??= GetComponent<ConstructableStructureController>();
+            _placeControllerUI ??= GetComponent<ConstructableStructureControllerUI>();
             _interactableStructure ??= GetComponent<InteractableStructure>();
         }
 
