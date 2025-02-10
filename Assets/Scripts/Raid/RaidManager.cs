@@ -17,9 +17,9 @@ namespace DL.RaidRuntime
         private const float StartTimerTime = 300; //В секундах
 
         [SerializeField] private EnemySpawnController _enemySpawnController;
-        
+
         [SerializeField] private SceneConfig _baseSceneConfig;
-        
+
         private RaidControllerUI _raidControllerUI;
         private EntityStats _playerStats;
         private SimpleTimer _timer;
@@ -34,27 +34,30 @@ namespace DL.RaidRuntime
 
         private static readonly List<IEscapeZone> EscapeZones = new();
 
-        private static void ResetStatics(SceneConfig sceneConfig)
+        private static void ResetStatics()
         {
             // reset all statics
             EscapeZones.Clear();
         }
 
         public void Initialize(params object[] objects)
-        {  
+        {
             _raidControllerUI = objects[0] as RaidControllerUI;
             _raidControllerUI.Initialize(this, (Action)LoadBaseScene);
 
-            SceneLoader.OnStartLoadScene += ResetStatics;
+            SceneLoader.OnStartLoadScene += OnStartLoadScene;
         }
-        
+
         public void Deinitialize(params object[] objects)
         {
             _raidControllerUI.Deinitialize();
-            
-            SceneLoader.OnStartLoadScene -= ResetStatics;
+
+            SceneLoader.OnStartLoadScene -= OnStartLoadScene;
         }
-        
+
+        private void OnStartLoadScene(SceneConfig sceneConfig) =>
+            ResetStatics();
+
         public void StartRaid(params object[] objects)
         {
             if (IsEnable)
@@ -64,7 +67,7 @@ namespace DL.RaidRuntime
 
             var player = objects[0] as Transform;
             var playerCamera = objects[1] as Camera;
-            
+
             if (player.TryGetComponent(out _playerStats))
             {
                 _playerStats.OnDeath += OnPlayerEscapedFail;
@@ -89,11 +92,11 @@ namespace DL.RaidRuntime
             {
                 _playerStats.OnDeath -= OnPlayerEscapedFail;
             }
-            
+
             StopTimer();
 
             _enemySpawnController.Deinitialize();
-            
+
             IsEnable = false;
             OnStopRaid?.Invoke();
         }
@@ -105,7 +108,7 @@ namespace DL.RaidRuntime
                 Debug.LogWarning("Zone already registered");
                 return;
             }
-            
+
             EscapeZones.Add(escapeZone);
             escapeZone.OnEscaped += OnPlayerEscapedSuccess;
         }
@@ -142,7 +145,7 @@ namespace DL.RaidRuntime
             OnFinishRaidFail?.Invoke();
         }
 
-        private void LoadBaseScene() => 
+        private void LoadBaseScene() =>
             SceneLoader.Instance.LoadScene(_baseSceneConfig);
     }
 }

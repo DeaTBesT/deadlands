@@ -37,7 +37,7 @@ namespace DL.ManagersRuntime
 
         public bool IsEnable { get; set; } = true;
 
-        private static void ResetStatics(SceneConfig sceneConfig)
+        private static void ResetStatics()
         {
             // reset all statics
             _startPositions.Clear();
@@ -66,7 +66,6 @@ namespace DL.ManagersRuntime
         private void OnDestroy()
         {
             SceneLoader.OnStartLoadScene -= OnStartLoadScene;
-            SceneLoader.OnStartLoadScene -= ResetStatics;
             SceneLoader.OnFinishLoadScene -= OnChangedScene;
         }
 
@@ -79,7 +78,6 @@ namespace DL.ManagersRuntime
             sceneLoaderObj.TryGetComponent(out _sceneLoader);
             _sceneLoader.Initialize();
             SceneLoader.OnStartLoadScene += OnStartLoadScene;
-            SceneLoader.OnStartLoadScene += ResetStatics;
             SceneLoader.OnFinishLoadScene += OnChangedScene;
         }
 
@@ -140,6 +138,8 @@ namespace DL.ManagersRuntime
         
         private void OnStartLoadScene(SceneConfig sceneConfig)
         {
+            ResetStatics();
+            
             switch (sceneConfig.TypeScene)
             {
                 case SceneType.Lobby:
