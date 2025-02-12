@@ -1,6 +1,7 @@
 using DL.CoreRuntime;
 using DL.PrefabsPoolingRuntime;
 using DL.RaidRuntime;
+using DL.SelectingLevel;
 using DL.WardrobeRuntime;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ namespace DL.ManagersRuntime
         [Header("Wardrobe")] [SerializeField] private WardrobeManager _wardrobeManager;
         [SerializeField] private WardrobeControllerUI _wardrobeControllerUI;
 
+        [Header("SelectLevel")] [SerializeField] private SelectLevelManager _selectLevelManager;
+        [SerializeField] private SelectLevelControllerUI _selectLevelControllerUI;
+
         private void OnValidate()
         {
             _gameManager ??= GetComponent<GameManager>();
@@ -27,6 +31,8 @@ namespace DL.ManagersRuntime
             _raidControllerUI ??= GetComponent<RaidControllerUI>();
             _wardrobeManager ??= GetComponent<WardrobeManager>();
             _wardrobeControllerUI ??= GetComponent<WardrobeControllerUI>();
+            _selectLevelManager ??= GetComponent<SelectLevelManager>();
+            _selectLevelControllerUI ??= GetComponent<SelectLevelControllerUI>();
         }
 
         public override void Initialize(params object[] objects)
@@ -34,12 +40,14 @@ namespace DL.ManagersRuntime
             _gameManager.Initialize(_raidManager, _resourceManager, _prefabPoolManager, _wardrobeManager);
             _raidManager.Initialize(_raidControllerUI);
             _wardrobeManager.Initialize(_wardrobeControllerUI);
+            _selectLevelManager.Initialize(_selectLevelControllerUI);
         }
 
         public override void Deinitialize(params object[] objects)
         {
             _raidManager.Deinitialize();
             _wardrobeManager.Deinitialize();
+            _selectLevelManager.Deinitialize();
         }
     }
 }
