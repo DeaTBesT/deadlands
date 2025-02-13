@@ -13,7 +13,7 @@ namespace DL.SelectingLevel
     {
         [SerializeField] private List<LevelInfoModel> _levelsInfo;
 
-        private List<IButtonClick> _clickHandlers = new();
+        private readonly List<IButtonClick> _clickHandlers = new();
 
         private SelectLevelControllerUI _selectLevelControllerUI;
         
@@ -56,7 +56,7 @@ namespace DL.SelectingLevel
         /// </summary>
         public void RegisterButtonClick(IButtonClick clickHandler)
         {
-            if (clickHandler == null)
+            if ((clickHandler == null) || (_clickHandlers.Contains(clickHandler)))
             {
                 return;
             }
