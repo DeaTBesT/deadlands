@@ -5,9 +5,9 @@ using DL.EnumsRuntime;
 using DL.InterfacesRuntime;
 using DL.UIRuntime;
 using DL.UtilsRuntime;
+using DL.WardrobeRuntime.UI;
 using UnityEngine;
 using UnityEngine.UI;
-using Wardrobe.UI;
 
 namespace DL.WardrobeRuntime
 {
@@ -24,6 +24,8 @@ namespace DL.WardrobeRuntime
         [SerializeField] private UIPanel _generalPanel;
         [SerializeField] private UIPanel _weaponsPanel;
         [SerializeField] private UIPanel _armorPanel;
+
+        [SerializeField] private WardrobeItemPreviewPanelUI _itemPreviewPanel;
         
         [Header("Weapons")]
         [SerializeField] private List<PivotItemConfig> _weaponsPivots = new();
@@ -59,7 +61,7 @@ namespace DL.WardrobeRuntime
 
             if (_wardrobeManager != null)
             {
-                _wardrobeManager.OnShowPanel += OnShowPanel;
+                _wardrobeManager.OnShowPanel += ShowPanel;
                 _wardrobeManager.OnItemChanged += OnItemChanged;
                 _wardrobeManager.OnGenerateWeaponItems += OnGenerateWeaponItems;
                 _wardrobeManager.OnGenerateArmorItems += OnGenerateArmorItems;
@@ -67,22 +69,25 @@ namespace DL.WardrobeRuntime
 
             if (_closePanelButton != null)
             {
-                _closePanelButton.onClick.AddListener(OnHidePanel);
+                _closePanelButton.onClick.AddListener(HidePanel);
             }
               
             if (_openWeaponsPanelButton != null)
             {
-                _openWeaponsPanelButton.onClick.AddListener(OnShowWeaponsPanel);
+                _openWeaponsPanelButton.onClick.AddListener(ShowWeaponsPanel);
             } 
             
             if (_openArmorPanelButton != null)
             {
-                _openArmorPanelButton.onClick.AddListener(OnShowArmorPanel);
+                _openArmorPanelButton.onClick.AddListener(ShowArmorPanel);
             }
+            
+            _itemPreviewPanel.Initialize();
             
             _panels.Add(_generalPanel);
             _panels.Add(_weaponsPanel);
             _panels.Add(_armorPanel);
+            _panels.Add(_itemPreviewPanel);
             
             _panels.ClosePanels();
             
@@ -105,17 +110,17 @@ namespace DL.WardrobeRuntime
             
             if (_closePanelButton != null)
             {
-                _closePanelButton.onClick.RemoveListener(OnHidePanel);
+                _closePanelButton.onClick.RemoveListener(HidePanel);
             }
             
             if (_openWeaponsPanelButton != null)
             {
-                _openWeaponsPanelButton.onClick.RemoveListener(OnShowWeaponsPanel);
+                _openWeaponsPanelButton.onClick.RemoveListener(ShowWeaponsPanel);
             } 
             
             if (_openArmorPanelButton != null)
             {
-                _openArmorPanelButton.onClick.RemoveListener(OnShowArmorPanel);
+                _openArmorPanelButton.onClick.RemoveListener(ShowArmorPanel);
             }
             
             _itemPanels.Clear();
@@ -123,25 +128,31 @@ namespace DL.WardrobeRuntime
             IsEnable = false;
         }
         
-        private void OnShowPanel()
+        private void ShowPanel()
         {
             _generalPanel.Show();
-            OnShowWeaponsPanel();
+            ShowWeaponsPanel();
         }
 
-        private void OnHidePanel() => 
+        private void HidePanel() => 
             _panels.ClosePanels();
 
-        private void OnShowWeaponsPanel()
+        private void ShowWeaponsPanel()
         {
             _weaponsPanel.Show();
             _armorPanel.Hide();
         }
         
-        private void OnShowArmorPanel()
+        private void ShowArmorPanel()
         {
             _weaponsPanel.Hide();
             _armorPanel.Show();
+        }
+        
+        private void ShowItemPreview(WardrobeItemModel itemModel)
+        {
+            _itemPreviewPanel.Show();
+            _itemPreviewPanel.ShowPreview(itemModel);
         }
         
         private void OnItemChanged(WardrobeItemModel item)
@@ -187,6 +198,7 @@ namespace DL.WardrobeRuntime
                 }
                 
                 wardrobeItemPanelUI.Initialize(item);
+                wardrobeItemPanelUI.OnItemPreviewClicked += ShowItemPreview;
                 _itemPanels.Add(wardrobeItemPanelUI);
             }
         }
