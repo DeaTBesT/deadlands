@@ -5,8 +5,8 @@ using DL.EnumsRuntime;
 using DL.InterfacesRuntime;
 using DL.UIRuntime;
 using DL.UtilsRuntime;
-using UI.Core;
 using UnityEngine;
+using UnityEngine.UI;
 using Wardrobe.UI;
 
 namespace DL.WardrobeRuntime
@@ -15,9 +15,14 @@ namespace DL.WardrobeRuntime
     {
         [SerializeField] private WardrobeItemPanelUI _itemPanelPrefab;
 
+        [Header("Buttons")]
+        [SerializeField] private Button _closePanelButton;
+        [SerializeField] private Button _openWeaponsPanelButton;
+        [SerializeField] private Button _openArmorPanelButton;
+        
         [Header("Panels")]
         [SerializeField] private UIPanel _generalPanel;
-        [SerializeField] private UIPanel _waaponsPanel;
+        [SerializeField] private UIPanel _weaponsPanel;
         [SerializeField] private UIPanel _armorPanel;
         
         [Header("Weapons")]
@@ -54,13 +59,29 @@ namespace DL.WardrobeRuntime
 
             if (_wardrobeManager != null)
             {
+                _wardrobeManager.OnShowPanel += OnShowPanel;
                 _wardrobeManager.OnItemChanged += OnItemChanged;
                 _wardrobeManager.OnGenerateWeaponItems += OnGenerateWeaponItems;
                 _wardrobeManager.OnGenerateArmorItems += OnGenerateArmorItems;
             }
 
+            if (_closePanelButton != null)
+            {
+                _closePanelButton.onClick.AddListener(OnHidePanel);
+            }
+              
+            if (_openWeaponsPanelButton != null)
+            {
+                _openWeaponsPanelButton.onClick.AddListener(OnShowWeaponsPanel);
+            } 
+            
+            if (_openArmorPanelButton != null)
+            {
+                _openArmorPanelButton.onClick.AddListener(OnShowArmorPanel);
+            }
+            
             _panels.Add(_generalPanel);
-            _panels.Add(_waaponsPanel);
+            _panels.Add(_weaponsPanel);
             _panels.Add(_armorPanel);
             
             _panels.ClosePanels();
@@ -82,9 +103,45 @@ namespace DL.WardrobeRuntime
                 _wardrobeManager.OnGenerateArmorItems -= OnGenerateArmorItems;
             }
             
+            if (_closePanelButton != null)
+            {
+                _closePanelButton.onClick.RemoveListener(OnHidePanel);
+            }
+            
+            if (_openWeaponsPanelButton != null)
+            {
+                _openWeaponsPanelButton.onClick.RemoveListener(OnShowWeaponsPanel);
+            } 
+            
+            if (_openArmorPanelButton != null)
+            {
+                _openArmorPanelButton.onClick.RemoveListener(OnShowArmorPanel);
+            }
+            
             _itemPanels.Clear();
             
             IsEnable = false;
+        }
+        
+        private void OnShowPanel()
+        {
+            _generalPanel.Show();
+            OnShowWeaponsPanel();
+        }
+
+        private void OnHidePanel() => 
+            _panels.ClosePanels();
+
+        private void OnShowWeaponsPanel()
+        {
+            _weaponsPanel.Show();
+            _armorPanel.Hide();
+        }
+        
+        private void OnShowArmorPanel()
+        {
+            _weaponsPanel.Hide();
+            _armorPanel.Show();
         }
         
         private void OnItemChanged(WardrobeItemModel item)

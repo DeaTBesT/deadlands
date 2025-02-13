@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DL.Data.Scene;
 using DL.Data.Wardrobe;
 using DL.EnumsRuntime;
 using DL.InterfacesRuntime;
+using DL.SceneTransitionRuntime;
 using DL.UtilsRuntime;
 using UnityEngine;
 
@@ -19,14 +21,26 @@ namespace DL.WardrobeRuntime
         private WardrobeControllerUI _wardrobeControllerUI;
 
         private Transform _player;
-
+        
+        private readonly List<IButtonClick> _clickHandlers = new();
+        
+        public Action OnShowPanel { get; set; }
         public Action<WardrobeItemModel> OnItemChanged { get; set; }
         public Action<List<WardrobeItemModel>> OnGenerateWeaponItems { get; set; }
         public Action<List<WardrobeItemModel>> OnGenerateArmorItems { get; set; }
-        public Action OnStartRaid { get; set; }
-
+        
         public bool IsEnable { get; set; }
 
+        private void ResetStatics()
+        {
+            // reset all statics
+
+            foreach (var handler in _clickHandlers)
+            {
+                handler.OnButtonClick -= OnButtonClickHandler;
+            }
+        }
+        
         public void Initialize(params object[] objects)
         {
             if (IsEnable)
@@ -42,6 +56,8 @@ namespace DL.WardrobeRuntime
 
             _wardrobeControllerUI.Initialize(this);
             
+            SceneLoader.OnStartLoadScene += OnStartLoadScene;
+            
             OnGenerateWeaponItems?.Invoke(_weaponItems);
             OnGenerateArmorItems?.Invoke(_armorItems);
             
@@ -56,9 +72,46 @@ namespace DL.WardrobeRuntime
             }
 
             _wardrobeControllerUI.Deinitialize(this);
+
+            SceneLoader.OnStartLoadScene -= OnStartLoadScene;
+            
             IsEnable = false;
         }
 
+        private void OnStartLoadScene(SceneConfig sceneConfig) =>
+            ResetStatics();
+        
+        /// <summary>
+        /// Для регистрации нажания на кнопку, для открытия панели
+        /// </summary>
+        public void RegisterButtonClick(IButtonClick clickHandler)
+        {
+            if ((clickHandler == null) || (_clickHandlers.Contains(clickHandler)))
+            {
+                return;
+            }
+            
+            clickHandler.OnButtonClick += OnButtonClickHandler;
+            _clickHandlers.Add(clickHandler);
+        }
+
+        /// <summary>
+        /// Для удаления регистрации нажания на кнопку, для открытия панели
+        /// </summary>
+        public void UnRegisterButtonClick(IButtonClick clickHandler)
+        {
+            if ((clickHandler == null) || (!_clickHandlers.Contains(clickHandler)))
+            {
+                return;
+            }
+            
+            clickHandler.OnButtonClick -= OnButtonClickHandler;
+            _clickHandlers.Remove(clickHandler);
+        }
+        
+        private void OnButtonClickHandler() =>
+            OnShowPanel?.Invoke();
+        
         public bool TryAddItemPart(WardrobeItemType itemType, int amount = 1)
         {
             var item = _wardrobeItems.FirstOrDefault(x => x.ItemType == itemType);

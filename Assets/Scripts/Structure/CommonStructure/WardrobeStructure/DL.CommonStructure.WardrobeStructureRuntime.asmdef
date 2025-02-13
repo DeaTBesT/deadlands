@@ -1,0 +1,4 @@
+﻿{
+  "name": "DL.CommonStructure.WardrobeStructureRuntime",
+  "references":[ "DL.CommonStructure.SimpleStructureRuntime", "DL.StructureRuntime.Core", "DL.StructureRuntime.UIPanels.Core", "DL.UIRuntime" ]
+}
