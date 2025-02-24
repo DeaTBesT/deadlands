@@ -1,7 +1,6 @@
-﻿using Data.Core;
+﻿using DL.Data.Core;
 using DL.EnumsRuntime;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DL.Data.Resource
 {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Data.Core
+namespace DL.Data.Core
 {
     public abstract class ItemModel
     {

@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6540d057d74e49ef8cdf1866922a6187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panelRenderer: {fileID: 0}
+  _panelRenderer: {fileID: 6185720417968102740}
   _itemIcon: {fileID: 413820732314759234}
   _itemParts: {fileID: 694917145657518698}
   _buttonOpenPreview: {fileID: 4732601015580724216}

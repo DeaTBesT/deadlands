@@ -71,7 +71,7 @@ namespace DL.WardrobeRuntime
                 return;
             }
 
-            _wardrobeControllerUI.Deinitialize(this);
+            _wardrobeControllerUI.Deinitialize();
 
             SceneLoader.OnStartLoadScene -= OnStartLoadScene;
             
