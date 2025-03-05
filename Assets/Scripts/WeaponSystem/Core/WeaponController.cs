@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DL.WeaponSystem.Core
 {
-    public class WeaponController : MonoBehaviour
+    public abstract class WeaponController : MonoBehaviour, IWeaponController
     {
         [SerializeField] protected Weapon[] _weaponsContainer;
 
@@ -14,7 +14,7 @@ namespace DL.WeaponSystem.Core
         
         protected IWeapon _currentWeapon;
 
-        [field: SerializeField] public virtual bool IsEnable { get; set; } = true;
+        public virtual bool IsEnable { get; set; } = true;
         
         public virtual void Initialize(params object[] objects)
         {

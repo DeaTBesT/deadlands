@@ -1,0 +1,23 @@
+{
+    "name": "DL.ConstructibleStructureRuntime.MapStructure",
+    "rootNamespace": "",
+    "references": [
+        "GUID:628bf3cb37a41ff4e99042f7d7dd8bed",
+        "GUID:e0678e6ea17431c47885326f6d75087c",
+        "GUID:7a96d2c6542203c489420888ed66f1a2",
+        "GUID:464655714b7a58c49984ea9b74436035",
+        "GUID:d7738fc2d4b5e6e4a89836299b49e653",
+        "GUID:6a348e428a1043e6a01ccbbefff95ef2",
+        "GUID:0acecc494bf7d994aa2a39848eddf4eb",
+        "GUID:9551e96083f06ac42bd972cfbdf6b88f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,18 @@
+{
+    "name": "DL.InventorySystem.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:464655714b7a58c49984ea9b74436035",
+        "GUID:9779c36f9f834424bab317bbf2b6a100",
+        "GUID:d7738fc2d4b5e6e4a89836299b49e653"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

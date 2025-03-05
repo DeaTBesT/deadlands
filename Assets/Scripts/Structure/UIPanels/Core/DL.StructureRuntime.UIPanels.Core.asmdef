@@ -1,8 +1,19 @@
 {
-  "name": "DL.StructureRuntime.UIPanels.Core",
-  "references": [
-    "GUID:d7738fc2d4b5e6e4a89836299b49e653",
-    "GUID:b0a3e9e085d8258439b0a0a9904279d2",
-    "GUID:4eb3ec8985f1151449a6f5880599ecf5"
-  ]
+    "name": "DL.StructureRuntime.UIPanels.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d7738fc2d4b5e6e4a89836299b49e653",
+        "GUID:4eb3ec8985f1151449a6f5880599ecf5",
+        "GUID:6a348e428a1043e6a01ccbbefff95ef2",
+        "GUID:0acecc494bf7d994aa2a39848eddf4eb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

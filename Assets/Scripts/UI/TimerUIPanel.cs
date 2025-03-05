@@ -1,17 +1,15 @@
-﻿using DL.InterfacesRuntime;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace DL.UIRuntime
 {
-    public class TimerUIPanel : UIPanel, IInitialize
+    public class TimerUIPanel : UIPanel
     {
         [SerializeField] private Image _imageTimer;
 
         private float _durationTime;
         
-        public bool IsEnable { get; set; }
-        public void Initialize(params object[] objects) => 
+        public override void Initialize(params object[] objects) => 
             _durationTime = (float)objects[0];
 
         public void SetTime(float time)

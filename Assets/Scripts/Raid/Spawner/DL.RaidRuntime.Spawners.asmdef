@@ -1,0 +1,4 @@
+﻿{
+  "name": "DL.RaidRuntime.Spawners",
+  "references":[ "GUID:776d03a35f1b52c4a9aed9f56d7b4229", "GUID:d7738fc2d4b5e6e4a89836299b49e653", "GUID:464655714b7a58c49984ea9b74436035" ]
+}

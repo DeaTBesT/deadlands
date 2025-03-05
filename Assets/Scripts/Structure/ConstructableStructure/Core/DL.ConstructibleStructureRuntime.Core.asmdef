@@ -1,0 +1,27 @@
+{
+    "name": "DL.ConstructibleStructureRuntime.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0678e6ea17431c47885326f6d75087c",
+        "GUID:42855d317b2b6ff43af63c5956f19536",
+        "GUID:0e1659ee92fb9b84688930174d5a3dd6",
+        "GUID:552808dbb21a7d046a7339985192695c",
+        "GUID:464655714b7a58c49984ea9b74436035",
+        "GUID:11c54863cd2912d4a97a22c8d01462fc",
+        "GUID:7a96d2c6542203c489420888ed66f1a2",
+        "GUID:d7738fc2d4b5e6e4a89836299b49e653",
+        "GUID:9779c36f9f834424bab317bbf2b6a100",
+        "GUID:6a348e428a1043e6a01ccbbefff95ef2",
+        "GUID:0acecc494bf7d994aa2a39848eddf4eb",
+        "GUID:9551e96083f06ac42bd972cfbdf6b88f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

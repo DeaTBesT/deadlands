@@ -1,4 +1,19 @@
 {
-	"name": "DL.UtilsRuntime",
-	"references":[ "GUID:42855d317b2b6ff43af63c5956f19536", "GUID:9779c36f9f834424bab317bbf2b6a100", "GUID:9ee0dc63b08eb2544a7fe845d223d587" ]
+    "name": "DL.UtilsRuntime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:42855d317b2b6ff43af63c5956f19536",
+        "GUID:9779c36f9f834424bab317bbf2b6a100",
+        "GUID:6a348e428a1043e6a01ccbbefff95ef2",
+        "GUID:d7738fc2d4b5e6e4a89836299b49e653"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

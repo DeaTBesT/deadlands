@@ -17,7 +17,7 @@ namespace DL.WorldResourceRuntime.UI
         public void ChangeResourceData(ResourceDataModel resourceData)
         {
             ResourceData = resourceData;
-            _resourceImage.sprite = ResourceData.ResourceConfig.ResourceSprite;
+            _resourceImage.sprite = ResourceData.ResourceConfig.ItemSprite;
             UpdateResource();
         }
 

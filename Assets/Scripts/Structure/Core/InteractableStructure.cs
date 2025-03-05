@@ -1,4 +1,5 @@
-﻿using DL.CoreRuntime;
+﻿using Data;
+using DL.CoreRuntime;
 using DL.InterfacesRuntime;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ namespace DL.StructureRuntime.Core
     [RequireComponent(typeof(Collider))]
     public sealed class InteractableStructure : MonoBehaviour, IInitialize
     {
-        private const int PlayerTeam = 1;
-        
         private IInteractable _placeController;
         
         public bool IsEnable { get; set; }
@@ -23,12 +22,17 @@ namespace DL.StructureRuntime.Core
                 return;
             }
 
-            if (entityStats.TeamId != PlayerTeam)
+            if (entityStats.TeamId != Teams.PlayerTeamId)
             {
                 return;
             }
             
-            InteractPlace();            
+            if (!other.TryGetComponent(out IInventoryController inventoryController))
+            {
+                return;
+            }
+            
+            InteractPlace(other.transform);            
         }
 
         private void OnTriggerExit(Collider other)
@@ -38,16 +42,16 @@ namespace DL.StructureRuntime.Core
                 return;
             }
 
-            if (entityStats.TeamId != PlayerTeam)
+            if (entityStats.TeamId != Teams.PlayerTeamId)
             {
                 return;
             }
-
+            
             FinishInteract();
         }
 
-        private void InteractPlace() =>
-            _placeController.Interact();
+        private void InteractPlace(Transform interactor) => 
+            _placeController.TryInteract(interactor);
 
         private void FinishInteract() =>
             _placeController.FinishInteract();

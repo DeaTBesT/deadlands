@@ -8,5 +8,16 @@ namespace DL.StructureRuntime.Model
     {
         public List<ResourceDataModel> RequiredResources;
         public int Level;
+
+        public RequiredResourcesModel()
+        {
+            
+        }
+
+        public RequiredResourcesModel(List<ResourceDataModel> requiredResources, int level)
+        {
+            RequiredResources = requiredResources;
+            Level = level;
+        }
     }
 }

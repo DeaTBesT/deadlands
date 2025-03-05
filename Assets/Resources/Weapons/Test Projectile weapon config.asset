@@ -16,5 +16,5 @@ MonoBehaviour:
   _damage: 25
   _fireRate: 10
   _bulletSpeed: 50
-  _destroyTime: 5000
+  _destroyTime: 5
   _poolType: 0

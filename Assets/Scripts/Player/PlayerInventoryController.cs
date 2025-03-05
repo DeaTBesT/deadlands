@@ -1,68 +1,43 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DL.CoreRuntime;
 using DL.Data.Resource;
-using DL.ManagersRuntime;
+using DL.InventorySystem.Core;
 using UnityEngine;
 
 namespace DL.PlayersRuntime
 {
-    public class PlayerInventoryController : EntityInventoryController
+    public class PlayerInventoryController : InventoryController
     {
-        private GameResourcesManager _gameResourcesManager;
+        private const int InventoryLimit = 20;
 
-        private List<ResourceDataModel> _resourcesData = new();
-
-        public List<ResourceDataModel> ResourcesData => _resourcesData;
-
-        public override void Initialize(params object[] objects) =>
-            _gameResourcesManager = objects[0] as GameResourcesManager;
-
-        public override void Deinitialize(params object[] objects) =>
-            DropAllResources();
-
-        public override void AddResource(ResourceDataModel resource)
+        public override bool TryAddResource(ResourceDataModel resource)
         {
-            _gameResourcesManager.AddResource(resource.ResourceConfig, resource.AmountResource);
+            if ((!_isInfinityInventory) && (CountResources() + resource.AmountResource > InventoryLimit))
+            {
+                return false;
+            }
 
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
             if (resourceData != null)
             {
                 resourceData.AddResource(resource.AmountResource);
+                OnAddResource?.Invoke(resource);
             }
             else
             {
                 _resourcesData.Add(new ResourceDataModel(resource.ResourceConfig, resource.AmountResource));
+                OnChangedResourcesData?.Invoke(_resourcesData);
             }
+
+            return true;
         }
-        
+
         public override void RemoveResource(ResourceDataModel resource)
         {
-            _gameResourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
-
             var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
-            
-            if (resourceData.AmountResource - resource.AmountResource > 0)
-            {
-                resourceData.RemoveResource(resource.AmountResource);
-            }
-            else
-            {
-                _resourcesData.Remove(resourceData);
-            }
-        }
-        
-        public override void DropResource(ResourceDataModel resource)
-        {
-            ResourceDataModel.InstantiateResource(resource, transform);
-
-            _gameResourcesManager.RemoveResource(resource.ResourceConfig, resource.AmountResource);
-
-            var resourceData = _resourcesData.FirstOrDefault(x =>
-                x.ResourceConfig.TypeResource == resource.ResourceConfig.TypeResource);
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
 
             if (resourceData == null)
             {
@@ -72,7 +47,34 @@ namespace DL.PlayersRuntime
                 return;
             }
 
+            if (resourceData.AmountResource - resource.AmountResource > 0)
+            {
+                resourceData.RemoveResource(resource.AmountResource);
+                OnRemoveResource?.Invoke(resource);
+            }
+            else
+            {
+                _resourcesData.Remove(resourceData);
+                OnChangedResourcesData?.Invoke(_resourcesData);
+            }
+        }
+
+        public override void DropResource(ResourceDataModel resource)
+        {
+            var resourceData = _resourcesData.FirstOrDefault(x =>
+                x.ResourceConfig.TypeRare == resource.ResourceConfig.TypeRare);
+
+            if (resourceData == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("Resource data isn't exist");
+#endif
+                return;
+            }
+            
+            ResourceDataModel.InstantiateResource(resource, transform);
             _resourcesData.Remove(resourceData);
+            OnChangedResourcesData?.Invoke(_resourcesData);
         }
 
         public override void DropAllResources()
@@ -82,5 +84,30 @@ namespace DL.PlayersRuntime
                 DropResource(_resourcesData[i]);
             }
         }
+
+        public override void AddResources(List<ResourceDataModel> resourcesData)
+        {
+            resourcesData.ForEach(resource => TryAddResource(resource));
+            OnChangedResourcesData?.Invoke(_resourcesData);
+        }
+
+        public override void RemoveResources(List<ResourceDataModel> resourcesData)
+        {
+            resourcesData.ForEach(RemoveResource);
+            OnChangedResourcesData?.Invoke(_resourcesData);
+        }
+
+        public override List<ResourceDataModel> TakeResources()
+        {
+            var tookResourcesData = new List<ResourceDataModel>();
+            tookResourcesData.AddRange(_resourcesData);
+
+            _resourcesData.Clear();
+
+            return tookResourcesData;
+        }
+
+        private int CountResources() =>
+            _resourcesData.Sum(resource => resource.AmountResource);
     }
 }

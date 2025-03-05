@@ -20,9 +20,7 @@ namespace DL.PlayersRuntime
 
         public override void Initialize(params object[] objects)
         {
-            var entityStats = objects[0] as EntityStats;
-
-            base.Initialize(entityStats);
+            base.Initialize(objects);
 
             EquipWeapon(_startWeapon);
         }

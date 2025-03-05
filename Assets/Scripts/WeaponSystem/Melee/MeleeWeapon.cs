@@ -38,7 +38,7 @@ namespace DL.WeaponSystemRuntime.Melee
 
             if (hit.transform.TryGetComponent(out EntityStats entityStats))
             {
-                entityStats.TakeDamage(_entityStats.TeamId, _weaponConfig.Damage);
+                entityStats.TryApplyDamage(_entityStats.TeamId, _weaponConfig.Damage);
             }
         }
     }

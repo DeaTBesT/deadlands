@@ -16,7 +16,7 @@ namespace DL.StructureRuntime.Core
             throw new NotImplementedException();
         }
 
-        public abstract void Interact();
+        public abstract bool TryInteract(Transform interactor);
 
         public abstract void FinishInteract();
     }

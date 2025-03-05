@@ -33,15 +33,17 @@ namespace DL.GameResourcesRuntime.Core
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((!other.TryGetComponent(out EntityInventoryController playerInventory)) || (!IsEnable))
+            if ((!other.TryGetComponent(out IInventoryController playerInventory)) || (!IsEnable))
             {
                 return;
             }
-            
-            playerInventory.AddResource(_resourceData);
-            Destroy(gameObject);
+
+            if (playerInventory.TryAddResource(_resourceData))
+            {
+                Destroy(gameObject);
+            }
         }
-        
+
         public void SetAmount(int amount) =>
             _resourceData.SetAmount(amount);
     }

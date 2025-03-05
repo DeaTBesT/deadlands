@@ -1,5 +1,5 @@
 ﻿using System;
-using DL.ManagersRuntime;
+using DL.PrefabsPoolingRuntime;
 using DL.WeaponSystem.Core;
 using UnityEngine;
 
@@ -16,8 +16,10 @@ namespace DL.WeaponSystemRuntime.Projectile
         {
             base.Initialize(objects);
 
+            var prefabPoolManager = objects[1] as PrefabPoolManager;
+            
             _projectileConfig = (ProjectileWeaponConfig)_weaponConfig;
-            _prefabPool = PrefabPoolManager.Instance.GetPool(_projectileConfig.TypePool);
+            _prefabPool = prefabPoolManager.GetPool(_projectileConfig.TypePool);
         }
 
         public override void UseWeapon()
@@ -38,11 +40,13 @@ namespace DL.WeaponSystemRuntime.Projectile
                 return;
             }
 
-            void OnReachTarget() =>
-                _prefabPool.Return(bulletObject.gameObject);
-
             bullet.Initialize(_entityStats.TeamId, _projectileConfig.Damage, _projectileConfig.BulletSpeed,
                 _projectileConfig.DestroyTime, (Action)OnReachTarget);
+            
+            return;
+
+            void OnReachTarget() =>
+                _prefabPool.Return(bulletObject);
         }
     }
 }

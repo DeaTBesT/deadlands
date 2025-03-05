@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DL.CoreRuntime;
 using DL.Data.Resource;
 using DL.InterfacesRuntime;
-using DL.ManagersRuntime;
 using DL.UtilsRuntime;
 using DL.WorldResourceRuntime.UI;
 using UnityEngine;
@@ -20,32 +20,32 @@ namespace DL.PlayersRuntime
 
         private List<ResourceDataUI> _resourcesDataUI = new();
 
-        private GameResourcesManager _resourcesManager;
+        private IInventoryController _inventoryController;
 
         public bool IsEnable { get; set; }
 
         public void Initialize(params object[] objects)
         {
-            _resourcesManager = objects[0] as GameResourcesManager;
+            _inventoryController = objects[0] as IInventoryController;
 
-            if (_resourcesManager == null)
+            if (_inventoryController == null)
             {
 #if UNITY_EDITOR
-                Debug.LogError("Resources Manager is null");
+                Debug.LogError("Inventory Controller is null");
 #endif
                 return;
             }
 
             _canvas.SetActive(true);
 
-            _resourcesManager.OnAddResource += OnAddResource;
-            _resourcesManager.OnChangeResourcesData += OnChangeResources;
-            _resourcesManager.OnRemoveResource += OnRemoveResource;
+            _inventoryController.OnAddResource += OnAddResource;
+            _inventoryController.OnChangedResourcesData += OnChangeResources;
+            _inventoryController.OnRemoveResource += OnRemoveResource;
         }
 
         public void Deinitialize(params object[] objects)
         {
-            if (_resourcesManager == null)
+            if (_inventoryController == null)
             {
 #if UNITY_EDITOR
                 Debug.LogError("Resources Manager is null");
@@ -53,15 +53,15 @@ namespace DL.PlayersRuntime
                 return;
             }
 
-            _resourcesManager.OnAddResource -= OnAddResource;
-            _resourcesManager.OnChangeResourcesData -= OnChangeResources;
-            _resourcesManager.OnRemoveResource -= OnRemoveResource;
+            _inventoryController.OnAddResource -= OnAddResource;
+            _inventoryController.OnChangedResourcesData -= OnChangeResources;
+            _inventoryController.OnRemoveResource -= OnRemoveResource;
         }
 
         private void OnAddResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeRare == data.ResourceConfig.TypeRare);
 
             if (resourceDataUI != null)
             {
@@ -70,7 +70,7 @@ namespace DL.PlayersRuntime
             }
 
 #if UNITY_EDITOR
-            Debug.LogError($"None resource data UI. Resource type: {data.ResourceConfig.TypeResource}");
+            Debug.LogError($"None resource data UI. Resource type: {data.ResourceConfig.TypeRare}");
 #endif
         }
 
@@ -80,7 +80,7 @@ namespace DL.PlayersRuntime
         private void OnRemoveResource(ResourceDataModel data)
         {
             var resourceDataUI = _resourcesDataUI.FirstOrDefault(x =>
-                x.ResourceData.ResourceConfig.TypeResource == data.ResourceConfig.TypeResource);
+                x.ResourceData.ResourceConfig.TypeRare == data.ResourceConfig.TypeRare);
 
             if (resourceDataUI != null)
             {

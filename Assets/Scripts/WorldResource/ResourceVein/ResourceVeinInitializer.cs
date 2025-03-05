@@ -11,18 +11,11 @@ namespace DL.WorldResourceRuntime.ResourceVein
 
         private void OnValidate()
         {
-            if (_resourceVeinStats == null)
-            {
-                _resourceVeinStats = GetComponent<ResourceVeinStats>();
-            }
-            
-            if (_resourceSpawner == null)
-            {
-                _resourceSpawner = GetComponent<ResourceSpawner>();
-            }
+            _resourceVeinStats ??= GetComponent<ResourceVeinStats>();
+            _resourceSpawner ??= GetComponent<ResourceSpawner>();
         }
 
-        public override void Initialize(params object[] objects) => 
+        public override void Initialize(params object[] objects) =>
             _resourceVeinStats.Initialize(_resourceSpawner);
     }
 }
