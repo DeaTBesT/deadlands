@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1874424c620a473c9618bc356a1a2efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
+  _startHealth: 0
 --- !u!114 &5334181755479344711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,11 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ac05a114b1480ab2f2b568d4461500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactDistance: 0
-  _interactLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _interactPoint: {fileID: 0}
 --- !u!114 &2639854657589034153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraSmooth: 5
-  _offset: {x: -2.5, y: 10, z: -4}
+  _offset: {x: -6.15, y: 10, z: -8.8}
 --- !u!1 &2504050479572693197
 GameObject:
   m_ObjectHideFlags: 0
