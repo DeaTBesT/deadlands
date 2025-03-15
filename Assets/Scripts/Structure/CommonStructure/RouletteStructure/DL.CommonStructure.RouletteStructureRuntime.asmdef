@@ -1,0 +1,4 @@
+﻿{
+  "name": "DL.CommonStructure.RouletteStructureRuntime",
+  "references":[ "GUID:abf95e0f198b40908f7e681f5f02f512", "GUID:e0678e6ea17431c47885326f6d75087c", "GUID:7a96d2c6542203c489420888ed66f1a2", "GUID:0acecc494bf7d994aa2a39848eddf4eb" ]
+}
