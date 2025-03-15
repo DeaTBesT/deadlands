@@ -35,7 +35,7 @@ namespace DL.WardrobeRuntime
 
         private List<WardrobeItemPanelUI> _itemPanels = new();
         
-        private UIPanelList _panels = new();
+        private readonly UIPanelList _panels = new();
         
         private WardrobeManager _wardrobeManager;
         
@@ -88,8 +88,8 @@ namespace DL.WardrobeRuntime
             _panels.Add(_weaponsPanel);
             _panels.Add(_armorPanel);
             _panels.Add(_itemPreviewPanel);
-            
-            _panels.ClosePanels();
+
+            HidePanel();
             
             IsEnable = true;
         }
