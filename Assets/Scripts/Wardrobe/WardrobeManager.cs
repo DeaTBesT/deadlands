@@ -124,6 +124,15 @@ namespace DL.WardrobeRuntime
                 return false;
             }
 
+            if (item.CurrentParts < item.ItemWardrobeConfig.MaxParts)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("Wardrobe item has max parts");
+#endif
+                
+                return false;
+            }
+            
             item.AddParts(amount);
             OnItemChanged?.Invoke(item);
             
