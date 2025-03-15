@@ -14,12 +14,10 @@ namespace DL.WardrobeRuntime.UI
         [SerializeField] private Button _buttonOpenPreview;
         //[SerializeField] private Image _rareImage;
 
-        private WardrobeItemModel _wardrobeItemModel;
-
         private string GetParts =>
-            $"{_wardrobeItemModel.CurrentParts}/{_wardrobeItemModel.ItemWardrobeConfig.MaxParts}";
+            $"{ItemModel.CurrentParts}/{ItemModel.ItemWardrobeConfig.MaxParts}";
 
-        public WardrobeItemModel ItemModel => _wardrobeItemModel;
+        public WardrobeItemModel ItemModel { get; private set; }
 
         public Action<WardrobeItemModel> OnItemPreviewClicked { get; set; }
         
@@ -30,9 +28,9 @@ namespace DL.WardrobeRuntime.UI
                 return;
             }
             
-            _wardrobeItemModel = objects[0] as WardrobeItemModel;
+            ItemModel = objects[0] as WardrobeItemModel;
 
-            UpdatePanel(_wardrobeItemModel);
+            UpdatePanel(ItemModel);
 
             _buttonOpenPreview.onClick.AddListener(OnButtonOpenPreviewClicked);
             
@@ -41,13 +39,13 @@ namespace DL.WardrobeRuntime.UI
 
         public void UpdatePanel(WardrobeItemModel wardrobeItemModel)
         {
-            _wardrobeItemModel = wardrobeItemModel;
+            ItemModel = wardrobeItemModel;
 
-            _itemIcon.sprite = _wardrobeItemModel.ItemWardrobeConfig.ItemSprite;
+            _itemIcon.sprite = ItemModel.ItemWardrobeConfig.ItemSprite;
             _itemParts.text = GetParts;
         }
 
         private void OnButtonOpenPreviewClicked() => 
-            OnItemPreviewClicked?.Invoke(_wardrobeItemModel);
+            OnItemPreviewClicked?.Invoke(ItemModel);
     }
 }

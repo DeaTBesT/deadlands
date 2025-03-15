@@ -1,12 +1,11 @@
 {
-    "name": "DL.UtilsRuntime",
+    "name": "DL.RouletteSystemRuntime.UI",
     "rootNamespace": "",
     "references": [
-        "GUID:42855d317b2b6ff43af63c5956f19536",
+        "GUID:0acecc494bf7d994aa2a39848eddf4eb",
         "GUID:9779c36f9f834424bab317bbf2b6a100",
-        "GUID:6a348e428a1043e6a01ccbbefff95ef2",
-        "GUID:d7738fc2d4b5e6e4a89836299b49e653",
-        "GUID:0e1659ee92fb9b84688930174d5a3dd6"
+        "GUID:c7605b8ecea245429532a78855ae8532",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

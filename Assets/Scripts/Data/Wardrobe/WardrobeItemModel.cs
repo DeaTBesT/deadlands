@@ -1,4 +1,4 @@
-﻿using Data.Core;
+﻿using DL.Data.Core;
 using DL.EnumsRuntime;
 using UnityEngine;
 
@@ -9,13 +9,11 @@ namespace DL.Data.Wardrobe
     {
         [SerializeField] private WardrobeItemConfig _wardrobeItemConfig;
         [SerializeField] private int _currentParts;
-        [SerializeField] private RareType _rareType;
-        [SerializeField] private WardrobeItemType _wardrobeItemType;
 
         public WardrobeItemConfig ItemWardrobeConfig => _wardrobeItemConfig;
         public int CurrentParts => _currentParts;
-        public WardrobeItemType ItemType => _wardrobeItemType;
-        public RareType TypeRare => _rareType;
+        public WardrobeItemType ItemType => _wardrobeItemConfig.ItemType;
+        public RareType TypeRare => _wardrobeItemConfig.TypeRare;
         public override GameObject ItemPrefab => null;
         
         public void AddParts(int amount) => 
